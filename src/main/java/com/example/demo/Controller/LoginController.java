@@ -22,6 +22,7 @@ public class LoginController {
 		this.dao = dao;
 	}
 	
+	/*
 	@RequestMapping(value="/login.do", method=RequestMethod.GET)
 	public void loginForm() {
 		
@@ -58,6 +59,6 @@ public class LoginController {
 		return "listProduct";
 		
 	}
-	
+	*/
 	
 }

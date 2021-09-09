@@ -62,7 +62,7 @@ public class ProductInsertController {
 				byte []data = uploadFile.getBytes();
 				imageSize = data.length;
 				i.setImageName(imageName);
-				i.setImageSize(imageSize);
+				//i.setImageSize(imageSize);
 				FileOutputStream fos = new FileOutputStream(path + "/" + imageName);
 				fos.write(data);
 				fos.close();
@@ -71,7 +71,7 @@ public class ProductInsertController {
 			}
 		}else {
 			i.setImageName("");
-			i.setImageSize(0);
+			//i.setImageSize(0);
 		}
 		System.out.println("OK");
 		System.out.println("업로드 파일명"+i.getImageName());

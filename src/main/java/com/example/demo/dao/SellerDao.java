@@ -9,6 +9,7 @@ import com.example.demo.vo.UserVo;
 @Repository
 public class SellerDao {
 
+	/*
 	public boolean isUser(String id, String pwd) {
 		return DBManager.isUser(id, pwd);
 	}
@@ -20,4 +21,5 @@ public class SellerDao {
 	public UserVo getUser(String id) {
 		return DBManager.getUser(id);
 	}
+	*/
 }
