@@ -10,8 +10,17 @@ public class ProductImgVo {
 	private int productNo;
 	private String imageName;
 	private String imageSize;
+	private String thumbNail; 
 	private Date imageDate;
 	private MultipartFile uploadFile;
+	
+	
+	public String getThumbNail() {
+		return thumbNail;
+	}
+	public void setThumbNail(String thumbNail) {
+		this.thumbNail = thumbNail;
+	}
 	public int getImageNo() {
 		return imageNo;
 	}
@@ -48,13 +57,17 @@ public class ProductImgVo {
 	public void setUploadFile(MultipartFile uploadFile) {
 		this.uploadFile = uploadFile;
 	}
-	public ProductImgVo(int imageNo, int productNo, String imageName, String imageSize, Date imageDate) {
+	
+	public ProductImgVo(int imageNo, int productNo, String imageName, String imageSize, String thumbNail,
+			Date imageDate, MultipartFile uploadFile) {
 		super();
 		this.imageNo = imageNo;
 		this.productNo = productNo;
 		this.imageName = imageName;
 		this.imageSize = imageSize;
+		this.thumbNail = thumbNail;
 		this.imageDate = imageDate;
+		this.uploadFile = uploadFile;
 	}
 	public ProductImgVo() {
 		super();

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product">
+ <!-- 
+  <insert id="insertProduct" parameterType="java.util.HashMap">
+	insert all into products(product_no, category_no, product_name, product_price, product_content, product_date, product_cnt, product_state, seller_no) 
+	values(#{productNo}, 2, #{productName}, #{productPrice}, #{productContent}, sysdate, 0, 1, #{sellerNo}) 
+	into product_img(image_no, product_no, image_name, image_size, image_date) 
+	values(#{imageNo}, #{productNo}, #{imageName}, #{imageSize}, sysdate) select * from dual
+  </insert>
+  --> 
+  <insert id="insertProduct" parameterType="productVo">
+  	insert into products(product_no, category_no, product_name, product_price, product_content, product_date, product_qty, product_cnt, product_state, seller_no) 
+	values(#{productNo}, #{categoryNo}, #{productName}, #{productPrice}, #{productContent}, sysdate, #{productQty}, 0, 0, #{sellerNo}) 
+  </insert>
+  
+  <insert id="insertProductImg" parameterType="imagVo">
+  	insert into product_img(image_no, product_no, image_name, image_size, thumbnail, image_date) 
+	values(#{imageNo}, #{productNo}, #{imageName}, #{imageSize}, '0', sysdate)
+  </insert>
+  
+  <update id="updateProduct" parameterType="productselectVo">
+  	update products set category_no=#{categoryNo}, product_name=#{productName}, product_price=#{productPrice}, product_content=#{productContent}, product_qty=#{productQty} where product_no=#{productNo}
+  </update>
+  
+  <update id="updateProductImg" parameterType="productselectVo">
+  	update product_img set image_name=#{imageName}, image_size=#{imageSize} where product_no=#{productNo}
+  </update>
+  
+  <select id="getProductNo" resultType="int">
+  	select nvl(max(product_no),0)+1 from products
+  </select>
+  
+  <select id="getProductImgNo" resultType="int">
+  	select nvl(max(image_no),0)+1 from product_img
+  </select>
+  
+  <select id="totalRecord" resultType="int">
+  	select count(*) from products where seller_no=#{sellerNo}
+  </select>
+  
+  <select id="productList" resultType="productselectVo">
+	select * from (select rownum n, product_no, category_no, product_name, product_price, product_content, product_date, product_qty, product_cnt, product_state, seller_no from products where seller_no = (select seller_No from user_seller s left outer join users u on s.user_no = u.user_no  where id=#{id})) where n between #{start} and #{end}
+  </select>
+  
+  <select id="productselledList" resultType="productselectVo">
+	select * from (select rownum n, product_no, category_no, product_name, product_price, product_content, product_date, product_qty, product_cnt, product_state, seller_no from products where seller_no = (select seller_No from user_seller s left outer join users u on s.user_no = u.user_no  where id=#{id})) where product_state = 1 and n between #{start} and #{end}
+  </select>
+  
+  <select id="category" resultType="categoryVo">
+  	select * from product_category order by category_no
+  </select>
+  
+  <select id="detailProduct" resultType="productselectVo">
+  	select * from products p left outer join product_img i on p.product_no=i.product_no where p.product_no=#{productNo} and thumbnail=0
+  </select>
+  
+</mapper>

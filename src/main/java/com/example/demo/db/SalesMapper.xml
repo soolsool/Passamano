@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sales">
+  <!--  
+  <select id="salesAmount" resultType="int">
+	select nvl(sum(detail_price),0) from orders_views where order_state >=3 and seller_no=#{sellerNo} group by category_name 
+  </select>
+
+  <select id="salesCount" resultType="int">
+	select count(*) from orders_views where order_state >=3 and seller_no=#{sellerNo} group by category_name   
+  </select>
+  
+  <select id="saleList" resultType="salesVo">
+  	select * from orders_views where order_state >=3 and seller_no=#{sellerNo} group by category_name
+  </select>
+ --> 
+ 
+  <select id="productSales" resultType="productsalesVo">
+  	select category_name, nvl(sum(detail_price),0) as tot, count(*) as cnt 
+	from orders_views where order_state >=3 and seller_no=#{sellerNo} group by category_name
+  </select>
+
+  <select id="productDateSales" resultType="productsalesVo">
+  	select category_name, order_manage_date, nvl(sum(detail_price),0) as tot, count(*) as cnt
+	from orders_views where order_state >=3 and seller_no=#{sellerNo} and order_manage_date between to_date(#{fromDate}, 'YYYY-mm-DD')
+	and to_date(#{toDate}, 'YYYY-mm-DD') group by order_manage_date, category_name
+  </select>
+  
+</mapper>

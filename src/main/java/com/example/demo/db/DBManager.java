@@ -14,8 +14,12 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.example.demo.vo.GetReviewVo;
 import com.example.demo.vo.ProductCategoryVo;
+import com.example.demo.vo.ProductImgVo;
 import com.example.demo.vo.ProductListVo;
+import com.example.demo.vo.ProductSalesVo;
+import com.example.demo.vo.ProductSelectVo;
 import com.example.demo.vo.ProductZzimVo;
+import com.example.demo.vo.ProductsVo;
 import com.example.demo.vo.ReviewVo;
 import com.example.demo.vo.SelectBasketVo;
 import com.example.demo.vo.SelectOrdersVo;
@@ -389,5 +393,132 @@ public class DBManager {
 	}
 	//정인 끝
 
+	//<상품등록>
+		public static int insertProduct(ProductsVo p, ProductImgVo i) {
+			SqlSession session = factory.openSession();
+			int re1 = session.insert("product.insertProduct", p);
+			int re2 = session.insert("product.insertProductImg", i);
+			int re = 0;
+			if(re1 == 1 && re2 ==1) {
+				session.commit();
+				re = 1;
+			}else {
+				session.rollback();
+			}
+			session.close();
+			return re;
+		}
+		
+		
+		//<상품수정>
+		public static int updateProduct(ProductSelectVo ps) {
+			SqlSession session = factory.openSession();
+			int re= session.update("product.updateProduct",ps);
+			if(re== 1) {
+				session.commit();
+			}else {
+				session.rollback();
+			}
+			session.close();
+			return re;
+		}
+		
+		//<상품수정을 위한 정보 불러오>
+		public static ProductSelectVo detailProduct(int productNo) {
+			SqlSession session = factory.openSession();
+			ProductSelectVo ps = session.selectOne("product.detailProduct", productNo);
+			session.close();
+			return ps;
+		}
+		
+		//<상품번호 등록>
+		public static int productNum() {
+			SqlSession session = factory.openSession();
+			int no = session.selectOne("product.getProductNo");
+			session.close();
+			return no;
+		}
+		
+		//<상품이미지 등록>
+		public static int productImgNum() {
+			SqlSession session = factory.openSession();
+			int no = session.selectOne("product.getProductImgNo");
+			session.close();
+			return no;
+		}
+		
+		//<판매된 상품 불러오기>
+		public static List<ProductSelectVo> productlist(HashMap map){
+			SqlSession session = factory.openSession();
+			List<ProductSelectVo> list = session.selectList("product.productList", map);
+			session.close();
+			return list;
+		}
+		
+		//<카테고리 가져오기>
+		public static List<ProductCategoryVo> category(){
+			SqlSession session = factory.openSession();
+			List<ProductCategoryVo> category = session.selectList("product.category");
+			session.close();
+			return category;
+		}
+		
+		//<상품목록 페이징>
+		public static int getTotalSellRecord(int sellerNo) {
+			// TODO Auto-generated method stub
+			SqlSession session = factory.openSession();
+			int n = session.selectOne("product.totalRecord", sellerNo);
+			session.close();
+			return n;
+		}
+
+		/*
+		//<판매자 로그인>
+		public static boolean isUser(String id, String pwd) {		boolean re = false;
+			SqlSession session = factory.openSession();
+			HashMap map = new HashMap();
+			map.put("id", id);
+			map.put("pwd", pwd);
+			SellerVo s = session.selectOne("seller.isUser", map);
+			if(s!=null) {
+				re = true;
+			}
+			session.close();
+			return re;
+		}
+		
+		//<판매자 번호를 불러오기 위한 DBManager>
+		public static SellerVo getSeller(String id) {
+			SqlSession session = factory.openSession();
+			SellerVo s = session.selectOne("seller.getSeller", id);
+			session.close();
+			return s;
+		}
+		
+		public static UserVo getUser(String id) {
+			SqlSession session = factory.openSession();
+			UserVo us = session.selectOne("seller.getUser", id);
+			session.close();
+			return us;
+		}
+		
+
+		*/
+		
+		//<상품매출 가져오기>
+		public static List<ProductSalesVo> productSales(int sellerNo){
+			SqlSession session = factory.openSession();
+			List<ProductSalesVo> list = session.selectList("sales.productSales", sellerNo);
+			session.close();
+			return list;
+		}
+		
+		//<상품기간별 매출 불러오기>
+		public static List<ProductSalesVo> productDateSales(HashMap map){
+			SqlSession session = factory.openSession();
+			List<ProductSalesVo> list = session.selectList("sales.productDateSales", map);
+			session.close();
+			return list;
+		}
 	
 }

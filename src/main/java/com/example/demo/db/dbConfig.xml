@@ -25,6 +25,10 @@
   	<typeAlias type="com.example.demo.vo.ReviewVo" alias="ReviewVo"/>
   	<typeAlias type="com.example.demo.vo.SelectReviewVo" alias="SelectReviewVo"/>
   	<typeAlias type="com.example.demo.vo.UserVo" alias="UserVo"/>
+	
+		<typeAlias type="com.example.demo.vo.ProductSalesVo" alias="productsalesVo"/>
+		<typeAlias type="com.example.demo.vo.ProductSelectVo" alias="productselectVo"/>
+		<typeAlias type="com.example.demo.vo.SellerVo" alias="sellersVo"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
