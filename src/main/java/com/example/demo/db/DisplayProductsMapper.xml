@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="displayProducts">
+	<select id="list" resultType="listVo">
+		select img.image_name,
+			p.product_no,
+			p.product_name,
+			p.product_price,
+			p.product_state,
+			s.seller_company, 
+			s.seller_ceo,
+			j.zzim
+		from products p, 
+			product_img img, 
+			user_seller s,
+			product_category c,
+			(select products.product_no, 
+				count(product_zzim.product_no) zzim
+			from products 
+				left outer join product_zzim
+				on products.product_no = product_zzim.product_no
+				group by products.product_no) j
+		where p.product_no = img.product_no
+			and j.product_no = p.product_no
+			and p.seller_no = s.seller_no
+			and p.category_no = c.category_no
+			<choose>
+				<when test="whereField != null and categoryNo !=null">
+					and ${whereField} = #{categoryNo}
+				</when>
+			</choose>
+			and thumbnail = '1'
+			<choose>
+				<when test="orderField!= null">
+					order by product_state, ${orderField} ${sortOrder}
+				</when>
+				<otherwise>
+					order by product_state, p.product_name
+				</otherwise>
+			</choose>
+	</select>
+	
+	<select id="detail" resultType="listVo">
+		select p.product_no,
+					p.product_name,
+					p.product_price,
+					p.product_content,
+					p.product_state,
+					s.seller_company, 
+					s.seller_ceo,
+					j.zzim
+			from products p, 
+				user_seller s,
+				(select products.product_no, 
+						count(product_zzim.product_no) zzim
+				from products 
+				left outer join product_zzim
+				on products.product_no = product_zzim.product_no
+				group by products.product_no) j
+			where j.product_no = p.product_no
+			and p.seller_no = s.seller_no
+			and p.product_no=#{productNo}
+	</select>
+	
+	<select id="imageList" resultType="imageVo">
+		select image_name
+		from product_img
+		where product_no=#{productNo}
+	</select>
+	
+	<update id="updateHit">
+		update products 
+		set product_cnt = product_cnt + 1 
+		where product_no=#{productNo}
+	</update>
+	
+	<select id="reviewList" resultType="getReviewVo">
+		select order_detail.product_no, 
+			review_title, 
+			review_content, 
+			review_evaluation, 
+			review_img
+		from review, order_detail
+		where order_detail.orders_no=review.orders_no
+		and order_detail.product_no=#{productNo}
+	</select>
+	
+	<insert id="addZzim">
+		insert into product_zzim(zzim_no, user_no, product_no)
+			values(#{zzimNo}, #{userNo}, #{productNo})
+	</insert>
+	
+	<select id="getZzimCount" resultType="int">
+		select max(zzim_no) 
+		from product_zzim
+	</select>
+	
+	<select id="getAllCategory" resultType="categoryVo">
+		select category_no, category_name 
+		from product_category 
+		where not category_no=1
+	</select>
+	
+	<select id="searchList" parameterType="String" resultType="listVo">
+		select img.image_name,
+			p.product_no,
+			p.product_name,
+			p.product_price,
+			p.product_state,
+			s.seller_company, 
+			s.seller_ceo
+		from products p, 
+			product_img img, 
+			user_seller s
+		where p.product_no = img.product_no
+			and p.seller_no = s.seller_no
+			and thumbnail = '1'
+			and product_name like '%' ||  #{keyword} || '%'
+		order by product_state, p.product_cnt
+	</select>
+	
+	<select id="getSearchCount" parameterType="String" resultType="int">
+		select count(product_no) count_search
+		from products
+		where product_name like '%' ||  #{keyword} || '%'
+	</select>
+</mapper>
