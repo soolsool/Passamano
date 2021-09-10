@@ -10,6 +10,7 @@ import com.example.demo.vo.ProductCategoryVo;
 import com.example.demo.vo.ProductImgVo;
 import com.example.demo.vo.ProductSelectVo;
 import com.example.demo.vo.ProductsVo;
+import com.example.demo.vo.SellerVo;
 
 @Repository
 public class ProductDao {
@@ -48,6 +49,10 @@ public class ProductDao {
 	
 	public List<ProductCategoryVo> listcategory(){
 		return DBManager.category();
+	}
+	
+	public SellerVo getSellerNo(String id) {
+		return DBManager.getSeller(id);
 	}
 	
 }

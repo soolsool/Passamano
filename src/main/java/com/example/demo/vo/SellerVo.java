@@ -15,6 +15,7 @@ public class SellerVo {
 	private String id;
 	private String pwd;
 	private int grantNo;
+	
 	public int getSellerNo() {
 		return sellerNo;
 	}

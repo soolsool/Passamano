@@ -91,7 +91,7 @@
 		</div>
 		<div class="col-6">
 			<div class="text-center" id="searchBox">
-				<form action="/search" method="get" id="searchKeyword" class="d-inline">
+				<form action="/search.do" method="get" id="searchKeyword" class="d-inline">
 					<label for="search fw-light">검색요건</label>
 					<input type="text" class="w-25" id="search" name="search" value="${keyword}">
 					<button type="button" class="btn btn-success btn-sm" onclick="searchProduct()">
@@ -130,7 +130,7 @@
 						<c:forEach var="p" items="${list}">
 							<li class="item mx-3 mt-2 mb-5">
 								<div class="thumbnail">
-									<a href="/product?productNo=${p.productNo}" class="img" style="background-image: url('resources/images/productimage/${p.imageName}');">
+									<a href="/product.do?productNo=${p.productNo}" class="img" style="background-image: url('resources/images/productimage/${p.imageName}');">
 										<c:if test="${p.productState==1}">
 											<div class="soldout">
 											</div>

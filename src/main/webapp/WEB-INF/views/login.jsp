@@ -31,7 +31,7 @@
 		<div class="col-8">
 			<div class="login-section my-6 pt-5 pb-5">
 				<p class="text-center fs-5 mt-5 mb-4">로그인</p>
-				<form class="form-inline w-25 mx-auto" action="login" method="post">
+				<form class="form-inline w-25 mx-auto" action="login.do" method="post">
 					<div class="input-group mb-2">
 						<input type="text" class="form-control input-sm" id="id" name="id" placeholder="아이디를 입력하세요" aria-label="Username" aria-describedby="basic-addon1">
 					</div>
@@ -40,11 +40,11 @@
 					</div>
 					<div class="login-search mx-auto mb-4 text-end">
 						<p class="d-inline">
-							<a href="/member/findId" class="fs-6 fw-light">아이디 찾기</a>
+							<a href="/member/findId.do" class="fs-6 fw-light">아이디 찾기</a>
 						</p>
 						<div class="vr ml-1"> </div>
 						<p class="d-inline">
-							<a href="/member/findPwd" class="fs-6 fw-light">비밀번호 찾기</a>
+							<a href="/member/findPwd.do" class="fs-6 fw-light">비밀번호 찾기</a>
 						</p>
 						
 						<c:if test="${msg != null}">
@@ -56,7 +56,7 @@
 						</c:if>
 					</div>
 					<button type="submit" class="btn btn-success d-block my-2 w-100">로그인</button>
-					<button type="button" class="btn btn-outline-success d-block my-1 w-100" onclick="location.href='/member/membertype'">회원가입</button>
+					<button type="button" class="btn btn-outline-success d-block my-1 w-100" onclick="location.href='/member/membertype.do'">회원가입</button>
 				</form>
 			</div>
 		</div>

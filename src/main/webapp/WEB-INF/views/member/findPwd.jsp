@@ -130,7 +130,7 @@
 		
 		$.ajax({
 			type: "POST",
-			url: "/member/isMemberById",
+			url: "/member/isMemberById.do",
 			contentType: 'application/json; charset=utf-8',
 			data: JSON.stringify({'name': name, 'id':id,'phone':phone}),
 			success: function(result){
@@ -150,7 +150,7 @@
 		$(".verifyCode").css("display", "block")
 		var data = {to:to};
 		$.ajax({
-			url:"sendCode",
+			url:"sendCode.do",
 			data: data,
 			success: function(data){
 				code=data;
@@ -185,7 +185,7 @@
 		
 		$.ajax({
 			type: "POST",
-			url: "/member/setNewPwd",
+			url: "/member/setNewPwd.do",
 			contentType: 'application/json; charset=utf-8',
 			data: JSON.stringify({'id': id, 'phone':phone}),
 			success: function(id){

@@ -43,7 +43,7 @@ public class DisplayProductsController {
 		return mav;
 	}
 	
-	@RequestMapping("/product")
+	@RequestMapping("/product.do")
 	public void detail(int productNo, Model model) {
 		model.addAttribute("p", dao.getDetail(productNo));
 		model.addAttribute("list", dao.getProductImage(productNo));
@@ -51,7 +51,7 @@ public class DisplayProductsController {
 		dao.updateHit(productNo);
 	}
 	
-	@RequestMapping("/zzim")
+	@RequestMapping("/zzim.do")
 	@ResponseBody
 	public int addZzim(int productNo, int userNo) {
 		ProductZzimVo zzim = new ProductZzimVo();
@@ -62,7 +62,7 @@ public class DisplayProductsController {
 		return result;
 	}
 	
-	@RequestMapping("/search")
+	@RequestMapping("/search.do")
 	public void searchList(String search, Model model) {
 		System.out.println(search);
 		model.addAttribute("keyword", search);

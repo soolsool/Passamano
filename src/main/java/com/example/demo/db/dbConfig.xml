@@ -17,15 +17,13 @@
 		<typeAlias type="com.example.demo.vo.ProductZzimVo" alias="zzimVo"/>		
 		<typeAlias type="com.example.demo.vo.ProductListVo" alias="listVo"/>		
 		<typeAlias type="com.example.demo.vo.GetReviewVo" alias="getReviewVo"/>		
-		
-		  	<typeAlias type="com.example.demo.vo.SelectOrdersVo" alias="SelectOrdersVo"/>
-  	<typeAlias type="com.example.demo.vo.SelectBasketVo" alias="SelectBasketVo"/>
-  	<typeAlias type="com.example.demo.vo.SelectZzimVo" alias="SelectZzimVo"/>
-  	<typeAlias type="com.example.demo.vo.BasketVo" alias="BasketVo"/>
-  	<typeAlias type="com.example.demo.vo.ReviewVo" alias="ReviewVo"/>
-  	<typeAlias type="com.example.demo.vo.SelectReviewVo" alias="SelectReviewVo"/>
-  	<typeAlias type="com.example.demo.vo.UserVo" alias="UserVo"/>
-	
+		<typeAlias type="com.example.demo.vo.SelectOrdersVo" alias="SelectOrdersVo"/>
+  		<typeAlias type="com.example.demo.vo.SelectBasketVo" alias="SelectBasketVo"/>
+  		<typeAlias type="com.example.demo.vo.SelectZzimVo" alias="SelectZzimVo"/>
+	  	<typeAlias type="com.example.demo.vo.BasketVo" alias="BasketVo"/>
+	  	<typeAlias type="com.example.demo.vo.ReviewVo" alias="ReviewVo"/>
+	  	<typeAlias type="com.example.demo.vo.SelectReviewVo" alias="SelectReviewVo"/>
+	  	<typeAlias type="com.example.demo.vo.UserVo" alias="UserVo"/>
 		<typeAlias type="com.example.demo.vo.ProductSalesVo" alias="productsalesVo"/>
 		<typeAlias type="com.example.demo.vo.ProductSelectVo" alias="productselectVo"/>
 		<typeAlias type="com.example.demo.vo.SellerVo" alias="sellersVo"/>
@@ -44,5 +42,9 @@
 	<mappers>
 		<mapper resource="com/example/demo/db/ManageMemberMapper.xml"/>
 		<mapper resource="com/example/demo/db/DisplayProductsMapper.xml"/>
+		<mapper resource="com/example/demo/db/MypageMapper.xml"/>
+		<mapper resource="com/example/demo/db/ProductMapper.xml"/>
+		<mapper resource="com/example/demo/db/SalesMapper.xml"/>
+		<mapper resource="com/example/demo/db/SellerMapper.xml"/>
 	</mappers>
 </configuration>

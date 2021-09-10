@@ -35,8 +35,8 @@ public class ManageMemberDao {
 	}
 	
 	//Users에서 User_no 최대값 검색
-	public int getUserNo() {
-		return DBManager.getUserNo();
+	public int getNextUserNo() {
+		return DBManager.getNextUserNo();
 	}
 	
 	//UserAddress 에서 address_no 최대값 검색
@@ -45,8 +45,8 @@ public class ManageMemberDao {
 	}
 	
 	//UserSeller에서 seller_no 최대값 검색
-	public int getSellerNo() {
-		return DBManager.getSellerNo();
+	public int getNextSellerNo() {
+		return DBManager.getNextSellerNo();
 	}
 
 	//아이디 찾기에서 이름과 연락처가 존재하는지 확인한다.

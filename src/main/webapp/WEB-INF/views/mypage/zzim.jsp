@@ -137,7 +137,7 @@ input[type=checkbox] {
 	<div class="row">
 		<div class="col-2"></div>
 		<div class="col-8" >
-			<%@ include file="./common/header.jsp"%>
+			<%@ include file="../common/header.jsp"%>
 		</div>
 		<div class="col-1"></div>
 	</div>
@@ -152,7 +152,7 @@ input[type=checkbox] {
 					<div class="profile-area my-3 py-2">
 						<!--  실제 회원 프로필 이미지 들어가는 곳 -->
 						<div class="thumb">
-								<img src="../files/images/${userInfo.profileFileName}"
+								<img src="../files/images/${userInfo.profileFilename}"
 									class="my-2">
 							</div>
 						<!--  회원 이름 보여주기 -->
@@ -200,11 +200,11 @@ input[type=checkbox] {
 				<table>
 					<tr class="cart-item">
 
-						<td><a href='detailProduct.do?productNo=${z.productNo }'>
+						<td><a href='product.do?productNo=${z.productNo }'>
 								<img src="../files/products_images/${z.imageName }" width="150"
 								height="110">
 						</a></td>
-						<td class="product-detail"><a href='detailProduct.do?productNo=${z.productNo }'>
+						<td class="product-detail"><a href='product.do?productNo=${z.productNo }'>
 								<p class="card-text">
 										${z.productName }
 									</p>
@@ -237,7 +237,7 @@ input[type=checkbox] {
 
 		<div class="col-2"></div>
 		<div class="col-8">
-			<%@ include file="./common/footer.jsp"%>
+			<%@ include file="../common/footer.jsp"%>
 		</div>
 		<div class="col-2"></div>
 

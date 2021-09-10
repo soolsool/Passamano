@@ -35,7 +35,7 @@
 				</p>
 				<!-- 회원정보 입력 시작 -->
 				<hr class="mx-auto pt-0.5 w-50">
-				<form action="/member/sellersubmit" method="post" class="mx-auto w-50" enctype="multipart/form-data" id="sellerForm">
+				<form action="/member/sellersubmit.do" method="post" class="mx-auto w-50" enctype="multipart/form-data" id="sellerForm">
 					
 				<div class="row mb-3">
 							<label for="id" class="col-sm-3 col-form-label text-end">아이디</label>
@@ -249,7 +249,7 @@
 		
 		$.ajax({
 			type : "POST",
-			url : "/member/doubleCheck",
+			url : "/member/doubleCheck.do",
 			contentType:'application/json; charset=utf-8',
 			data : JSON.stringify({"col": col, "userInput" : userInput }),
 			success: function(data){
@@ -360,7 +360,7 @@
 	  		$(".verifyCode").css("display", "block")
 	  		var data = {to:to};
 	  		$.ajax({
-	  			url:"sendCode",
+	  			url:"sendCode.do",
 	  			data: data,
 	  			success: function(data){
 	  				code=data;

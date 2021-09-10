@@ -278,7 +278,7 @@
 		console.log(productNo);
 		
 		$.ajax({
-			url:"/zzim",
+			url:"/zzim.do",
 			data:{"userNo":userNo, "productNo":productNo},
 			success: function(data){
 				if(data==1)

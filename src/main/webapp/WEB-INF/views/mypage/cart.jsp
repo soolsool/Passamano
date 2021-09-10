@@ -9,8 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
 	crossorigin="anonymous">
@@ -170,7 +169,7 @@ input[type=checkbox] {
 	<div class="row">
 		<div class="col-2"></div>
 		<div class="col-8" >
-			<%@ include file="./common/header.jsp"%>
+			<%@ include file="../common/header.jsp"%>
 		</div>
 		<div class="col-1"></div>
 	</div>
@@ -185,12 +184,11 @@ input[type=checkbox] {
 					<div class="profile-area my-3 py-2">
 						<!--  실제 회원 프로필 이미지 들어가는 곳 -->
 						<div class="thumb">
-								<img src="../files/images/${userInfo.profileFileName}"
-									class="my-2">
+								<img src="../files/images/${userInfo.profileFilename}" class="my-2">
 							</div>
 						<!--  회원 이름 보여주기 -->
 						<p class="mb-2">${userInfo.name}님</p>
-						<a href="/profile.do">
+						<a href="/mypage/profile.do">
 							<p class="mb-2">프로필 관리</p>
 						</a>
 					</div>
@@ -198,14 +196,25 @@ input[type=checkbox] {
 					<nav class="my-3">
 
 						<ul class="nav flex-column">
-							<li class="order-title nav-item my-2"><a class="nav-link order-title-link"
-								href="#">주문/배송/리뷰</a></li>
-							<li class="basket nav-item my-2 clicked"><a class="nav-link" href="#">장바구니</a>
+							<li class="order-title nav-item my-2">
+								<a class="nav-link order-title-link" href="#">
+									주문/배송/리뷰
+								</a>
 							</li>
-							<li class="zzim nav-item my-2"><a class="nav-link" href="#">찜한
-									상품</a></li>
+							<li class="basket nav-item my-2 clicked">
+								<a class="nav-link" href="#">
+									장바구니
+								</a>
+							</li>
+							<li class="zzim nav-item my-2">
+								<a class="nav-link" href="#">
+									찜한 상품
+								</a>
+							</li>
 							<li class="select-review nav-item my-2"><a class="nav-link" href="#">내가
-									쓴 리뷰</a></li>
+									쓴 리뷰
+								</a>
+							</li>
 	
 						</ul>
 					</nav>
@@ -231,12 +240,12 @@ input[type=checkbox] {
 					<table>
 						<tr class="cart-item">
 
-							<td><a href='detailProduct.do?productNo=${b.productNo }'>
+							<td><a href='product.do?productNo=${b.productNo }'>
 									<img src="../files/products_images/${b.imageName }" width="150"
 									height="110">
 							</a></td>
 							<td class="product-detail"><a
-								href='detailProduct.do?productNo=${b.productNo }'>
+								href='product.do?productNo=${b.productNo }'>
 									<p class="card-text">
 										${b.productName }, ${b.basketQty }개<br>
 									</p>
@@ -279,7 +288,7 @@ input[type=checkbox] {
 
 		<div class="col-2"></div>
 		<div class="col-8">
-			<%@ include file="./common/footer.jsp"%>
+			<%@ include file="../common/footer.jsp"%>
 		</div>
 		<div class="col-2"></div>
 
@@ -363,7 +372,7 @@ var lastprice=0;
 				
 			});
 			$("input[type=checkbox][class=checkbox]").prop("checked", false);
-			$.get("/deleteBasket.do", {
+			$.get("/mypage/deleteBasket.do", {
 				basket : checkedValue
 			}, function(data) {
 			}, "json")
@@ -386,13 +395,13 @@ var lastprice=0;
 					deliveryFee.push('3000');
 				}
 			});
-			$.get("/orderProcess.do", {
+			$.get("/mypage/orderProcess.do", {
 				basketProductNo : checkedValue,deliveryFee: deliveryFee}
 				
 			, function(data) {
 			}, "json")
 			setTimeout(function() {
-				$(location).attr("href", "/order.do");
+				$(location).attr("href", "/mypage/order.do");
 
 			}, 200);
 		}
@@ -406,15 +415,15 @@ function sidebarClickEvent(s) {
 	s.addEventListener('click', function(e) {
 		
 		if(s.innerText=="주문/배송/리뷰"){
-			$(location).attr("href", "/mypage.do");
+			$(location).attr("href", "/mypage/mypage.do");
 		}
 		else if(s.innerText=="장바구니"){
 		}
 		else if(s.innerText=="찜한 상품"){
-			$(location).attr("href", "/zzim.do");
+			$(location).attr("href", "/mypage/zzim.do");
 		}
 		else if(s.innerText=="내가 쓴 리뷰"){
-			$(location).attr("href", "/selectreview.do");
+			$(location).attr("href", "/mypage/selectreview.do");
 		}
 	});
 }

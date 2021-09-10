@@ -33,7 +33,7 @@
 		<div class="col-8">
 			<div class="login-section my-6 pt-5 pb-5">
 				<p class="text-center fs-5 mt-5 mb-4">아이디 찾기</p>
-				<form class="form-inline w-50 mx-auto" action="" method="post">
+				<form class="form-inline w-50 mx-auto" method="post">
 					<div class="row mb-3">
 						<label for="phone" class="col-sm-3 col-form-label text-end">이름</label>
 						<div class="col-sm-6">
@@ -119,7 +119,7 @@
 		
 		$.ajax({
 			type: "POST",
-			url: "/member/isMemberByPhone",
+			url: "/member/isMemberByPhone.do",
 			contentType: 'application/json; charset=utf-8',
 			data: JSON.stringify({'name': name, 'phone':phone}),
 			success: function(result){
@@ -139,7 +139,7 @@
   		$(".verifyCode").css("display", "block")
   		var data = {to:to};
   		$.ajax({
-  			url:"sendCode",
+  			url:"sendCode.do",
   			data: data,
   			success: function(data){
   				code=data;
@@ -175,7 +175,7 @@
 		console.log(phone);
 		$.ajax({
 			type: "POST",
-			url: "/member/getId",
+			url: "/member/getId.do",
 			contentType: 'application/json; charset=utf-8',
 			data: JSON.stringify({'name': name, 'phone':phone}),
 			success: function(id){

@@ -36,10 +36,10 @@
 						산지직송 직거래 플랫폼, 파사마노입니다.
 					</p>
 					<div class="d-inline">
-						<button class="btn btn-success btn-lg" id="btnUser" onclick="location.href='/member/userjoin'">일반회원</button>
+						<button class="btn btn-success btn-lg" id="btnUser" onclick="location.href='/member/userjoin.do'">일반회원</button>
 					</div>
 					<div class="d-inline">
-						<button class="btn btn-success btn-lg" id="btnSeller" onclick="location.href='/member/verifyseller'">판매회원</button>
+						<button class="btn btn-success btn-lg" id="btnSeller" onclick="location.href='/member/verifyseller.do'">판매회원</button>
 					</div>
 				</div>
 			</div>

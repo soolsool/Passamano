@@ -38,7 +38,7 @@
 					</p>
 					<hr class="mx-auto pt-0.5 w-50">
 					
-					<form action="/member/sellerinfo" method="post" class="w-50 mx-auto" enctype="multipart/form-data">
+					<form action="/member/sellerinfo.do" method="post" class="w-50 mx-auto" enctype="multipart/form-data">
 					
 						<div class="row mb-3 mx-auto">
 							<label for="password" class="col-sm-3 col-form-label text-end">사업자등록번호</label>
@@ -91,7 +91,7 @@
 							<div class="row mb-3">
 								<label for="profile" class="col-sm-3 col-form-label text-end">사업자등록증 파일</label>
 								<div class="col-sm-9">
-									<input type="file" class="form-control input-my-1" name="uploadFile" id="profile" required="required">
+									<input type="file" class="form-control input-my-1" name="uploadFile" id="sellerFile" required="required">
 								</div>
 							</div>
 

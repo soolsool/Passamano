@@ -31,11 +31,6 @@
 	float: left;
 }
 
-.content {
-	margin-top: 20px;
-	float: right;
-}
-
 .nav-item:hover {
 	background-color: lightgray;
 	color: white;
@@ -65,44 +60,29 @@
 	padding: 20px;
 }
 
-#wrap {
-	overflow: hidden;
-	min-width: 1600px;
-}
-
-.btn {
+.btn-wrap {
+	text-align: center;
 	display: inline-block;
-	float: left;
-	width: 300px;
-	height: 50px;
-	margin-left: 1%;
-	margin-bottom: 2%;
-	margin-left: 1%;
-}
-
-.btn-order-cancel, .btn-review {
-	font-size: 15px;
-	font-weight: bold;
-	color: #28a745;
-	width: 100px;
+	width: 70px;
 	height: 40px;
-	background-color: white;
-	border: 1px solid #28a745;
-	float: left;
-	margin-left: 10px;
-	border-radius: 5px;
+	margin: 2% 0;
 }
 
-.btn-cancel-check {
-	margin-top: 5px;
+.content {
+	display: inline-block;
+	margin-top: 20px;
+	float: right;
+}
+
+.btn-edit, .btn-delete {
+	display: inline-block;
 	font-size: 12px;
 	font-weight: bold;
 	color: #28a745;
-	width: 70px;
-	height: 25px;
+	width: 60px;
+	height: 30px;
 	background-color: white;
 	border: 1px solid #28a745;
-	float: left;
 	border-radius: 5px;
 }
 
@@ -117,28 +97,6 @@ button:active, input[type=submit]:active,input[type=button]:active {
 	color: white;
 }
 
-.cancel-reason-wrapper {
-	display: inline-block;
-	float: left;
-	width: 90%;
-	height: 100px;
-	margin-left: 2%;
-}
-
-.cancel-textarea {
-	margin-left: 10px;
-	border: 1px solid lightgray;
-}
-
-.cancel-title {
-	display: inline-block;
-	margin-left: 10px;
-}
-
-.order-date {
-	float: left;
-	font-size: 20px;
-}
 
 .second-card {
 	border: 1px solid rgb(238, 238, 238);
@@ -149,27 +107,49 @@ button:active, input[type=submit]:active,input[type=button]:active {
 
 .orderlist-body {
 	padding: 25px 0px 25px 25px;
+	border-bottom: 1px solid lightgray;
 }
 
 .product-detail {
-	padding: 0px 45px;
-	width: 42.5%;
+	width: 250px;
+	margin-left: 20px;
+	float: left;
 }
 
-.pay-state {
-	width: 32.5%;
-	border-left: 1px solid #ddd;
-	padding: 0px 40px;
+.star {
+	display: inline-block;
+	margin-bottom: 7px;
+	font-size: 30px;
+	color: #ffd633;
 }
 
-.order-state {
-	width: 25%;
-	border-left: 1px solid #ddd;
-	padding: 0px 40px;
+.title {
+	padding: 10px 20px 8px 0px;
 }
 
-.byte {
-	padding-left: 10px;
+.select-review-wrapper {
+	display: inline-block;
+	margin: 20px;
+	float: left;
+}
+
+.product-img {
+	display: inline-block;
+	width: 150px;
+	float: left;
+}
+
+#wrap {
+	overflow: hidden;
+	min-width: 1600px;
+}
+
+td {
+	text-align: left;
+}
+
+.button {
+	text-align: left;
 }
 
 .btn-month {
@@ -200,7 +180,7 @@ button:active, input[type=submit]:active,input[type=button]:active {
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
-				<%@ include file="./common/header.jsp"%>
+				<%@ include file="../common/header.jsp"%>
 			</div>
 			<div class="col-1"></div>
 		</div>
@@ -215,12 +195,12 @@ button:active, input[type=submit]:active,input[type=button]:active {
 						<div class="profile-area my-3 py-2">
 							<!--  실제 회원 프로필 이미지 들어가는 곳 -->
 							<div class="thumb">
-								<img src="../files/images/${userInfo.profileFileName}"
+								<img src="../files/images/${userInfo.profileFilename}"
 									class="my-2">
 							</div>
 							<!--  회원 이름 보여주기 -->
 							<p class="mb-2">${userInfo.name}님</p>
-							<a href="/profile.do">
+							<a href="/mypage/profile.do">
 								<p class="mb-2">프로필 관리</p>
 							</a>
 						</div>
@@ -228,14 +208,14 @@ button:active, input[type=submit]:active,input[type=button]:active {
 						<nav class="my-3">
 
 							<ul class="nav flex-column">
-								<li class="order-title nav-item my-2 clicked"><a
+								<li class="order-title nav-item my-2"><a
 									class="nav-link order-title-link" href="#">주문/배송/리뷰</a></li>
 								<li class="basket nav-item my-2"><a class="nav-link"
 									href="#">장바구니</a></li>
 								<li class="zzim nav-item my-2"><a class="nav-link" href="#">찜한
 										상품</a></li>
-								<li class="select-review nav-item my-2"><a class="nav-link"
-									href="#">내가 쓴 리뷰</a></li>
+								<li class="select-review nav-item my-2 clicked"><a
+									class="nav-link" href="#">내가 쓴 리뷰</a></li>
 
 							</ul>
 						</nav>
@@ -253,76 +233,83 @@ button:active, input[type=submit]:active,input[type=button]:active {
 		<button class="btn-month three-month">3개월</button>
 		<button class="btn-month six-month">6개월</button>
 	</div>
-	<c:forEach var='o' items='${orderlist }'>
-		<div class="first-card mb-3" style="max-width: 80%;">
+	<c:forEach items="${selectReview}" var="sr">
+		<div class="first-card mb-3" style="max-width: 90%;">
 
 			<div class="first-card-header">
 				<input type="hidden" class="month"
 					value="<fmt:formatDate
-						value='${o.orderDate}' pattern='MM'/>"
+						value='${sr.reviewDate}' pattern='MM'/>"
 					date="<fmt:formatDate
-						value='${o.orderDate}' pattern='dd'/>"
+						value='${sr.reviewDate}' pattern='dd'/>"
 					year="<fmt:formatDate
-						value='${o.orderDate}' pattern='yyyy'/>">
-				<strong class="order-date"><fmt:formatDate
-						value='${o.orderDate}' pattern='yyyy-MM-dd' /> 주문</strong>
+						value='${sr.reviewDate}' pattern='yyyy'/>">
+				<p></p>
 			</div>
 			<div class="second-card mb-3" style="max-width: 100%;">
 				<div class="orderlist-body">
 					<table>
 						<tr>
-							<td><a href='detailProduct.do?productNo=${o.productNo }'>
-
-									<img src="../files/products_images/${o.imageName }" width="150"
-									height="110">
+							<td class="product-img"><a
+								href='product.do?productNo=${sr.productNo }'> <img
+									src="../files/products_images/${sr.imageName }" width="120"
+									height="90">
 							</a></td>
 							<td class="product-detail"><a
-								href='detailProduct.do?productNo=${o.productNo }'>
+								href='product.do?productNo=${sr.productNo }'>
 									<p class="card-text">
-										${o.productName }, ${o.detailQty }개<br> <strong>${o.payPrice }원</strong>
+										${sr.productName }, ${sr.detailQty }개<br> <strong>${sr.payPrice }원</strong>
 									</p>
 							</a></td>
-							<td class="pay-state"><p class="card-text">${o.payMethod}결제
-									<c:if test='${o.payState==0}'>(결제전)</c:if>
-									<c:if test='${o.payState==1}'>(결제완료)</c:if>
-								</p></td>
-							<td class="order-state"><p class="card-text">
-									<c:if test='${o.orderState==1}'>취소완료</c:if>
-									<c:if test='${o.orderState==2}'>환불완료</c:if>
-									<c:if test='${o.orderState==3}'>배송준비중</c:if>
-									<c:if test='${o.orderState==4}'>배송중</c:if>
-									<c:if test='${o.orderState==5}'>배송완료</c:if>
-								</p></td>
 						</tr>
 					</table>
 				</div>
-				<c:if test='${o.orderState==3}'>
-					<div class="btn">
-						<input type="button" value="주문 취소" class="btn-order-cancel">
-					</div>
-					<div class="cancel-reason-wrapper">
-						<table>
-							<tr>
-								<td class="cancel-title">취소/환불 사유</td>
-								<td><textarea class="cancel-textarea"
-										onkeyup="fn_checkByte(this)" cols="40" rows="2"></textarea></td>
-								<td class="byte"><span id="nowByte">0</span>/60<br> <input
-									type="button" value="확인" class="btn-cancel-check"
-									name="${o.productNo }"></td>
-							</tr>
-						</table>
-					</div>
-				</c:if>
-				<c:if test='${o.orderState==4||o.orderState==5}'>
-					<form action="writereview.do" method="post">
-						<div class="btn write-review-btn">
-							<input type="hidden" value="${o.productNo }" name="productNo">
-							<input type="hidden" name="orderDate"
-								value='<fmt:formatDate value="${o.orderDate }" pattern='yyyy/MM/dd' />'>
-							<input type="submit" value="리뷰 쓰기" class="btn-review">
-						</div>
+				<div class="select-review-wrapper">
+					<table>
+						<tr>
+							<td></td>
+							<td><c:if test="${not empty sr.reviewImg}">
+									<img width=400px src="../files/review_images/${sr.reviewImg}">
+								</c:if></td>
+						</tr>
+						<tr>
+							<td class="title">평점</td>
+							<td class="eval"><input type="hidden" class="evaluation"
+								name="evaluation" value="${sr.reviewEvaluation}">
+								<p class="star star1">☆</p>
+								<p class="star star2">☆</p>
+								<p class="star star3">☆</p>
+								<p class="star star4">☆</p>
+								<p class="star star5">☆</p></td>
+
+						</tr>
+						<tr>
+							<td class="title">제목</td>
+							<td>${sr.reviewTitle}</td>
+						</tr>
+						<tr>
+							<td class="review-content title">내용</td>
+							<td>${sr.reviewContent }</td>
+
+						</tr>
+
+						<tr>
+							<td class="button"><div class="btn-wrap">
+									<input type="button" class="btn-edit" value="수정하기">
+								</div></td>
+							<td class="button"><div class="btn-wrap">
+									<form action="/mypage/deleteReview.do" onsubmit="return check()">
+										<input type="hidden" name="reviewNo" value="${sr.reviewNo}">
+										<input type="submit" class="btn-delete" value="삭제하기">
+									</form>
+								</div></td>
+
+						</tr>
+					</table>
+
+
 					</form>
-				</c:if>
+				</div>
 			</div>
 		</div>
 	</c:forEach>
@@ -340,7 +327,7 @@ button:active, input[type=submit]:active,input[type=button]:active {
 
 			<div class="col-2"></div>
 			<div class="col-8">
-				<%@ include file="./common/footer.jsp"%>
+				<%@ include file="../common/footer.jsp"%>
 			</div>
 			<div class="col-2"></div>
 
@@ -358,52 +345,38 @@ button:active, input[type=submit]:active,input[type=button]:active {
 </body>
 <script type="text/javascript">
 	var sidebar = document.querySelectorAll('.nav-item');
-	var ordertitle = document.querySelector('.order-title');
-	//var detailPrice=$("#productPrice").value*$("#basketQty").value();
-	var reasonWrapper = document.querySelector(".cancel-reason-wrapper");
-	var totalByte = 0;
-	var textarea = document.querySelector(".cancel-textarea");
+	var eval=document.querySelectorAll(".evaluation");
 	var monthList = document.querySelectorAll(".month");
-
-	$(".cancel-reason-wrapper").hide();
-	$(".btn-order-cancel").click(function() {
-		if (reasonWrapper.classList.contains("click")) {
-			reasonWrapper.classList.remove('click');
-			$(".cancel-reason-wrapper").hide();
-			$(".cancel-textarea").val("");
-			fn_checkByte(textarea);
-		} else {
-			reasonWrapper.classList.add('click');
-			$(".cancel-reason-wrapper").show();
+	eval.forEach(function(e){
+		if(e.value==1){
+			$(e).closest(".eval").children(".star1").html("★");
 		}
-
-	});
-	$(".btn-cancel-check").click(function() {
-		if (totalByte < 60) {
-			var result = confirm("정말 취소하시겠습니까?");
-			if (result) {
-				var productNum = $(this).attr('name');
-				var orderManageReason = $(".cancel-textarea").val();
-				$.get("/updateOrder.do", {
-					productNum : productNum,
-					orderManageReason : orderManageReason
-				}, function(data) {
-				}, "json")
-				setTimeout(function() {
-					$(location).attr("href", "/mypage.do");
-
-				}, 200);
-			}
-		else {
-			alert("최대 60Byte까지만 입력가능합니다.");
+		else if(e.value==2){
+			$(e).closest(".eval").children(".star1").html("★");
+			$(e).closest(".eval").children(".star2").html("★");
 		}
+		else if(e.value==3){
+			$(e).closest(".eval").children(".star1").html("★");
+			$(e).closest(".eval").children(".star2").html("★");
+			$(e).closest(".eval").children(".star3").html("★");
+		}
+		else if(e.value==4){
+			$(e).closest(".eval").children(".star").html("★");
+			$(e).closest(".eval").children(".star5").html("☆");
+		}
+		else if(e.value==5){
+			$(e).closest(".eval").children(".star").html("★");
 		}
 	});
-
+	
 	$(".all-month").click(function(){
 		$(".first-card").show();
 		$(".btn-month").removeClass("clicked-month");
 		$(".all-month").addClass("clicked-month");
+	});
+	
+	$(".all-month").click(function(){
+		$(".first-cart").show();
 	});
 	
 	$(".one-month").click(function() {
@@ -440,7 +413,6 @@ button:active, input[type=submit]:active,input[type=button]:active {
 		}	
 		}
 		});
-		
 	});
 	
 	$(".three-month").click(function(){
@@ -494,10 +466,9 @@ button:active, input[type=submit]:active,input[type=button]:active {
 				$(m).closest(".first-card").hide();
 			}
 		
-		}
+		}	
 		}
 		});
-		
 	});
 	
 	$(".six-month").click(function(){
@@ -588,52 +559,26 @@ button:active, input[type=submit]:active,input[type=button]:active {
 		}
 		});
 	});
-
-	function fn_checkByte(obj) {
-
-		var maxByte = 60; //최대 60바이트
-		var text_val = obj.value; //입력한 문자
-		var text_len = text_val.length; //입력한 문자수
-
-		totalByte = 0;
-		for (let i = 0; i < text_len; i++) {
-			var each_char = text_val.charAt(i);
-			var uni_char = escape(each_char) //유니코드 형식으로 변환
-			if (uni_char.length > 4) {
-				// 한글 : 2Byte
-				totalByte += 2;
-			} else {
-				// 영문,숫자,특수문자 : 1Byte
-				totalByte += 1;
-			}
-		}
-		if (totalByte > maxByte) {
-			alert('최대 60Byte까지만 입력가능합니다.');
-			document.getElementById("nowByte").innerText = totalByte;
-			document.getElementById("nowByte").style.color = "red";
-
-		} else {
-			document.getElementById("nowByte").innerText = totalByte;
-			document.getElementById("nowByte").style.color = "green";
-		}
+function check(){
+	var re=confirm("정말로 삭제하시겠습니까?");
+	if (re) {
+		alert("삭제가 완료되었습니다.");
 	}
-	
+	else{
+			return false;
+	}
+}
+
 	function sidebarClickEvent(s) {
 		s.addEventListener('click', function(e) {
 
 			if (s.innerText == "주문/배송/리뷰") {
-				if (reasonWrapper.classList.contains("click")) {
-					reasonWrapper.classList.remove('click');
-					$(".cancel-reason-wrapper").hide();
-					$(".cancel-textarea").val("");
-					fn_checkByte(textarea);
-				}
+				$(location).attr("href", "/mypage/home.do");
 			} else if (s.innerText == "장바구니") {
-				$(location).attr("href", "/cart.do");
+				$(location).attr("href", "/mypage/cart.do");
 			} else if (s.innerText == "찜한 상품") {
-				$(location).attr("href", "/zzim.do");
+				$(location).attr("href", "/mypage/zzim.do");
 			} else if (s.innerText == "내가 쓴 리뷰") {
-				$(location).attr("href", "/selectreview.do");
 			}
 		});
 	}
@@ -642,6 +587,6 @@ button:active, input[type=submit]:active,input[type=button]:active {
 		sidebarClickEvent(s);
 	});
 
-	$(".order-title").click();
+	$(".select-review").click();
 </script>
 </html>

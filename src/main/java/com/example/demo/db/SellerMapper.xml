@@ -8,7 +8,8 @@
   </select>
   
   <select id="getSeller" resultType="sellersVo">
-    select * from user_seller s left outer join users u on s.user_no = u.user_no where u.id=#{id}
+    select * 
+    from user_seller s left outer join users u on s.user_no = u.user_no where u.id=#{id}
   </select>
   
   <select id="getUser" resultType="userVO">

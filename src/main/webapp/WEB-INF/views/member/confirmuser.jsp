@@ -40,7 +40,7 @@
 		        	소비자는 직거래로 신선한 상품을, 생산자는 더 많은 수익을<br>
 		        	소비자와 생산자가 공생할 수 있는 파사마노에 가입하신 걸 환영합니다.
 		        </p>
-		        <button class="btn btn-success btn-lg mt-3" type="button">상품 보러가기</button>
+		        <button type="button" class="btn btn-success btn-lg mt-3" type="button" onclick="location.href='/'">상품 보러가기</button>
 		      </div>
 		    </div>
 		<!-- 실제 본문 영역 끝 -->
@@ -53,12 +53,12 @@
 	<!--  풋터 끝부분 시작 -->
 	<div class="row">
 	
-		<div class="col-2">
+		<div class="col-3">
 		</div>
-		<div class="col-8">
+		<div class="col-6">
 			<%@ include file="../common/footer.jsp" %>
 		</div>
-		<div class="col-2">
+		<div class="col-3">
 		</div>
 
 	</div>

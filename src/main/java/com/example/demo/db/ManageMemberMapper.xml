@@ -108,7 +108,7 @@
 				where id=#{id}
 	</select>
 	
-	<select id="getUserNo" resultType="int">
+	<select id="getNextUserNo" resultType="int">
 		select max(user_no) 
 				from users
 	</select>
@@ -118,7 +118,7 @@
 				from user_address
 	</select>
 	
-	<select id="getSellerNo" resultType="int">
+	<select id="getNextSellerNo" resultType="int">
 		select max(seller_no)
 			from user_seller
 	</select>

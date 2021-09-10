@@ -102,7 +102,7 @@
 			</select>
 			
 			<div class="d-inline mx-2" id="searchBox">
-				<form action="/search" method="get" class="d-inline" id="searchKeyword">
+				<form action="/search.do" method="get" class="d-inline" id="searchKeyword">
 					<input type="text" id="search" name="search" placeholder="검색어를 입력하세요">
 					<button type="button" class="btn btn-success btn-sm" onclick="searchProduct()">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -151,7 +151,7 @@
 				<c:forEach var="p" items="${list}">
 					<li class="item mx-3 mt-2 mb-5">
 						<div class="thumbnail">
-							<a href="/product?productNo=${p.productNo}" class="img" style="background-image: url('resources/images/productimage/${p.imageName}');">
+							<a href="/product.do?productNo=${p.productNo}" class="img" style="background-image: url('resources/images/productimage/${p.imageName}');">
 								<c:if test="${p.productState==1}">
 									<div class="soldout">
 									</div>
@@ -164,7 +164,7 @@
 								<img src="resources/images/productimage/${p.imageName}">
 							</a>
 						</div>
-						<a class="info g-col-3" href="/product?productNo=${p.productNo}">
+						<a class="info g-col-3" href="/product.do?productNo=${p.productNo}">
 							<span class="name">
 								${p.productName}
 							</span>

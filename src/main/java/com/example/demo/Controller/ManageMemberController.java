@@ -1,8 +1,8 @@
 package com.example.demo.Controller;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.http.HttpResponse;
 import java.util.Map;
 import java.util.Random;
 
@@ -35,26 +35,23 @@ public class ManageMemberController {
 		this.dao = dao;
 	}
 	
-	@RequestMapping(value="/member/membertype")
-	public void choosetype() {
-		
-	}
-	
 	//로그인(/login.do)로 이동하거나, 인터셉터에 걸렸을 때 
 	//세션에 로그인 정보가 없으면 로그인 폼으로 보낸다.
 	//로그인으로 이동할 때 이전 페이지를 backpage로 세션에 추가한다. 
-	@RequestMapping(value="/login", method = RequestMethod.GET)
-	public void loginForm(HttpServletRequest request) {
+	@RequestMapping(value="/login.do", method = RequestMethod.GET)
+	public ModelAndView loginForm(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		ModelAndView mav = new ModelAndView();
 		String referrer = request.getHeader("Referer");
-		request.getSession().setAttribute("backpage", referrer);
-		
+		request.getSession().setAttribute("backpage", referrer);		
+		mav.setViewName("login");
+		return mav;
 	}
 	
 	//아이디와 비밀번호를 입력한 후 post방식으로 전달할 때
 	//회원이 맞다면 session에 loginuser로 UserVo 객체를 저장한 뒤 메인페이지로 이동하고,
 	//회원이 아니라면 메세지와 함께 다시 로그인 창으로 이동한다.
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView loginSubmit(HttpSession session, HttpServletResponse response, String id, String pwd) throws IOException {
+	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	public ModelAndView loginSubmit(HttpSession session, HttpServletRequest request, HttpServletResponse response, String id, String pwd) throws IOException {
 		ModelAndView mav = new ModelAndView();
 		
 		if(dao.isMember(id,pwd)) {
@@ -62,38 +59,54 @@ public class ManageMemberController {
 			//검색과 저장을 마치면 로그인 이전의 페이지로 이동한다.
 			UserVo user = dao.getMember(id);
 			session.setAttribute("loginUser", user);
-			response.sendRedirect((String)session.getAttribute("backpage"));			
+			session.setAttribute("userNo", user.getUserNo());
+			session.setAttribute("grantNo", user.getGrantNo());
+			
+			if(user!=null) {
+				String referrer = (String)session.getAttribute("backpage");
+				if(referrer.equals("http://localhost:8080/login.do")) {
+					response.sendRedirect("/");
+				}
+				response.sendRedirect(referrer);
+			}
+			
 		}else {
 			session.setAttribute("msg", "회원정보가 없습니다.\n 입력하신 아이디와 비밀번호를 확인하시거나, 회원가입해주세요.");
-			mav.setViewName("redirect:/login");
+			mav.setViewName("redirect:/login.do");
 		}
 		return mav;
 	}
 	
 	//로그아웃 요청 시 세션에 저장된 정보를 모두 지우고 메인으로 이동한다.
-	@RequestMapping("/logout")
+	@RequestMapping("/logout.do")
 	public ModelAndView logout(HttpSession session) {
 		session.invalidate();
 		ModelAndView mav = new ModelAndView("redirect:/");
 		return mav;
 	}
 	
+	//회원가입 요청하면 일반회원인지 판매자회원인지 선택해야 한다.
+	@RequestMapping(value="/member/membertype.do")
+	public void choosetype() {
+		
+	}
+	
 	//일반 회원으로 가입할 때 일반회원용 폼 페이지를 전달한다.	
-	@RequestMapping(value = "/member/userjoin", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/userjoin.do", method = RequestMethod.GET)
 	public void joinUserForm() {
 	}
 	
 	//일반 회원용 폼페이지를 작성하고 회원가입을 누르면 입력한 내용을 DB에 입력한다.
-	 @RequestMapping(value = "/member/submit", method = RequestMethod.POST) 
+	 @RequestMapping(value = "/member/submit.do", method = RequestMethod.POST) 
 	 public void submit(UserVo user, UserAddressVo address, String address4, HttpServletRequest request) {
 	 	ModelAndView mav = new ModelAndView(); 
 	 	
 	 	
-	 	user.setUserNo(dao.getUserNo()+1); 
+	 	user.setUserNo(dao.getNextUserNo()+1); 
 
 	 	address.setAddress2(address.getAddress2()+address4);
 	 	address.setAddressNo(dao.getAddressNo()+1);
-	 	address.setUserNo(dao.getUserNo()+1);
+	 	address.setUserNo(dao.getNextUserNo()+1);
 	 	
 	 	String profileFilename = null; 
 	 	String path = request.getRealPath("/resources/images/userprofile"); 
@@ -116,19 +129,19 @@ public class ManageMemberController {
 	 	int re = dao.insertUser(user, address);
 	 
 	 	if(re!=0) 
-	 		mav.setViewName("redirect:/member/userjoin"); 
+	 		mav.setViewName("redirect:/member/userjoin.do"); 
 	 	else //DB에 입력하는데 실패하면 다시 가입 페이지로 보낸다. 
-	 		mav.setViewName("redirect:/member/confirmuser"); 
+	 		mav.setViewName("redirect:/member/confirmuser.do"); 
  	}
 	 
 	 //일반회원 정보와 주소정보를 DB에 입력한 후 가입 완료 페이지로 이동한다.
-	 @RequestMapping("/member/confirmuser")
+	 @RequestMapping("/member/confirmuser.do")
 	 public String confirmUser() {
 		 return "confirmuser";
 	 }
 	 
 	//jsp에서 json 타입으로 보낸 ajax 데이터 받아 DB에서 중복을 확인한다.
-	@RequestMapping(value = "/member/doubleCheck", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/doubleCheck.do", method = RequestMethod.POST)
 	public @ResponseBody String doubleCheck(@RequestBody Map<String, Object> param) {
 		String col = (String)param.get("col");
 		String userInput = (String)param.get("userInput");
@@ -140,7 +153,7 @@ public class ManageMemberController {
 	}
 	
 	//인증번호 발송 버튼 클릭 시 난수를 만들고 조합하여 인증번호를 발송한다.
-	@RequestMapping("/member/sendCode")
+	@RequestMapping("/member/sendCode.do")
 	@ResponseBody
 	public String sendCode(String to) {
 		String code = "";
@@ -163,19 +176,19 @@ public class ManageMemberController {
 	}
 	
 	//판매자회원 선택시 판매자정보 입력하는 페이지로 이동한다.
-	@RequestMapping("/member/verifyseller")
+	@RequestMapping("/member/verifyseller.do")
 	public void verifySeller() {
 		
 	}
 	
 	//판매자 정보 입력 페이지에서 폼을 작성하면 기본회원정보 입력양식으로 이동한다.
-	 @RequestMapping(value="/member/sellerinfo", method = RequestMethod.POST)
+	 @RequestMapping(value="/member/sellerinfo.do", method = RequestMethod.POST)
 	 public void joinSellerForm(UserSellerVo seller, String sellerId1, String sellerId2, String sellerId3, HttpServletRequest request, HttpSession session) {
 		 ModelAndView mav = new ModelAndView();
 		 String sellerId = sellerId1 + "-" + sellerId2 + "-" + sellerId3;
 		
-		 seller.setSellerNo(dao.getSellerNo()+1);
-		 seller.setUserNo(dao.getUserNo()+1);
+		 seller.setSellerNo(dao.getNextSellerNo()+1);
+		 seller.setUserNo(dao.getNextUserNo()+1);
 		 seller.setSellerId(sellerId);
 		 
 		 String sellerFile = null;
@@ -197,10 +210,10 @@ public class ManageMemberController {
 		 }
 		 session.setAttribute("seller", seller);
 		 System.out.println("여기까지 왔나");
-		 mav.setViewName("redirect:/member/sellerjoin");
+		 mav.setViewName("redirect:/member/sellerjoin.do");
 	 }
 	 
-	 @RequestMapping(value="/member/sellerjoin", method = RequestMethod.POST)
+	 @RequestMapping(value="/member/sellerjoin.do", method = RequestMethod.POST)
 	 public void sellerFormSubmit(UserVo user, UserAddressVo address, String address4, UserSellerVo seller, HttpServletRequest request, HttpSession session) {
 		 ModelAndView mav = new ModelAndView();
 		 
@@ -232,29 +245,29 @@ public class ManageMemberController {
 	 	int re = dao.insertSeller(user, address, seller);
 	 
 	 	if(re!=0) 
-	 		mav.setViewName("redirect:/member/userjoin"); 
+	 		mav.setViewName("redirect:/member/userjoin.do"); 
 	 	else //DB에 입력하는데 실패하면 다시 가입 페이지로 보낸다. 
-	 		mav.setViewName("redirect:/member/confirmuser"); 
+	 		mav.setViewName("redirect:/member/confirmuser.do"); 
 	 }
 	 
 	//일반회원 정보와 주소정보를 DB에 입력한 후 가입 완료 페이지로 이동한다.
-	 @RequestMapping("/member/confirmseller")
+	 @RequestMapping("/member/confirmseller.do")
 	public void confirmSeller() {
 		
 	}
 	
-	@RequestMapping("/member/findId")
+	@RequestMapping("/member/findId.do")
 	public void findId() {
 		
 	}
 
-	@RequestMapping("/member/findPwd")
+	@RequestMapping("/member/findPwd.do")
 	public void findPwd() {
 		
 	}
 
 	//아이디 찾기를 요청한 회원에게 이름, 연락처를 전달받아 존재하는 회원인지 확인한다.
-	@RequestMapping(value="/member/isMemberByPhone", method = RequestMethod.POST)
+	@RequestMapping(value="/member/isMemberByPhone.do", method = RequestMethod.POST)
 	public @ResponseBody int isMemberByPhone(@RequestBody Map<String, Object> param) {
 		String name = (String)param.get("name");
 		String phone = (String)param.get("phone");
@@ -263,7 +276,7 @@ public class ManageMemberController {
 	}
 
 	//아이디를 요청한 회원이 이름과 연락처를 인증했을 때, 아이디를 찾아 알려준다.
-	@RequestMapping(value="/member/getId", method = RequestMethod.POST)
+	@RequestMapping(value="/member/getId.do", method = RequestMethod.POST)
 	public @ResponseBody String getId(@RequestBody Map<String, Object> param) {
 		String name = (String)param.get("name");
 		String phone = (String)param.get("phone");
@@ -272,7 +285,7 @@ public class ManageMemberController {
 	}
 	
 	//비밀번호 찾기를 요청한 회원에게 이름, 아이디, 연락처를 입력받아 존재하는 회원인지 확인한다.
-	@RequestMapping(value="/member/isMemberById", method = RequestMethod.POST)
+	@RequestMapping(value="/member/isMemberById.do", method = RequestMethod.POST)
 	public @ResponseBody int isMemberById(@RequestBody Map<String, Object> param) {
 		String name = (String)param.get("name");
 		String id = (String)param.get("id");
@@ -283,7 +296,7 @@ public class ManageMemberController {
 	
 	//비밀번호 찾기를 요청한 회원이 아이디와 이름, 연락처를 인증했을 때, 새로운 비밀번호를 발급하여
 	//User 테이블을 업데이트하고, 문자로 비밀번호를 보내준다.
-	@RequestMapping(value="/member/setNewPwd", method = RequestMethod.POST)
+	@RequestMapping(value="/member/setNewPwd.do", method = RequestMethod.POST)
 	public @ResponseBody int setNewPwd(@RequestBody Map<String, Object> param) {
 		String id = (String)param.get("id");
 		String phone = (String)param.get("phone");
@@ -299,7 +312,6 @@ public class ManageMemberController {
 		  .limit(newPwdLength) 
 		  .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
 		  .toString();
-		System.out.println(newPwd);
 		int result = dao.setNewPwd(newPwd, id);
 		
 		BitSms sms = new BitSms();

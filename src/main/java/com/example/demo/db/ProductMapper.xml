@@ -16,7 +16,7 @@
 	values(#{productNo}, #{categoryNo}, #{productName}, #{productPrice}, #{productContent}, sysdate, #{productQty}, 0, 0, #{sellerNo}) 
   </insert>
   
-  <insert id="insertProductImg" parameterType="imagVo">
+  <insert id="insertProductImg" parameterType="imageVo">
   	insert into product_img(image_no, product_no, image_name, image_size, thumbnail, image_date) 
 	values(#{imageNo}, #{productNo}, #{imageName}, #{imageSize}, '0', sysdate)
   </insert>

@@ -25,6 +25,7 @@ import com.example.demo.vo.SelectBasketVo;
 import com.example.demo.vo.SelectOrdersVo;
 import com.example.demo.vo.SelectReviewVo;
 import com.example.demo.vo.SelectZzimVo;
+import com.example.demo.vo.SellerVo;
 import com.example.demo.vo.UserAddressVo;
 import com.example.demo.vo.UserSellerVo;
 import com.example.demo.vo.UserVo;
@@ -103,9 +104,9 @@ public class DBManager {
 	}
 	
 	//Users에서 User_no 최대값 검색
-	public static int getUserNo() {
+	public static int getNextUserNo() {
 		SqlSession session = factory.openSession();
-		int num = session.selectOne("manageMember.getUserNo");
+		int num = session.selectOne("manageMember.getNextUserNo");
 		session.close();
 		return num;
 	}
@@ -119,9 +120,9 @@ public class DBManager {
 	}
 	
 	//UserSeller에서 seller_no 최대값 검색
-	public static int getSellerNo() {
+	public static int getNextSellerNo() {
 		SqlSession session = factory.openSession();
-		int num =session.selectOne("manageMember.getSellerNo");
+		int num =session.selectOne("manageMember.getNextSellerNo");
 		session.close();
 		return num;
 	}
@@ -472,6 +473,14 @@ public class DBManager {
 			return n;
 		}
 
+		//<판매자 번호를 불러오기 위한 DBManager>
+		public static SellerVo getSeller(String id) {
+			SqlSession session = factory.openSession();
+			SellerVo s = session.selectOne("seller.getSeller", id);
+			session.close();
+			return s;
+		}
+
 		/*
 		//<판매자 로그인>
 		public static boolean isUser(String id, String pwd) {		boolean re = false;
@@ -487,13 +496,6 @@ public class DBManager {
 			return re;
 		}
 		
-		//<판매자 번호를 불러오기 위한 DBManager>
-		public static SellerVo getSeller(String id) {
-			SqlSession session = factory.openSession();
-			SellerVo s = session.selectOne("seller.getSeller", id);
-			session.close();
-			return s;
-		}
 		
 		public static UserVo getUser(String id) {
 			SqlSession session = factory.openSession();

@@ -28,60 +28,48 @@ public class MypageController {
 		this.dao = dao;
 	}
 
-	@RequestMapping("/mypage.do")
-	public void mypage(Model model) {
-		int userNo = 4;
-
-		// HttpSession session;
-		// int userNo=(int) session.getAttribute("userNo");
+	@RequestMapping("/mypage/home.do")
+	public void mypage(Model model, HttpSession session) {
+		int userNo= (int)session.getAttribute("userNo");
 
 		model.addAttribute("orderlist", dao.selectAllOrder(userNo));
 		model.addAttribute("userInfo", dao.selectUser(userNo));
 	}
 
-	@RequestMapping(value = "/selectreview.do")
-	public void selectReview(Model model) {
-		int userNo = 4;
-		// HttpSession session;
-		// int userNo=(int) session.getAttribute("userNo");
+	@RequestMapping(value = "/mypage/selectreview.do")
+	public void selectReview(Model model, HttpSession session) {
+		int userNo=(int) session.getAttribute("userNo");
 		model.addAttribute("selectReview", dao.selectReview(userNo));
 		model.addAttribute("userInfo", dao.selectUser(userNo));
 
 	}
 
-	@RequestMapping("/cart.do")
-	public void cart(Model model) {
-		int userNo = 4;
-		// HttpSession session;
-		// int userNo=(int) session.getAttribute("userNo");
+	@RequestMapping("/mypage/cart.do")
+	public void cart(Model model, HttpSession session) {
+		int userNo=(int) session.getAttribute("userNo");
 		model.addAttribute("basket", dao.selectBasket(userNo));
 		model.addAttribute("userInfo", dao.selectUser(userNo));
 	}
 
-	@RequestMapping("/zzim.do")
-	public void zzim(Model model) {
-		int userNo = 4;
-
-		// HttpSession session;
-		// int userNo=(int) session.getAttribute("userNo");
+	@RequestMapping("/mypage/zzim.do")
+	public void zzim(Model model, HttpSession session) {
+		int userNo=(int) session.getAttribute("userNo");
 		model.addAttribute("zzim", dao.selectZzim(userNo));
 		model.addAttribute("userInfo", dao.selectUser(userNo));
 	}
 
-	@RequestMapping(value = "/writereview.do")
-	public void writeReview(Model model, HttpServletRequest request) {
-		// HttpSession session = request.getSession(true);
-		// int userNo=(int) session.getAttribute("userNo");
-		int userNo = 4;
+	@RequestMapping(value = "/mypage/writereview.do")
+	public void writeReview(Model model, HttpServletRequest request, HttpSession session) {
+		int userNo=(int) session.getAttribute("userNo");
 		int productNo = Integer.parseInt(request.getParameter("productNo"));
 		SimpleDateFormat Transformat = new SimpleDateFormat("yyyy-MM-dd");
 		String orderDate = request.getParameter("orderDate");
 		model.addAttribute("w", dao.selectProductDetail(userNo, productNo, orderDate));
 	}
 
-	@RequestMapping(value = "/writeReviewController.do")
+	@RequestMapping(value = "/mypage/writeReviewController.do")
 	public ModelAndView writeReviewComplete(ReviewVo r, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("redirect:/selectreview.do");
+		ModelAndView mav = new ModelAndView("redirect:/mypage/selectreview.do");
 		String path = request.getRealPath("/files/review_images");
 
 		String reviewImg = null;
@@ -114,21 +102,20 @@ public class MypageController {
 		return mav;
 	}
 
-	@RequestMapping("/profile.do")
+	@RequestMapping("/mypage/profile.do")
 	public void profile() {
 	}
 
-	@RequestMapping("/order.do")
+	@RequestMapping("/mypage/order.do")
 	public void order() {
 	}
 
-	@RequestMapping("/orderProcess.do")
+	@RequestMapping("/mypage/orderProcess.do")
 	public void orderProcess(Model model, HttpServletRequest request,
 			@RequestParam(value = "basketProductNo[]", required = false) List<Integer> productNo,
 			@RequestParam(value = "deliveryFee[]", required = false) List<Integer> deliveryFeeItem) {
 		HttpSession session = request.getSession(true);
-		// int userNo=(int) session.getAttribute("userNo");
-		int userNo = 4;
+		int userNo=(int) session.getAttribute("userNo");
 		ArrayList<HashMap> list = new ArrayList<HashMap>();
 		int num = productNo.size();
 		for (int i = 0; i < num; i++) {
@@ -144,12 +131,11 @@ public class MypageController {
 
 	}
 
-	@RequestMapping("/zzimProcess.do")
+	@RequestMapping("/mypage/zzimProcess.do")
 	public void zzimProcess(HttpServletRequest request,
 			@RequestParam(value = "zzimProductNo[]") List<Integer> productNo) {
 		HttpSession session = request.getSession(true);
-		// int userNo=(int) session.getAttribute("userNo");
-		int userNo = 4;
+		int userNo=(int) session.getAttribute("userNo");
 
 		for (int i = 0; i < productNo.size(); i++) {
 			if ((dao.checkBasket(userNo, (int) (productNo.get(i)))) == 0) {
@@ -162,7 +148,7 @@ public class MypageController {
 
 	}
 
-	@RequestMapping("/deleteBasket.do")
+	@RequestMapping("/mypage/deleteBasket.do")
 	public void deleteBasket(HttpServletRequest request, @RequestParam(value = "basket[]") List<Integer> basketItem) {
 
 		// HttpSession session;
@@ -173,36 +159,28 @@ public class MypageController {
 		}
 	}
 
-	@RequestMapping("/deleteZzim.do")
-	public void deleteZzim(HttpServletRequest request, @RequestParam(value = "zzim[]") List<Integer> zzimItem) {
-
-		// HttpSession session;
-		// int userNo=(int) session.getAttribute("userNo");
-		int userNo = 4;
+	@RequestMapping("/mypage/deleteZzim.do")
+	public void deleteZzim(HttpServletRequest request, @RequestParam(value = "zzim[]") List<Integer> zzimItem, HttpSession session) {
+		int userNo=(int) session.getAttribute("userNo");
 		for (int i = 0; i < zzimItem.size(); i++) {
 			dao.deleteZzim(userNo, (int) (zzimItem.get(i)));
 		}
 	}
 
-	@RequestMapping("/deleteReview.do")
-	public ModelAndView deleteReview(HttpServletRequest request) {
-		// HttpSession session;
-		// int userNo=(int) session.getAttribute("userNo");
-		ModelAndView mav = new ModelAndView("redirect:/selectreview.do");
-		int userNo = 4;
+	@RequestMapping("/mypage/deleteReview.do")
+	public ModelAndView deleteReview(HttpServletRequest request, HttpSession session) {
+		int userNo=(int) session.getAttribute("userNo");
+		ModelAndView mav = new ModelAndView("redirect:/mypage/selectreview.do");
 		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 		dao.deleteReview(reviewNo);
 		return mav;
 	}
 
-	@RequestMapping("/updateOrder.do")
+	@RequestMapping("/mypage/updateOrder.do")
 	public void deleteOrder(Model model, HttpServletRequest request, @RequestParam(value = "productNum") int productNo,
-			String orderManageReason) {
-
-		// HttpSession session;
-		// int userNo=(int) session.getAttribute("userNo");
-		int userNo = 4;
-		// ModelAndView mav = new ModelAndView("redirect:/mypage.do");
+			String orderManageReason, HttpSession session) {
+		int userNo=(int) session.getAttribute("userNo");
+		ModelAndView mav = new ModelAndView("redirect:/mypage.do");
 		dao.updateOrder(userNo, productNo, orderManageReason);
 
 	}

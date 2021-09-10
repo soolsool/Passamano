@@ -40,7 +40,7 @@
 						<!--  실제 판매자 프로필 이미지 들어가는 곳 -->
 						<img src="../files/images/ball1.jpg" width="200px" style="border-radius:50%" class="my-2">
 						<!--  판매자 이름 보여주기 -->
-						<p class="mb-2">축구공님</p>
+						<p class="mb-2">${user.name}님</p>
 							<a href="#" class="">
 								프로필 관리
 							</a>
@@ -85,60 +85,69 @@
 			</div>
 			<div class="col-10">
 			<!-- 실제 본문 영역 시작 -->
-			<table>
-			<tr>
-				<th>상품번호</th>
-				<th>상품명</th>
-				<th>상품가격</th>
-				<th>이미지</th>
-				<th>수량</th>
-				<th>등록날짜</th>
-				<th>상태</th>
-			</tr>
-			<c:forEach var="p" items="${list }">
-				<tr>
-					<td>${p.productNo }</td>
-					<td>
-						<c:choose>
-						<c:when test="${p.productState != 0 }">
-							<a>${p.productName }</a>
-						</c:when>
-						<c:otherwise>
-							<a href="/seller/updateProduct.do?productNo=${p.productNo }">${p.productName }</a>
-						</c:otherwise>
-					</c:choose>
-					</td>
-					<td>
-						<fmt:formatNumber value="${p.productPrice }" pattern="###,###,###"/>
-					</td>
-					<td>${p.imageName }</td>
-					<td>${p.productQty }</td>
-					<td>
-						<fmt:formatDate value="${p.productDate }" pattern="yyyy-MM-dd"/>
-					</td>
-					<td>
-					<c:choose>
-						<c:when test="${p.productState != 0 }">
-							판매완료
-						</c:when>
-						<c:otherwise>
-							판매중
-						</c:otherwise>
-					</c:choose>
-					</td>
-				</tr>
-			</c:forEach>
-			</table>
-			<c:forEach var="i" begin="1" end="${totalPage }">
-				<a href="/seller/listProduct.do?pageNUM=${i }">${i }</a>&nbsp;
-			</c:forEach>
-			<a href="/seller/insertProduct.do?sellerNo=${sellerNo }">상품등록</a>
+				<div class="productTable">
+					<table class="table table-hover">
+						<tr>
+							<th>상품번호</th>
+							<th>상품명</th>
+							<th>상품가격</th>
+							<th>이미지</th>
+							<th>수량</th>
+							<th>등록날짜</th>
+							<th>상태</th>
+						</tr>
+						<c:forEach var="p" items="${list}">
+							<tr>
+								<td>${p.productNo }</td>
+								<td>
+									<c:choose>
+									<c:when test="${p.productState != 0 }">
+										<a>${p.productName }</a>
+									</c:when>
+									<c:otherwise>
+										<a href="/seller/updateProduct.do?productNo=${p.productNo }">${p.productName }</a>
+									</c:otherwise>
+								</c:choose>
+								</td>
+								<td>
+									<fmt:formatNumber value="${p.productPrice }" pattern="###,###,###"/>
+								</td>
+								<td>${p.imageName }</td>
+								<td>${p.productQty }</td>
+								<td>
+									<fmt:formatDate value="${p.productDate }" pattern="yyyy-MM-dd"/>
+								</td>
+								<td>
+								<c:choose>
+									<c:when test="${p.productState != 0 }">
+										<span class="badge bg-danger">판매완료</span>
+									</c:when>
+									<c:otherwise>
+										<span class="badge bg-success">판매중</span>
+									</c:otherwise>
+								</c:choose>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+				<nav aria-label="Page navigation">
+					<ul class="pagination">
+						<c:forEach var="i" begin="1" end="${totalPage }">
+						    <li class="page-item">
+						    	<a class="page-link" href="/seller/listProduct.do?pageNUM=${i}">
+						    		${i}
+					    		</a>
+				    		</li>
+						</c:forEach>
+					</ul>
+				</nav>
+				<a href="/seller/insertProduct.do?sellerNo=${sellerNo }">상품등록</a>
 			<!-- 실제 본문 영역 끝 -->
 			</div>
 		</div>
-		<div class="col-2">
-		</div>
-
+	</div>
+	<div class="col-2">
 	</div>
 	<!--  본문 시작 -->
 

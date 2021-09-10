@@ -27,8 +27,9 @@ public class ProductController {
 	
 	@RequestMapping("/seller/listProduct.do")
 	public void list(@RequestParam(value="pageNUM", defaultValue="1") int pageNUM, Model model, HttpSession session) {
-		String id = ((UserVo)session.getAttribute("loginM")).getId();
-		int sellerNo = ((SellerVo)session.getAttribute("sellerInfo")).getSellerNo();
+		String id = ((UserVo)session.getAttribute("loginUser")).getId();
+		
+		int sellerNo = dao.getSellerNo(id).getSellerNo();//((SellerVo)session.getAttribute("sellerInfo")).getSellerNo();
 		
 		ProductDao.totalRecord = dao.getTotalRecord(sellerNo);
 		ProductDao.totalPage = (int)Math.ceil(

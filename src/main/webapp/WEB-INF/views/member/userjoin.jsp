@@ -32,7 +32,7 @@
 						회원가입
 					</p>
 					<hr class="mx-auto pt-0.5 w-50">
-					<form action="/member/submit" method="post" enctype="multipart/form-data" class="mx-auto w-50" id="userForm">
+					<form action="/member/submit.do" method="post" enctype="multipart/form-data" class="mx-auto w-50" id="userForm">
 						
 						<div class="row mb-3">
 							<label for="id" class="col-sm-3 col-form-label text-end">아이디</label>
@@ -264,7 +264,7 @@
 		
 		$.ajax({
 			type : "POST",
-			url : "/member/doubleCheck",
+			url : "/member/doubleCheck.do",
 			contentType:'application/json; charset=utf-8',
 			data : JSON.stringify({"col": col, "userInput" : userInput }),
 			success: function(data){
@@ -375,7 +375,7 @@
 	  		$(".verifyCode").css("display", "block")
 	  		var data = {to:to};
 	  		$.ajax({
-	  			url:"sendCode",
+	  			url:"sendCode.do",
 	  			data: data,
 	  			success: function(data){
 	  				code=data;
