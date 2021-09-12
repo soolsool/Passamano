@@ -21,10 +21,10 @@
 }
 
 .profile-area img {
-	width:100px;
-	height:100px;
+	width: 100px;
+	height: 100px;
 	border-radius: 50%;
-	
+	cursor:pointer;
 }
 
 .wrapper {
@@ -74,7 +74,7 @@
 	float: right;
 }
 
-.btn-edit, .btn-delete {
+.btn-delete {
 	display: inline-block;
 	font-size: 12px;
 	font-weight: bold;
@@ -84,19 +84,19 @@
 	background-color: white;
 	border: 1px solid #28a745;
 	border-radius: 5px;
+	margin-top:8px;
 }
 
-button:hover, input[type=submit]:hover,input[type=button]:hover {
+button:hover, input[type=submit]:hover, input[type=button]:hover {
 	background-color: #28a745;
 	color: white;
 	cursor: pointer;
 }
 
-button:active, input[type=submit]:active,input[type=button]:active {
+button:active, input[type=submit]:active, input[type=button]:active {
 	background-color: #28a745;
 	color: white;
 }
-
 
 .second-card {
 	border: 1px solid rgb(238, 238, 238);
@@ -124,12 +124,12 @@ button:active, input[type=submit]:active,input[type=button]:active {
 }
 
 .title {
-	padding: 10px 20px 8px 0px;
+	padding: 10px 20px 8px 10px;
 }
 
 .select-review-wrapper {
 	display: inline-block;
-	margin: 20px;
+	margin: 40px;
 	float: left;
 }
 
@@ -172,6 +172,27 @@ td {
 	background-color: #28a745;
 	color: white;
 }
+
+.file {
+	display: none;
+}
+
+.profile-area p {
+	color: white;
+	font-weight: bold;
+}
+
+.profile-area a p {
+	font-size: 12px;
+}
+
+.edit-star{
+	cursor:pointer;
+}
+
+.review-img{
+	margin-bottom:20px;
+}
 </style>
 </head>
 <body>
@@ -195,12 +216,18 @@ td {
 						<div class="profile-area my-3 py-2">
 							<!--  실제 회원 프로필 이미지 들어가는 곳 -->
 							<div class="thumb">
-								<img src="../files/images/${userInfo.profileFilename}"
-									class="my-2">
+								<img src="../files/profile_images/${userInfo.profileFileName}"
+									class="my-2 profile-img">
+								<form class="img-form" action="/updateProfileImg.do"
+									method="POST" enctype="multipart/form-data">
+									<input type="file" class="file" name="uploadFile"
+										onchange="changeValue(this)">
+								</form>
 							</div>
+
 							<!--  회원 이름 보여주기 -->
-							<p class="mb-2">${userInfo.name}님</p>
-							<a href="/mypage/profile.do">
+							<p class="mb-2">${userInfo.nickName}님</p>
+							<a href="/profile.do">
 								<p class="mb-2">프로필 관리</p>
 							</a>
 						</div>
@@ -227,92 +254,94 @@ td {
 					<!-- 실제 본문 영역 시작 -->
 					<div class="mypage-item">
 						<br>
-	<div class="month-wrapper" style="max-width: 80%;">
-		<button class="btn-month all-month">전체</button>
-		<button class="btn-month one-month">1개월</button>
-		<button class="btn-month three-month">3개월</button>
-		<button class="btn-month six-month">6개월</button>
-	</div>
-	<c:forEach items="${selectReview}" var="sr">
-		<div class="first-card mb-3" style="max-width: 90%;">
+						<div class="month-wrapper" style="max-width: 80%;">
+							<button class="btn-month all-month">전체</button>
+							<button class="btn-month one-month">1개월</button>
+							<button class="btn-month three-month">3개월</button>
+							<button class="btn-month six-month">6개월</button>
+						</div>
+						<c:forEach items="${selectReview}" var="sr">
+							<div class="first-card mb-3" style="max-width: 90%;">
 
-			<div class="first-card-header">
-				<input type="hidden" class="month"
-					value="<fmt:formatDate
+								<div class="first-card-header">
+									<input type="hidden" class="month"
+										value="<fmt:formatDate
 						value='${sr.reviewDate}' pattern='MM'/>"
-					date="<fmt:formatDate
+										date="<fmt:formatDate
 						value='${sr.reviewDate}' pattern='dd'/>"
-					year="<fmt:formatDate
+										year="<fmt:formatDate
 						value='${sr.reviewDate}' pattern='yyyy'/>">
-				<p></p>
-			</div>
-			<div class="second-card mb-3" style="max-width: 100%;">
-				<div class="orderlist-body">
-					<table>
-						<tr>
-							<td class="product-img"><a
-								href='product.do?productNo=${sr.productNo }'> <img
-									src="../files/products_images/${sr.imageName }" width="120"
-									height="90">
-							</a></td>
-							<td class="product-detail"><a
-								href='product.do?productNo=${sr.productNo }'>
-									<p class="card-text">
-										${sr.productName }, ${sr.detailQty }개<br> <strong>${sr.payPrice }원</strong>
-									</p>
-							</a></td>
-						</tr>
-					</table>
-				</div>
-				<div class="select-review-wrapper">
-					<table>
-						<tr>
-							<td></td>
-							<td><c:if test="${not empty sr.reviewImg}">
-									<img width=400px src="../files/review_images/${sr.reviewImg}">
-								</c:if></td>
-						</tr>
-						<tr>
-							<td class="title">평점</td>
-							<td class="eval"><input type="hidden" class="evaluation"
-								name="evaluation" value="${sr.reviewEvaluation}">
-								<p class="star star1">☆</p>
-								<p class="star star2">☆</p>
-								<p class="star star3">☆</p>
-								<p class="star star4">☆</p>
-								<p class="star star5">☆</p></td>
+									<p></p>
+								</div>
+								<div class="second-card mb-3" style="max-width: 100%;">
+									<div class="orderlist-body">
+										<table>
+											<tr>
+												<td class="product-img"><a
+													href='detailProduct.do?productNo=${sr.productNo }'> <img
+														src="../files/products_images/${sr.imageName }"
+														width="120" height="90">
+												</a></td>
+												<td class="product-detail"><a
+													href='detailProduct.do?productNo=${sr.productNo }'>
+														<p class="card-text">
+															${sr.productName }, ${sr.detailQty }개<br> <strong>${sr.payPrice }원</strong>
+														</p>
+												</a></td>
+											</tr>
+										</table>
+									</div>
+									<div class="select-review-wrapper">
+										<table>
+											<tr>
+												<td></td>
+												<td><div class="review-img"><c:if test="${not empty sr.reviewImg}">
+														<img width=400px
+															src="../files/review_images/${sr.reviewImg}">
+													</c:if><div></td>
+											</tr>
+											<tr>
+												<td class="title">평점</td>
+												<td class="eval">
+												<input type="hidden"
+													class="evaluation" name="evaluation"
+													value="${sr.reviewEvaluation}">
+													<p class="star star1">☆</p>
+													<p class="star star2">☆</p>
+													<p class="star star3">☆</p>
+													<p class="star star4">☆</p>
+													<p class="star star5">☆</p></td>
 
-						</tr>
-						<tr>
-							<td class="title">제목</td>
-							<td>${sr.reviewTitle}</td>
-						</tr>
-						<tr>
-							<td class="review-content title">내용</td>
-							<td>${sr.reviewContent }</td>
+											</tr>
+											<tr>
+												<td class="title">제목</td>
+												<td>${sr.reviewTitle}</td>
+											</tr>
+											<tr>
+												<td class="review-content title">내용</td>
+												<td>${sr.reviewContent }</td>
 
-						</tr>
+											</tr>
 
-						<tr>
-							<td class="button"><div class="btn-wrap">
-									<input type="button" class="btn-edit" value="수정하기">
-								</div></td>
-							<td class="button"><div class="btn-wrap">
-									<form action="/mypage/deleteReview.do" onsubmit="return check()">
-										<input type="hidden" name="reviewNo" value="${sr.reviewNo}">
-										<input type="submit" class="btn-delete" value="삭제하기">
-									</form>
-								</div></td>
+											<tr>
+												<td class="button"><div class="btn-wrap">
+														<form action="/deleteReview.do" onsubmit="return check()">
+															<input type="hidden" name="reviewNo"
+																value="${sr.reviewNo}"> <input type="submit"
+																class="btn-delete" value="삭제하기">
+														</form>
+													</div></td>
+													<td></td>
 
-						</tr>
-					</table>
+											</tr>
+										</table>
 
 
-					</form>
-				</div>
-			</div>
-		</div>
-	</c:forEach>
+										</form>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
 					</div>
 					<!-- 실제 본문 영역 끝 -->
 				</div>
@@ -347,6 +376,15 @@ td {
 	var sidebar = document.querySelectorAll('.nav-item');
 	var eval=document.querySelectorAll(".evaluation");
 	var monthList = document.querySelectorAll(".month");
+
+	$(".profile-img").click(function() {
+		$(".file").click();
+	});
+
+	function changeValue() {
+		$(".img-form").submit();
+	}
+	
 	eval.forEach(function(e){
 		if(e.value==1){
 			$(e).closest(".eval").children(".star1").html("★");
@@ -375,10 +413,6 @@ td {
 		$(".all-month").addClass("clicked-month");
 	});
 	
-	$(".all-month").click(function(){
-		$(".first-cart").show();
-	});
-	
 	$(".one-month").click(function() {
 		var d = new Date();
 		var date = d.getDate();
@@ -387,7 +421,7 @@ td {
 		
 		$(".btn-month").removeClass("clicked-month");
 		$(".one-month").addClass("clicked-month");
-		
+		$(".first-card").show();
 		monthList.forEach(function(m) {
 		if(year==$(m).attr('year')||(year-1==$(m).attr('year')&&month-1==0)){
 		if(month-1==0){
@@ -423,7 +457,7 @@ td {
 		
 		$(".btn-month").removeClass("clicked-month");
 		$(".three-month").addClass("clicked-month");
-		
+		$(".first-card").show();
 		monthList.forEach(function(m) {
 		if(year==$(m).attr('year')||(year-1==$(m).attr('year')&&month-3==0)||(year-1==$(m).attr('year')&&month-3==-1)||(year-1==$(m).attr('year')&&month-3==-2)){
 		if(month-3==0){
@@ -480,7 +514,7 @@ td {
 		
 		$(".btn-month").removeClass("clicked-month");
 		$(".six-month").addClass("clicked-month");
-		
+		$(".first-card").show();
 		monthList.forEach(function(m) {
 		if(year==$(m).attr('year')||(year-1==$(m).attr('year')&&month-6==0)||(year-1==$(m).attr('year')&&month-6==-1)||
 				(year-1==$(m).attr('year')&&month-6==-2)||(year-1==$(m).attr('year')&&month-6==-3)||(year-1==$(m).attr('year')&&month-6==-4)||
@@ -573,11 +607,11 @@ function check(){
 		s.addEventListener('click', function(e) {
 
 			if (s.innerText == "주문/배송/리뷰") {
-				$(location).attr("href", "/mypage/home.do");
+				$(location).attr("href", "/home.do");
 			} else if (s.innerText == "장바구니") {
-				$(location).attr("href", "/mypage/cart.do");
+				$(location).attr("href", "/cart.do");
 			} else if (s.innerText == "찜한 상품") {
-				$(location).attr("href", "/mypage/zzim.do");
+				$(location).attr("href", "/zzim.do");
 			} else if (s.innerText == "내가 쓴 리뷰") {
 			}
 		});
@@ -588,5 +622,6 @@ function check(){
 	});
 
 	$(".select-review").click();
+	$(".all-month").click();
 </script>
 </html>

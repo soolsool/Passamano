@@ -149,13 +149,13 @@ display: inline-block;
 				<div class="orderlist-body">
 					<table>
 						<tr>
-							<td class="product-img"><a href='product.do?productNo=${w.productNo }'>
+							<td class="product-img"><a href='detailProduct.do?productNo=${w.productNo }'>
 
 									<img src="../files/products_images/${w.imageName }" width="120"
 									height="90">
 							</a></td>
 							<td class="product-detail"><a
-								href='product.do?productNo=${w.productNo }'>
+								href='detailProduct.do?productNo=${w.productNo }'>
 									<p class="card-text">
 										${w.productName }, ${w.detailQty }개<br> <strong>${w.payPrice }원</strong>
 									</p>
@@ -164,7 +164,7 @@ display: inline-block;
 					</table>
 				</div>
 				<div class="write-review-wrapper">
-					<form action="/mypage/writeReviewController.do" method="post" onsubmit="return check()"
+					<form action="/writeReviewController.do" method="post" onsubmit="return check()"
 						enctype="multipart/form-data">
 						<input type="hidden" name="ordersNo" value="${w.ordersNo}">
 					<table>
