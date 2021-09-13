@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>파사마노:::Passamano</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 <link rel="stylesheet" href="/resources/css/commonStyle.css">
 <style type="text/css">
@@ -26,6 +26,7 @@
 	.thumbnail{
 		position: relative;
 	}
+	
 	.thumbnail img{
 		overflow: hidden;
 		width: 15em;
@@ -79,16 +80,17 @@
 </head>
 <body>
 	<div class="row">
-		<div class="col-3">
+		<div class="col-2">
 		</div>
-		<div class="col-6">	
+		<div class="col-8">	
 			<%@ include file="./common/header.jsp" %>
 				</div>
-		<div class="col-3">
+		<div class="col-2">
 		</div>
 	</div>
 	<!-- 페이지 상단 고정 부분 -->
-	<hr class="bg-success mx-auto pt-1 w-50" id="mainColumn">
+   	<hr class="bg-success mx-auto pt-0.5 w-75" id="mainColumn">
+	
 	<!-- 상품 검색 탭 시작 -->
 	<div class="row">
 		<div class="col-2">
@@ -139,9 +141,13 @@
 		<div class="col-2">
 		</div>
 	</div>
+	
 	<!-- 상품 검색 탭 끝 -->
-	<hr class="bg-success mx-auto pt-1 w-50 id="mainColumn">
+	
+	<hr class="bg-success mx-auto pt-0.5 w-75" id="mainColumn">
+	
 	<!-- 페이지 본문 시작 -->
+	
 	<div class="row">
 		<div class="col-2">
 		</div>
@@ -190,12 +196,12 @@
 	<!-- 페이지 본문 종료 -->
 	<!-- 페이지 하단 고정 부분 -->
 	<div class="row">
-		<div class="col-3">
+		<div class="col-2">
 		</div>
-		<div class="col-6">
+		<div class="col-8">
 			<%@ include file="./common/footer.jsp" %>
 		</div>
-		<div class="col-3">
+		<div class="col-2">
 		</div>
 	</div>
 </body>

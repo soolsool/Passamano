@@ -12,12 +12,12 @@
 <body id="bootstrap-overrides">
 	<!--  헤더 메뉴 부분 시작 -->
 	<div class="row">
-		<div class="col-3">
+		<div class="col-2">
 		</div>
-		<div class="col-6">
+		<div class="col-8">
 			<%@ include file="../common/header.jsp" %>
 		</div>
-		<div class="col-3">
+		<div class="col-2">
 		</div>
 	</div>
 	<!--  헤더 메뉴 부분 끝 -->

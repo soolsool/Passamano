@@ -58,7 +58,7 @@
 		<div class="col-8">
 			<%@ include file="../common/header.jsp" %>
 		</div>
-		<div class="col-1">
+		<div class="col-2">
 		</div>
 	</div>
 	<!--  헤더 메뉴 부분 끝 -->
@@ -72,9 +72,9 @@
 				<div class="side-menu text-center">
 					<div class="profile-area my-1 py-2">
 						<!--  실제 판매자 프로필 이미지 들어가는 곳 -->
-						<img src="../files/images/ball1.jpg" width="200px" style="border-radius:50%" class="my-2">
+						<img src="../resources/images/userprofile/${loginUser.profileName}" width="200px" style="border-radius:50%" class="my-2">
 						<!--  판매자 이름 보여주기 -->
-						<p class="mb-2">축구공님</p>
+						<p class="mb-2">${loginUser.name}</p>
 							<a href="#" class="">
 								프로필 관리
 							</a>

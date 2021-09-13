@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>파사마노:::검색</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 <link rel="stylesheet" href="/resources/css/commonStyle.css">
 <style type="text/css">
@@ -75,12 +75,12 @@
 </head>
 <body>
 	<div class="row">
-		<div class="col-3">
+		<div class="col-2">
 		</div>
-		<div class="col-6">	
+		<div class="col-8">	
 			<%@ include file="./common/header.jsp" %>
 				</div>
-		<div class="col-3">
+		<div class="col-2">
 		</div>
 	</div>
 	<!-- 페이지 상단 고정 부분 -->
@@ -170,12 +170,12 @@
 	<!-- 검색 본문 종료 -->
 	<!-- 페이지 하단 고정 부분 -->
 	<div class="row">
-		<div class="col-3">
+		<div class="col-2">
 		</div>
-		<div class="col-6">
+		<div class="col-8">
 			<%@ include file="./common/footer.jsp" %>
 		</div>
-		<div class="col-3">
+		<div class="col-2">
 		</div>
 	</div>
 </body>

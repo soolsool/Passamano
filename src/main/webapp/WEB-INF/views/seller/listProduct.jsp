@@ -24,7 +24,7 @@
 		<div class="col-8">
 			<%@ include file="../common/header.jsp" %>
 		</div>
-		<div class="col-1">
+		<div class="col-2">
 		</div>
 	</div>
 	<!--  헤더 메뉴 부분 끝 -->
@@ -34,13 +34,15 @@
 		<div class="col-2">
 		</div>
 		<div class="col-8">
+		<div class="row">
+
 			<div class="col-2">
 				<div class="side-menu text-center">
 					<div class="profile-area my-1 py-2">
 						<!--  실제 판매자 프로필 이미지 들어가는 곳 -->
-						<img src="../files/images/ball1.jpg" width="200px" style="border-radius:50%" class="my-2">
+						<img src="../resources/images/userprofile/${loginUser.profileName}" width="200px" style="border-radius:50%" class="my-2">
 						<!--  판매자 이름 보여주기 -->
-						<p class="mb-2">${user.name}님</p>
+						<p class="mb-2">${loginUser.name}님</p>
 							<a href="#" class="">
 								프로필 관리
 							</a>
@@ -86,8 +88,19 @@
 			<div class="col-10">
 			<!-- 실제 본문 영역 시작 -->
 				<div class="productTable">
+					<div class="tableTitle mt-5">
+						<h4 class="fw-light">
+							내가 등록한 상품 목록
+						</h4>
+					</div>
+					<div class="text-end">
+						<button type="button" class="btn btn-outline-success" onclick="location.href='/seller/insertProduct.do?sellerNo=${sellerNo}'">
+							상품등록
+						</button>
+					</div>
+					<hr class="mx-auto pt-0.5">
 					<table class="table table-hover">
-						<tr>
+						<tr class="text-center">
 							<th>상품번호</th>
 							<th>상품명</th>
 							<th>상품가격</th>
@@ -98,41 +111,47 @@
 						</tr>
 						<c:forEach var="p" items="${list}">
 							<tr>
-								<td>${p.productNo }</td>
-								<td>
-									<c:choose>
-									<c:when test="${p.productState != 0 }">
-										<a>${p.productName }</a>
-									</c:when>
-									<c:otherwise>
-										<a href="/seller/updateProduct.do?productNo=${p.productNo }">${p.productName }</a>
-									</c:otherwise>
-								</c:choose>
+								<td class="text-center">
+									${p.productNo }
 								</td>
-								<td>
+								<td class="text-center">
+									<c:choose>
+										<c:when test="${p.productState != 0 }">
+											<a>${p.productName }</a>
+										</c:when>
+										<c:otherwise>
+											<a href="/seller/updateProduct.do?productNo=${p.productNo }">${p.productName }</a>
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td class="text-end">
 									<fmt:formatNumber value="${p.productPrice }" pattern="###,###,###"/>
 								</td>
-								<td>${p.imageName }</td>
-								<td>${p.productQty }</td>
-								<td>
+								<td class="text-center">
+									${p.imageName}
+								</td>
+								<td class="text-end">
+									${p.productQty}
+								</td>
+								<td class="text-center">
 									<fmt:formatDate value="${p.productDate }" pattern="yyyy-MM-dd"/>
 								</td>
-								<td>
-								<c:choose>
-									<c:when test="${p.productState != 0 }">
-										<span class="badge bg-danger">판매완료</span>
-									</c:when>
-									<c:otherwise>
-										<span class="badge bg-success">판매중</span>
-									</c:otherwise>
-								</c:choose>
+								<td class="text-center">
+									<c:choose>
+										<c:when test="${p.productState != 0 }">
+											<span class="badge bg-danger">판매완료</span>
+										</c:when>
+										<c:otherwise>
+											<span class="badge bg-success">판매중</span>
+										</c:otherwise>
+									</c:choose>
 								</td>
 							</tr>
 						</c:forEach>
 					</table>
 				</div>
 				<nav aria-label="Page navigation">
-					<ul class="pagination">
+					<ul class="pagination justify-content-center">
 						<c:forEach var="i" begin="1" end="${totalPage }">
 						    <li class="page-item">
 						    	<a class="page-link" href="/seller/listProduct.do?pageNUM=${i}">
@@ -142,14 +161,14 @@
 						</c:forEach>
 					</ul>
 				</nav>
-				<a href="/seller/insertProduct.do?sellerNo=${sellerNo }">상품등록</a>
+			</div>
 			<!-- 실제 본문 영역 끝 -->
 			</div>
 		</div>
 	</div>
 	<div class="col-2">
 	</div>
-	<!--  본문 시작 -->
+	<!--  본문 끝 -->
 
 	<!--  풋터 끝부분 시작 -->
 	<div class="row">

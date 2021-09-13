@@ -28,7 +28,7 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
 			if(grantNo==10 || grantNo==30) {
 				return super.preHandle(request, response, handler);
 			}else {
-				response.sendRedirect("/noauthority.do");
+				response.sendRedirect("/login.do");
 				return false;							
 			}
 		}

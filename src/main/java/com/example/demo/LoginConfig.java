@@ -12,18 +12,13 @@ public class LoginConfig implements WebMvcConfigurer{
 	public void addInterceptors(InterceptorRegistry registry) {
 		
 			registry.addInterceptor(new UserInterceptor())
-			.addPathPatterns("/mypage/*")
-			.excludePathPatterns("/seller/*, /admin/*, /member/findId.do, /member.findPwd.do")
-			.order(1);
+			.addPathPatterns("/mypage/*");
 
 			registry.addInterceptor(new SellerInterceptor())
-			.addPathPatterns("/seller/*")
-			.excludePathPatterns("/admin/*, /member/findId.do, /member.findPwd.do")
-			.order(2);
+			.addPathPatterns("/seller/*");
 
 			registry.addInterceptor(new AdminInterceptor())
-			.addPathPatterns("/mypage/*, /seller/*, /admin/*")
-			.order(3);
+			.addPathPatterns("/admin/*");
 			
 	}
 }

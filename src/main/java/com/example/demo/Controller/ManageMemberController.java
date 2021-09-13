@@ -66,8 +66,9 @@ public class ManageMemberController {
 				String referrer = (String)session.getAttribute("backpage");
 				if(referrer.equals("http://localhost:8080/login.do")) {
 					response.sendRedirect("/");
+				}else {
+					response.sendRedirect(referrer);					
 				}
-				response.sendRedirect(referrer);
 			}
 			
 		}else {

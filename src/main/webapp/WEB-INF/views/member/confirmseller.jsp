@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>파사마노:::회원가입</title>
+<title>파사마노:::판매자 회원가입</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 <link rel="stylesheet" href="../resources/css/commonStyle.css">
 <style type="text/css">
@@ -40,7 +40,7 @@
 		        	소비자는 직거래로 신선한 상품을, 생산자는 더 많은 수익을<br>
 		        	소비자와 생산자가 공생할 수 있는 파사마노에 가입하신 걸 환영합니다.
 		        </p>
-		        <button type="button" class="btn btn-success btn-lg mt-3" onclick="location.href='/'">상품 보러가기</button>
+		        <button type="button" class="btn btn-success btn-lg mt-3" onclick="location.href='/seller/listProduct.do'">상품 등록하러가기</button>
 		      </div>
 		    </div>
 		<!-- 실제 본문 영역 끝 -->
@@ -53,12 +53,12 @@
 	<!--  풋터 끝부분 시작 -->
 	<div class="row">
 	
-		<div class="col-3">
+		<div class="col-2">
 		</div>
-		<div class="col-6">
+		<div class="col-8">
 			<%@ include file="../common/footer.jsp" %>
 		</div>
-		<div class="col-3">
+		<div class="col-2">
 		</div>
 
 	</div>

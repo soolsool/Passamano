@@ -53,7 +53,7 @@
 		<div class="col-8">
 			<%@ include file="../common/header.jsp" %>
 		</div>
-		<div class="col-1">
+		<div class="col-2">
 		</div>
 	</div>
 	<!--  헤더 메뉴 부분 끝 -->
@@ -67,9 +67,9 @@
 				<div class="side-menu text-center">
 					<div class="profile-area my-1 py-2">
 						<!--  실제 판매자 프로필 이미지 들어가는 곳 -->
-						<img src="../files/images/ball1.jpg" width="200px" style="border-radius:50%" class="my-2">
+						<img src="../files/images/${loginUser.profileName}" width="200px" style="border-radius:50%" class="my-2">
 						<!--  판매자 이름 보여주기 -->
-						<p class="mb-2">축구공님</p>
+						<p class="mb-2">${loginUser.name}</p>
 							<a href="#" class="">
 								프로필 관리
 							</a>
@@ -82,7 +82,7 @@
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 						    	<li>
-						    		<a class="dropdown-item text-center" href="#">상품 등록</a>
+						    		<a class="dropdown-item text-center" href="">상품 등록</a>
 								</li>
 						    	<li>
 						    		<a class="dropdown-item text-center" href="#">상품 목록</a>
@@ -115,31 +115,30 @@
 			<div class="col-10">
 			<!-- 실제 본문 영역 시작 -->
 			<!-- 실제 본문 영역 끝 -->
+				<form action="/seller/insertProduct.do" method="post" enctype="multipart/form-data">
+					상품 : <input type="text" name="productName"><br>
+					가격 : <input type="text" name="productPrice"><br>
+					<span>1차분류</span>
+					<select class="category1">
+						<option selected value="">전체</option>
+					</select>
+					<span>2차분류</span>
+					<select class="category2" name="categoryNo">
+						<option selected value="">전체</option>
+					</select><br>
+					수량 : <input type="text" name="productQty"><br>
+					내용 <br>
+					<textarea rows="10" cols="80" name="productContent"></textarea><br>
+					첨부파일 : <input type="file" name="uploadFile"><br>
+					<input type="submit" value="등록">
+					<input type="reset" value="취소">
+				</form>
 			</div>
 		</div>
 		<div class="col-2">
 		</div>
 
 	</div>
-	<!--  본문 시작 -->
-		<form action="/seller/insertProduct.do" method="post" enctype="multipart/form-data">
-			상품 : <input type="text" name="productName"><br>
-			가격 : <input type="text" name="productPrice"><br>
-			<span>1차분류</span>
-			<select class="category1">
-				<option selected value="">전체</option>
-			</select>
-			<span>2차분류</span>
-			<select class="category2" name="categoryNo">
-				<option selected value="">전체</option>
-			</select><br>
-			수량 : <input type="text" name="productQty"><br>
-			내용 <br>
-			<textarea rows="10" cols="80" name="productContent"></textarea><br>
-			첨부파일 : <input type="file" name="uploadFile"><br>
-			<input type="submit" value="등록">
-			<input type="reset" value="취소">
-		</form>
 
 	<!--  풋터 끝부분 시작 -->
 	<div class="row">

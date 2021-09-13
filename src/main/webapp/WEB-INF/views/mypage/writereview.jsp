@@ -5,14 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>파사마노:::리뷰</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="../files/css/commonStyle.css">
+<link rel="stylesheet" href="../resources/css/commonStyle.css">
 <style type="text/css">
 .btn-wrap {
 	text-align: center;
@@ -134,7 +134,7 @@ display: inline-block;
 			<div class="col-8">
 				<%@ include file="../common/header.jsp"%>
 			</div>
-			<div class="col-1"></div>
+			<div class="col-2"></div>
 		</div>
 		<!--  헤더 메뉴 부분 끝 -->
 		<!--  본문 시작 -->
@@ -151,7 +151,7 @@ display: inline-block;
 						<tr>
 							<td class="product-img"><a href='product.do?productNo=${w.productNo }'>
 
-									<img src="../files/products_images/${w.imageName }" width="120"
+									<img src="../resources/images/userprofile/${w.imageName }" width="120"
 									height="90">
 							</a></td>
 							<td class="product-detail"><a

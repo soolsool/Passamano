@@ -7,14 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Insert title here</title>
+<title>파사마노:::찜</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="../files/css/commonStyle.css">
+<link rel="stylesheet" href="../resources/css/commonStyle.css">
 <style type="text/css">
 .profile-area {
 	background: #28a745;
@@ -139,7 +139,7 @@ input[type=checkbox] {
 		<div class="col-8" >
 			<%@ include file="../common/header.jsp"%>
 		</div>
-		<div class="col-1"></div>
+		<div class="col-2"></div>
 	</div>
 	<!--  헤더 메뉴 부분 끝 -->
 	<!--  본문 시작 -->
@@ -152,7 +152,7 @@ input[type=checkbox] {
 					<div class="profile-area my-3 py-2">
 						<!--  실제 회원 프로필 이미지 들어가는 곳 -->
 						<div class="thumb">
-								<img src="../files/images/${userInfo.profileFilename}"
+								<img src="../resources/images/userprofile/${userInfo.profileFilename}"
 									class="my-2">
 							</div>
 						<!--  회원 이름 보여주기 -->
@@ -201,7 +201,7 @@ input[type=checkbox] {
 					<tr class="cart-item">
 
 						<td><a href='product.do?productNo=${z.productNo }'>
-								<img src="../files/products_images/${z.imageName }" width="150"
+								<img src="../resources/images/productimage/${z.imageName }" width="150"
 								height="110">
 						</a></td>
 						<td class="product-detail"><a href='product.do?productNo=${z.productNo }'>
