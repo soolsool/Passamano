@@ -39,7 +39,7 @@ public class ReviewController {
 	public ModelAndView writeReviewComplete(ReviewVo r, HttpServletRequest request, HttpSession session) {
 		int userNo=(int) session.getAttribute("userNo");
 		ModelAndView mav = new ModelAndView("redirect:/mypage/selectreview.do");
-		String path = request.getRealPath("/files/review_images");
+		String path = request.getRealPath("/resources/images/reviewimage");
 		String reviewImg = null;
 		MultipartFile uploadFile = r.getUploadFile();
 		reviewImg = uploadFile.getOriginalFilename();

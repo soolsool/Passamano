@@ -5,7 +5,7 @@
 <mapper namespace="profile">
 	<update id="updateUser">
 		update users set
-		profile_filename=#{profileFileName}
+		profile_filename=#{profileFilename}
 		where
 		user_no=#{userNo}
 	</update>

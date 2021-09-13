@@ -28,7 +28,7 @@ public class ProfileController {
 	public ModelAndView updateProfileImg(UserVo u, HttpServletRequest request, HttpSession session) {
 		int userNo=(int) session.getAttribute("userNo");
 		ModelAndView mav = new ModelAndView("redirect:/mypage/home.do");
-		String path = request.getRealPath("/files/profile_images");
+		String path = request.getRealPath("/resources/images/userprofile");
 		String profileImg = null;
 		MultipartFile uploadFile = u.getUploadFile();
 		profileImg = uploadFile.getOriginalFilename();

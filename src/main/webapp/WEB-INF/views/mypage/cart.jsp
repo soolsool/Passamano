@@ -202,9 +202,9 @@ input[type=checkbox] {
 					<div class="profile-area my-3 py-2">
 						<!--  실제 회원 프로필 이미지 들어가는 곳 -->
 						<div class="thumb">
-							<img src="../resources/images/userprofile/${userInfo.profileFileName}"
+							<img src="../resources/images/userprofile/${userInfo.profileFilename}"
 								class="my-2 profile-img">
-							<form class="img-form" action="/updateProfileImg.do"
+							<form class="img-form" action="/mypage/updateProfileImg.do"
 								method="POST" enctype="multipart/form-data">
 								<input type="file" class="file" name="uploadFile"
 									onchange="changeValue(this)">
@@ -213,11 +213,9 @@ input[type=checkbox] {
 
 							<!--  회원 이름 보여주기 -->
 							<p class="mb-2">${userInfo.nickName}님</p>
-							<p class="mb-2">
-								<a href="/profile.do">
-									프로필 관리
+								<a href="/mypage/profile.do">
+									<p class="mb-2">프로필 관리</p>
 								</a>
-							</p>
 						</div>
 
 						<nav class="my-3">
@@ -258,12 +256,12 @@ input[type=checkbox] {
 									<table>
 										<tr class="cart-item">
 
-											<td><a href='detailProduct.do?productNo=${b.productNo }'>
-													<img src="../files/products_images/${b.imageName }"
+											<td><a href='/product.do?productNo=${b.productNo }'>
+													<img src="../resources/images/productimage/${b.imageName }"
 													width="150" height="110">
 											</a></td>
 											<td class="product-detail"><a
-												href='detailProduct.do?productNo=${b.productNo }'>
+												href='/product.do?productNo=${b.productNo }'>
 													<p class="card-text">
 														${b.productName }, ${b.basketQty }개<br>
 													</p>
@@ -443,7 +441,7 @@ input[type=checkbox] {
 
 			});
 			$("input[type=checkbox][class=checkbox]").prop("checked", false);
-			$.get("/deleteBasket.do", {
+			$.get("/mypage/deleteBasket.do", {
 				basket : checkedValue
 			}, function(data) {
 			}, "json")
@@ -469,7 +467,7 @@ input[type=checkbox] {
 										deliveryFee.push('3000');
 									}
 								});
-						$.get("/basketProcess.do", {
+						$.get("/mypage/basketProcess.do", {
 							basketProductNo : checkedValue,
 							deliveryFee : deliveryFee
 						}
@@ -477,7 +475,7 @@ input[type=checkbox] {
 						, function(data) {
 						}, "json")
 						setTimeout(function() {
-							$(location).attr("href", "/order.do");
+							$(location).attr("href", "/mypage/order.do");
 
 						}, 200);
 					}
@@ -490,12 +488,12 @@ input[type=checkbox] {
 		s.addEventListener('click', function(e) {
 
 			if (s.innerText == "주문/배송/리뷰") {
-				$(location).attr("href", "/home.do");
+				$(location).attr("href", "/mypage/home.do");
 			} else if (s.innerText == "장바구니") {
 			} else if (s.innerText == "찜한 상품") {
-				$(location).attr("href", "/zzim.do");
+				$(location).attr("href", "/mypage/zzim.do");
 			} else if (s.innerText == "내가 쓴 리뷰") {
-				$(location).attr("href", "/selectreview.do");
+				$(location).attr("href", "/mypage/selectreview.do");
 			}
 		});
 	}

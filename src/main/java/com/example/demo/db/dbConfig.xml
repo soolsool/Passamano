@@ -37,6 +37,8 @@
 			alias="ReviewVo" />
 		<typeAlias type="com.example.demo.vo.SelectReviewVo"
 			alias="SelectReviewVo" />
+			<typeAlias type="com.example.demo.vo.SelectUserDetailVo"
+			alias="SelectUserDetailVo" />
 		<typeAlias type="com.example.demo.vo.UserVo" alias="UserVo" />
 		<typeAlias type="com.example.demo.vo.ProductSalesVo"
 			alias="productsalesVo" />

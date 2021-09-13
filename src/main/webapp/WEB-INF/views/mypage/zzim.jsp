@@ -170,9 +170,9 @@ input[type=checkbox] {
 						<div class="profile-area my-3 py-2">
 							<!--  실제 회원 프로필 이미지 들어가는 곳 -->
 							<div class="thumb">
-								<img src="../resources/images/userprofile/${userInfo.profileFileName}"
+								<img src="../resources/images/userprofile/${userInfo.profileFilename}"
 									class="my-2 profile-img">
-								<form class="img-form" action="/updateProfileImg.do"
+								<form class="img-form" action="/mypage/updateProfileImg.do"
 									method="POST" enctype="multipart/form-data">
 									<input type="file" class="file" name="uploadFile"
 										onchange="changeValue(this)">
@@ -181,11 +181,9 @@ input[type=checkbox] {
 
 							<!--  회원 이름 보여주기 -->
 							<p class="mb-2">${userInfo.nickName}님</p>
-							<p class="mb-2">
-								<a href="/profile.do">
-									프로필 관리
+							<a href="/mypage/profile.do">
+									<p class="mb-2">프로필 관리</p>
 								</a>
-							</p>
 						</div>
 
 						<nav class="my-3">
@@ -227,13 +225,13 @@ input[type=checkbox] {
 									<table>
 										<tr class="cart-item">
 
-											<td><a href='detailProduct.do?productNo=${z.productNo }'>
-													<img src="../files/products_images/${z.imageName }"
+											<td><a href='/product.do?productNo=${z.productNo }'>
+													<img src="../resources/images/productimage/${z.imageName }"
 													width="150" height="110">
 											</a></td>
 											<td class="product-detail">
 												<p class="card-text">
-													<a href='detailProduct.do?productNo=${z.productNo }'>
+													<a href='/product.do?productNo=${z.productNo }'>
 														${z.productName }
 													</a>
 												</p>
@@ -292,13 +290,13 @@ input[type=checkbox] {
 		s.addEventListener('click', function(e) {
 
 			if (s.innerText == "주문/배송/리뷰") {
-				$(location).attr("href", "/home.do");
+				$(location).attr("href", "/mypage/home.do");
 			} else if (s.innerText == "장바구니") {
-				$(location).attr("href", "/cart.do");
+				$(location).attr("href", "/mypage/cart.do");
 			} else if (s.innerText == "찜한 상품") {
 
 			} else if (s.innerText == "내가 쓴 리뷰") {
-				$(location).attr("href", "/selectreview.do");
+				$(location).attr("href", "/mypage/selectreview.do");
 			}
 		});
 	}
@@ -328,7 +326,7 @@ input[type=checkbox] {
 							});
 					$("input[type=checkbox][name=zzim-checkbox]").prop(
 							"checked", false);
-					$.get("/deleteZzim.do", {
+					$.get("/mypage/deleteZzim.do", {
 						zzim : checkedValue
 					}, function(data) {
 					}, "json")
@@ -342,7 +340,7 @@ input[type=checkbox] {
 			$("input[name=zzim-checkbox]:checked").each(function(index, item) {
 				checkedValue.push($(item).attr('productNo'));
 			});
-			$.get("/zzimProcess.do", {
+			$.get("/mypage/zzimProcess.do", {
 				zzimProductNo : checkedValue,
 			}
 
@@ -352,7 +350,7 @@ input[type=checkbox] {
 			alert("상품이 장바구니에 담겼습니다.");
 		}
 
-		$(location).attr("href", "/cart.do");
+		$(location).attr("href", "/mypage/cart.do");
 
 	});
 

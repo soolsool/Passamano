@@ -177,9 +177,9 @@ button:active {
 						<div class="profile-area my-3 py-2">
 							<!--  실제 회원 프로필 이미지 들어가는 곳 -->
 							<div class="thumb">
-								<img src="../files/profile_images/${userInfo.profileFileName}"
+								<img src="../resources/images/userprofile/${userInfo.profileFilename}"
 									class="my-2 profile-img">
-								<form class="img-form" action="/updateProfileImg.do"
+								<form class="img-form" action="/mypage/updateProfileImg.do"
 									method="POST" enctype="multipart/form-data">
 									<input type="file" class="file" name="uploadFile"
 										onchange="changeValue(this)">
@@ -188,7 +188,7 @@ button:active {
 
 							<!--  회원 이름 보여주기 -->
 							<p class="mb-2">${userInfo.nickName}님</p>
-							<a href="/profile.do">
+							<a href="/mypage/profile.do">
 								<p class="mb-2">프로필 관리</p>
 							</a>
 						</div>
@@ -384,7 +384,7 @@ button:active {
 					$.ajax({
 
 						type : "POST",
-						url : "/updateAddress.do?address1=" + address1
+						url : "/mypage/updateAddress.do?address1=" + address1
 								+ "&address2=" + address2 + "&address3="
 								+ address3,
 						error : function() {
@@ -402,7 +402,7 @@ button:active {
 	$(".btn-nickname").click(function() {
 		var nickname = $(".user-nickname").val();
 		var origin_nickname = $(".user-nickname").attr('nickname');
-		var url_link = "/nicknameCheck.do?nickname=" + nickname;
+		var url_link = "/mypage/nicknameCheck.do?nickname=" + nickname;
 		if (nickname == "") {
 			alert("공백은 입력이 불가능합니다.");
 		} else {
@@ -444,7 +444,7 @@ button:active {
 					$.ajax({
 
 						type : "POST",
-						url : "/passwordCheck.do?password=" + password,
+						url : "/mypage/passwordCheck.do?password=" + password,
 						dataType : "text",
 						error : function() {
 							alert('error');
@@ -455,7 +455,7 @@ button:active {
 									$.ajax({
 
 										type : "POST",
-										url : "/updatePassword.do?newPassword="
+										url : "/mypage/updatePassword.do?newPassword="
 												+ newPassword,
 										error : function() {
 											alert('error');
@@ -491,13 +491,13 @@ button:active {
 		s.addEventListener('click', function(e) {
 
 			if (s.innerText == "주문/배송/리뷰") {
-				$(location).attr("href", "/home.do");
+				$(location).attr("href", "/mypage/home.do");
 			} else if (s.innerText == "장바구니") {
-				$(location).attr("href", "/cart.do");
+				$(location).attr("href", "/mypage/cart.do");
 			} else if (s.innerText == "찜한 상품") {
-				$(location).attr("href", "/zzim.do");
+				$(location).attr("href", "/mypage/zzim.do");
 			} else if (s.innerText == "내가 쓴 리뷰") {
-				$(location).attr("href", "/selectreview.do");
+				$(location).attr("href", "/mypage/selectreview.do");
 			}
 		});
 	}

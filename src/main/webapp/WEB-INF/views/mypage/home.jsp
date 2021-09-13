@@ -227,9 +227,9 @@ button:active, input[type=submit]:active,input[type=button]:active {
 						<div class="profile-area my-3 py-2">
 							<!--  실제 회원 프로필 이미지 들어가는 곳 -->
 							<div class="thumb">
-								<img src="../resources/images/userprofile/${userInfo.profileFileName}"
+								<img src="../resources/images/userprofile/${userInfo.profileFilename}"
 									class="my-2 profile-img">
-								<form class="img-form" action="/updateProfileImg.do"
+								<form class="img-form" action="/mypage/updateProfileImg.do"
 									method="POST" enctype="multipart/form-data">
 									<input type="file" class="file" name="uploadFile"
 										onchange="changeValue(this)">
@@ -238,9 +238,9 @@ button:active, input[type=submit]:active,input[type=button]:active {
 
 							<!--  회원 이름 보여주기 -->
 							<p class="mb-2">${userInfo.nickName}님</p>
-							<p class="mb-2">
-								<a href="/profile.do">프로필 관리</a>
-							</p>
+							<a href="/mypage/profile.do">
+									<p class="mb-2">프로필 관리</p>
+								</a>
 						</div>
 
 						<nav class="my-3">
@@ -284,14 +284,14 @@ button:active, input[type=submit]:active,input[type=button]:active {
 				<div class="orderlist-body">
 					<table>
 						<tr>
-							<td><a href='detailProduct.do?productNo=${o.productNo }'>
+							<td><a href='/product.do?productNo=${o.productNo }'>
 
 									<img src="../resources/images/productimage/${o.imageName }" width="150"
 									height="110">
 							</a></td>
 							<td class="product-detail">
 								<p class="card-text">
-									<a href='detailProduct.do?productNo=${o.productNo }'>
+									<a href='/product.do?productNo=${o.productNo }'>
 										${o.productName }, ${o.detailQty }개<br> <strong>${o.payPrice }원</strong>
 									</a>
 								</p>
@@ -406,13 +406,13 @@ button:active, input[type=submit]:active,input[type=button]:active {
 			if (result) {
 				var productNum = $(this).attr('name');
 				var orderManageReason = $(".cancel-textarea").val();
-				$.get("/updateOrder.do", {
+				$.get("/mypage/updateOrder.do", {
 					productNum : productNum,
 					orderManageReason : orderManageReason
 				}, function(data) {
 				}, "json")
 				setTimeout(function() {
-					$(location).attr("href", "/home.do");
+					$(location).attr("href", "/mypage/home.do");
 
 				}, 200);
 			}
@@ -651,11 +651,11 @@ button:active, input[type=submit]:active,input[type=button]:active {
 					fn_checkByte(textarea);
 				}
 			} else if (s.innerText == "장바구니") {
-				$(location).attr("href", "/cart.do");
+				$(location).attr("href", "/mypage/cart.do");
 			} else if (s.innerText == "찜한 상품") {
-				$(location).attr("href", "/zzim.do");
+				$(location).attr("href", "/mypage/zzim.do");
 			} else if (s.innerText == "내가 쓴 리뷰") {
-				$(location).attr("href", "/selectreview.do");
+				$(location).attr("href", "/mypage/selectreview.do");
 			}
 		});
 	}
