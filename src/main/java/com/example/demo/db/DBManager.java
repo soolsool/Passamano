@@ -258,6 +258,20 @@ public class DBManager {
 	}
 	
 	//MypageMapper
+	public static int getQty(int basketNo) {
+		SqlSession session = factory.openSession(true);
+		int re = session.selectOne("mypage.getQty", basketNo);
+		session.close();
+		return re;
+	}
+
+	public static int getProductPrice(int basketNo) {
+		SqlSession session = factory.openSession(true);
+		int re = session.selectOne("mypage.getProductPrice", basketNo);
+		session.close();
+		return re;
+	}
+	
 		public static List<SelectReviewVo> selectReview(int userNo) {
 			SqlSession session = factory.openSession(true);
 			List<SelectReviewVo> list = session.selectList("mypage.selectReview", userNo);
@@ -589,5 +603,7 @@ public class DBManager {
 			session.close();
 			return list;
 		}
+
+		
 	
 }

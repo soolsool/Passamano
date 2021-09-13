@@ -23,19 +23,24 @@ public class BasketController {
 	}
 	@RequestMapping("/mypage/basketProcess.do")
 	public void orderProcess(Model model, HttpServletRequest request, HttpSession session,
-			@RequestParam(value = "basketProductNo[]", required = false) List<Integer> productNo,
+			@RequestParam(value = "basketNo[]", required = false) List<Integer> basketNo,
 			@RequestParam(value = "deliveryFee[]", required = false) List<Integer> deliveryFeeItem) {
 
 		int userNo= (int)session.getAttribute("userNo");
 		ArrayList<HashMap> list = new ArrayList<HashMap>();
-		int num = productNo.size();
+		int num = basketNo.size();
 		for (int i = 0; i < num; i++) {
 
 			HashMap map = new HashMap();
-			map.put("productNo", (int) (productNo.get(i)));
-			map.put("deliveryFee", (int) (deliveryFeeItem.get(i)));
+			int basketQty=(int)dao.getQty(basketNo.get(i));
+			int productPrice=(int)dao.getProductPrice(basketNo.get(i));
+			int deliveryFee=(int) (deliveryFeeItem.get(i));
+			map.put("basketNo", (int) (basketNo.get(i)));
+			map.put("deliveryFee", deliveryFee);
+			map.put("basketQty", basketQty);
+			map.put("lastprice", productPrice*basketQty+deliveryFee);
 			list.add(map);
-			dao.deleteBasket(userNo, (int) (productNo.get(i)));
+			dao.deleteBasket(userNo, (int) (basketNo.get(i)));
 		}
 
 		session.setAttribute("product", list);

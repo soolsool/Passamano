@@ -37,6 +37,13 @@
 		delete product_basket where user_no=#{userNo} and
 		basket_no=#{basketNo}
 	</delete>
+	<select id="getQty" resultType="int">
+		select basket_qty from product_basket where basket_no=#{basketNo}
+	</select>
+	<select id="getProductPrice" resultType="int">
+		select p.product_price from products p, product_basket pb
+		where p.product_no=pb.product_no and pb.basket_no=#{basketNo}
+	</select>
 	<update id="updateOrder">
 		update order_manage set
 		order_state=1,order_manage_reason=#{orderManageReason} where

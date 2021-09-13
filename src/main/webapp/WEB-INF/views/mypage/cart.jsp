@@ -459,7 +459,7 @@ input[type=checkbox] {
 								function(index, item) {
 
 									checkedValue
-											.push($(item).attr('productNo'));
+											.push($(item).val());
 									if ($(item).closest('.first-card').attr(
 											'detailPrice') > 50000) {
 										deliveryFee.push('0');
@@ -468,7 +468,7 @@ input[type=checkbox] {
 									}
 								});
 						$.get("/mypage/basketProcess.do", {
-							basketProductNo : checkedValue,
+							basketNo : checkedValue,
 							deliveryFee : deliveryFee
 						}
 
