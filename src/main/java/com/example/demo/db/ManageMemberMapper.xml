@@ -95,14 +95,14 @@
 		from dual
 	</insert>
 	
-	<select id="isMember" resultType="userVo">
+	<select id="isMember" resultType="UserVo">
 		select * 
 				from users 
 				where id=#{id} 
 				and pwd=#{pwd}
 	</select>
 	
-	<select id="getMember" resultType="userVo">
+	<select id="getMember" resultType="UserVo">
 		select * 
 				from users 
 				where id=#{id}

@@ -16,10 +16,6 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="../resources/css/commonStyle.css">
 <style type="text/css">
-.profile-area {
-	background: #28a745;
-}
-
 .profile-area img {
 	width:100px;
 	height:100px;
@@ -34,22 +30,6 @@
 .content {
 	margin-top: 20px;
 	float: right;
-}
-
-.nav-item:hover {
-	background-color: lightgray;
-	color: white;
-	cursor: pointer;
-}
-
-.nav-item:active {
-	background-color: lightgray;
-	color: white;
-}
-
-.clicked {
-	background-color: lightgray;
-	color: white;
 }
 
 .first-card {
@@ -196,14 +176,6 @@ button:active, input[type=submit]:active,input[type=button]:active {
 .file {
 	display: none;
 }
-
-.profile-area p{
-	color:white;
-	font-weight: bold;
-}
-.profile-area a p{
-	font-size:12px;
-}
 </style>
 </head>
 <body>
@@ -227,7 +199,7 @@ button:active, input[type=submit]:active,input[type=button]:active {
 						<div class="profile-area my-3 py-2">
 							<!--  실제 회원 프로필 이미지 들어가는 곳 -->
 							<div class="thumb">
-								<img src="../resources/images/userprofile/${userInfo.profileFileName}"
+								<img src="../resources/images/userprofile/${userInfo.profileFilename}"
 									class="my-2 profile-img">
 								<form class="img-form" action="/updateProfileImg.do"
 									method="POST" enctype="multipart/form-data">
@@ -237,23 +209,34 @@ button:active, input[type=submit]:active,input[type=button]:active {
 							</div>
 
 							<!--  회원 이름 보여주기 -->
-							<p class="mb-2">${userInfo.nickName}님</p>
-							<p class="mb-2">
+							<p class="mb-2 fs-4 fw-bold">${userInfo.nickName}님</p>
+							<p class="mb-2 fs-5 fw-light">
 								<a href="/profile.do">프로필 관리</a>
 							</p>
 						</div>
 
 						<nav class="my-3">
-
 							<ul class="nav flex-column">
-								<li class="order-title nav-item my-2 clicked"><a
-									class="nav-link order-title-link" href="#">주문/배송/리뷰</a></li>
-								<li class="basket nav-item my-2"><a class="nav-link"
-									href="#">장바구니</a></li>
-								<li class="zzim nav-item my-2"><a class="nav-link" href="#">찜한
-										상품</a></li>
-								<li class="select-review nav-item my-2"><a class="nav-link"
-									href="#">내가 쓴 리뷰</a></li>
+								<li class="order-title nav-item my-2">
+									<a href="/mypage/home.do" class="nav-link order-title-link">
+										주문/배송/리뷰
+									</a>
+								</li>
+								<li class="basket nav-item my-2 clicked">
+									<a href="/mypage/cart.do" class="nav-link">
+										장바구니
+									</a>
+								</li>
+								<li class="zzim nav-item my-2">
+									<a href="/mypage/zzim.do" class="nav-link">
+										찜한 상품
+									</a>
+								</li>
+								<li class="select-review nav-item my-2">
+									<a href="/mypage/selectreview.do" class="nav-link">
+										내가 쓴 리뷰
+									</a>
+								</li>
 							</ul>
 						</nav>
 					</div>
@@ -639,30 +622,7 @@ button:active, input[type=submit]:active,input[type=button]:active {
 			document.getElementById("nowByte").style.color = "green";
 		}
 	}
-	
-	function sidebarClickEvent(s) {
-		s.addEventListener('click', function(e) {
 
-			if (s.innerText == "주문/배송/리뷰") {
-				if (reasonWrapper.classList.contains("click")) {
-					reasonWrapper.classList.remove('click');
-					$(".cancel-reason-wrapper").hide();
-					$(".cancel-textarea").val("");
-					fn_checkByte(textarea);
-				}
-			} else if (s.innerText == "장바구니") {
-				$(location).attr("href", "/cart.do");
-			} else if (s.innerText == "찜한 상품") {
-				$(location).attr("href", "/zzim.do");
-			} else if (s.innerText == "내가 쓴 리뷰") {
-				$(location).attr("href", "/selectreview.do");
-			}
-		});
-	}
-
-	sidebar.forEach(function(s) {
-		sidebarClickEvent(s);
-	});
 
 	$(".order-title").click();
 	$(".all-month").click();

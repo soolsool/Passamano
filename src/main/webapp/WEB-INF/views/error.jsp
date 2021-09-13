@@ -88,7 +88,6 @@
 		</div>
 	</div>
 	<!-- 페이지 상단 고정 부분 -->
-	<hr class="bg-success mx-auto pt-1 w-50" id="mainColumn">
 	
 	<!-- 페이지 본문 시작 -->
 	<div class="row">

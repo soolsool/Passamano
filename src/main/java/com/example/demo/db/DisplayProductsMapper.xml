@@ -126,4 +126,11 @@
 		from products
 		where product_name like '%' ||  #{keyword} || '%'
 	</select>
+	
+	<select id="getSameZzim" resultType="int">
+		select count(zzim_no) 
+		from product_zzim 
+		where user_no=#{userNo} and product_no=#{productNo}
+	</select>
+	
 </mapper>

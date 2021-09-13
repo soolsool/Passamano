@@ -184,20 +184,22 @@ public class ManageMemberController {
 	
 	//판매자 정보 입력 페이지에서 폼을 작성하면 기본회원정보 입력양식으로 이동한다.
 	 @RequestMapping(value="/member/sellerinfo.do", method = RequestMethod.POST)
-	 public void joinSellerForm(UserSellerVo seller, String sellerId1, String sellerId2, String sellerId3, HttpServletRequest request, HttpSession session) {
-		 ModelAndView mav = new ModelAndView();
-		 String sellerId = sellerId1 + "-" + sellerId2 + "-" + sellerId3;
+	 public void joinSellerForm(UserSellerVo seller, String sellerId1, String sellerId2, String sellerId3, String sido1, String gugun1, HttpServletRequest request, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String sellerId = sellerId1 + "-" + sellerId2 + "-" + sellerId3;
+		String sellerAddress = sido1 + " " + gugun1;
 		
-		 seller.setSellerNo(dao.getNextSellerNo()+1);
-		 seller.setUserNo(dao.getNextUserNo()+1);
-		 seller.setSellerId(sellerId);
+		seller.setSellerNo(dao.getNextSellerNo()+1);
+		seller.setUserNo(dao.getNextUserNo()+1);
+		seller.setSellerId(sellerId);
+		seller.setSellerAddress(sellerAddress);
+		
+		String sellerFile = null;
+		String path = request.getRealPath("/resources/images/sellerfile");
+		MultipartFile uploadFile = seller.getUploadFile();
+		sellerFile = uploadFile.getOriginalFilename();
 		 
-		 String sellerFile = null;
-		 String path = request.getRealPath("/resources/images/sellerfile");
-		 MultipartFile uploadFile = seller.getUploadFile();
-		 sellerFile = uploadFile.getOriginalFilename();
-		 
-		 if(sellerFile != null && !sellerFile.equals("")) {
+		if(sellerFile != null && !sellerFile.equals("")) {
 			 byte[] data;
 			try {
 				data = uploadFile.getBytes();
@@ -209,8 +211,8 @@ public class ManageMemberController {
 				System.out.printf("예외발생: %s\n", e.getMessage());
 			}
 		 }
+		 
 		 session.setAttribute("seller", seller);
-		 System.out.println("여기까지 왔나");
 		 mav.setViewName("redirect:/member/sellerjoin.do");
 	 }
 	 

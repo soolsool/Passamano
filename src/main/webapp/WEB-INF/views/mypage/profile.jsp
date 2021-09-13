@@ -16,10 +16,6 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="../files/css/commonStyle.css">
 <style type="text/css">
-.profile-area {
-	background: #28a745;
-}
-
 .profile-area img {
 	width: 100px;
 	height: 100px;
@@ -36,13 +32,13 @@
 	float: right;
 }
 
-.nav-item:hover {
+.nav-item a:hover {
 	background-color: lightgray;
 	color: white;
 	cursor: pointer;
 }
 
-.nav-item:active {
+.nav-item a:active {
 	background-color: lightgray;
 	color: white;
 }
@@ -177,7 +173,7 @@ button:active {
 						<div class="profile-area my-3 py-2">
 							<!--  실제 회원 프로필 이미지 들어가는 곳 -->
 							<div class="thumb">
-								<img src="../files/profile_images/${userInfo.profileFileName}"
+								<img src="../files/profile_images/${userInfo.profileFilename}"
 									class="my-2 profile-img">
 								<form class="img-form" action="/updateProfileImg.do"
 									method="POST" enctype="multipart/form-data">
@@ -187,24 +183,34 @@ button:active {
 							</div>
 
 							<!--  회원 이름 보여주기 -->
-							<p class="mb-2">${userInfo.nickName}님</p>
-							<a href="/profile.do">
+							<p class="mb-2 fs-4 fw-bold">${userInfo.nickName}님</p>
+							<p class="mb-2 fs-5 fw-light">
 								<p class="mb-2">프로필 관리</p>
 							</a>
 						</div>
 
 						<nav class="my-3">
-
 							<ul class="nav flex-column">
-								<li class="order-title nav-item my-2"><a
-									class="nav-link order-title-link" href="#">주문/배송/리뷰</a></li>
-								<li class="basket nav-item my-2"><a class="nav-link"
-									href="#">장바구니</a></li>
-								<li class="zzim nav-item my-2"><a class="nav-link" href="#">찜한
-										상품</a></li>
-								<li class="select-review nav-item my-2"><a class="nav-link"
-									href="#">내가 쓴 리뷰</a></li>
-
+								<li class="order-title nav-item my-2">
+									<a href="/mypage/home.do" class="nav-link order-title-link">
+										주문/배송/리뷰
+									</a>
+								</li>
+								<li class="basket nav-item my-2 clicked">
+									<a href="/mypage/cart.do" class="nav-link">
+										장바구니
+									</a>
+								</li>
+								<li class="zzim nav-item my-2">
+									<a href="/mypage/zzim.do" class="nav-link">
+										찜한 상품
+									</a>
+								</li>
+								<li class="select-review nav-item my-2">
+									<a href="/mypage/selectreview.do" class="nav-link">
+										내가 쓴 리뷰
+									</a>
+								</li>
 							</ul>
 						</nav>
 					</div>
@@ -487,24 +493,6 @@ button:active {
 				}
 			});
 
-	function sidebarClickEvent(s) {
-		s.addEventListener('click', function(e) {
-
-			if (s.innerText == "주문/배송/리뷰") {
-				$(location).attr("href", "/home.do");
-			} else if (s.innerText == "장바구니") {
-				$(location).attr("href", "/cart.do");
-			} else if (s.innerText == "찜한 상품") {
-				$(location).attr("href", "/zzim.do");
-			} else if (s.innerText == "내가 쓴 리뷰") {
-				$(location).attr("href", "/selectreview.do");
-			}
-		});
-	}
-
-	sidebar.forEach(function(s) {
-		sidebarClickEvent(s);
-	});
 </script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

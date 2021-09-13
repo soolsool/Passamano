@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>파사마노:::장바구니</title>
+<title>파사마노-PASSAMANO</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
@@ -16,10 +16,6 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="../resources/css/commonStyle.css">
 <style type="text/css">
-.profile-area {
-	background: #28a745;
-}
-
 .profile-area img {
 	width: 100px;
 	height: 100px;
@@ -179,6 +175,25 @@ input[type=checkbox] {
 .profile-area a p{
 	font-size:12px;
 }
+.nav-item>a::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
+}
+.nav-item>a::after {
+  width: 0;
+  height: 1vw;
+  background: #28a745;
+  left: 50%;
+}
+.nav-item>a:hover::after {
+  width: 100%;
+  left: 0;
+  transition: all .3s;
+}
+
 </style>
 </head>
 <body>
@@ -202,36 +217,43 @@ input[type=checkbox] {
 					<div class="profile-area my-3 py-2">
 						<!--  실제 회원 프로필 이미지 들어가는 곳 -->
 						<div class="thumb">
-							<img src="../resources/images/userprofile/${userInfo.profileFileName}"
-								class="my-2 profile-img">
-							<form class="img-form" action="/updateProfileImg.do"
-								method="POST" enctype="multipart/form-data">
-								<input type="file" class="file" name="uploadFile"
-									onchange="changeValue(this)">
+							<img src="../resources/images/userprofile/${userInfo.profileFilename}" class="my-2 profile-img">
+							<form class="img-form" action="/mypage/updateProfileImg.do" method="POST" enctype="multipart/form-data">
+								<input type="file" class="file" name="uploadFile" onchange="changeValue(this)">
 							</form>
-							</div>
-
-							<!--  회원 이름 보여주기 -->
-							<p class="mb-2">${userInfo.nickName}님</p>
-							<p class="mb-2">
-								<a href="/profile.do">
-									프로필 관리
-								</a>
-							</p>
 						</div>
 
+						<!--  회원 이름 보여주기 -->
+						<p class="mb-2 fs-4 fw-bold">${userInfo.nickName}님</p>
+						<p class="mb-2 fs-5 fw-light">
+							<a href="/mypage/profile.do">
+								프로필 관리
+							</a>
+						</p>
+					</div>
+
 						<nav class="my-3">
-
 							<ul class="nav flex-column">
-								<li class="order-title nav-item my-2"><a
-									class="nav-link order-title-link" href="#">주문/배송/리뷰</a></li>
-								<li class="basket nav-item my-2 clicked"><a
-									class="nav-link" href="#">장바구니</a></li>
-								<li class="zzim nav-item my-2"><a class="nav-link" href="#">찜한
-										상품</a></li>
-								<li class="select-review nav-item my-2"><a class="nav-link"
-									href="#">내가 쓴 리뷰</a></li>
-
+								<li class="order-title nav-item my-2">
+									<a href="/mypage/home.do" class="nav-link order-title-link">
+										주문/배송/리뷰
+									</a>
+								</li>
+								<li class="basket nav-item my-2 clicked">
+									<a href="/mypage/cart.do" class="nav-link">
+										장바구니
+									</a>
+								</li>
+								<li class="zzim nav-item my-2">
+									<a href="/mypage/zzim.do" class="nav-link">
+										찜한 상품
+									</a>
+								</li>
+								<li class="select-review nav-item my-2">
+									<a href="/mypage/selectreview.do" class="nav-link">
+										내가 쓴 리뷰
+									</a>
+								</li>
 							</ul>
 						</nav>
 					</div>
@@ -258,16 +280,17 @@ input[type=checkbox] {
 									<table>
 										<tr class="cart-item">
 
-											<td><a href='detailProduct.do?productNo=${b.productNo }'>
-													<img src="../files/products_images/${b.imageName }"
+											<td><a href='product.do?productNo=${b.productNo }'>
+													<img src="../resources/images/productimage/${b.imageName }"
 													width="150" height="110">
 											</a></td>
-											<td class="product-detail"><a
-												href='detailProduct.do?productNo=${b.productNo }'>
-													<p class="card-text">
+											<td class="product-detail">
+												<p class="card-text">
+													<a href='product.do?productNo=${b.productNo }'>
 														${b.productName }, ${b.basketQty }개<br>
-													</p>
-											</a></td>
+													</a>
+												</p>
+											</td>
 											<td class="product-price"><strong>${b.detailPrice}원</strong></td>
 											<c:if test='${b.detailPrice>=50000}'>
 												<td class="delivery-price"><span>0</span>원
@@ -328,182 +351,153 @@ input[type=checkbox] {
 	integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
-	var sidebar = document.querySelectorAll('.nav-item');
-	var checkedValue = [];
-	var totalprice = 0;
-	var totaldeliveryfee = 0;
-	var lastprice = 0;
+var sidebar = document.querySelectorAll('.nav-item');
+var checkedValue = [];
+var totalprice = 0;
+var totaldeliveryfee = 0;
+var lastprice = 0;
 
-	$(".profile-img").click(function() {
-		$(".file").click();
-	});
+$(".profile-img").click(function() {
+	$(".file").click();
+});
 
-	function changeValue() {
-		$(".img-form").submit();
-	}
+function changeValue() {
+	$(".img-form").submit();
+}
 
-	$(".checkbox")
-			.click(
-					function() {
-						if ($(this).hasClass('all-check')
-								&& $(".all-check").is(':checked')) {
-							$("input[type=checkbox][name=checkbox]").prop(
-									"checked", true);
-						} else if ($(this).hasClass('all-check')
-								&& $(".all-check").is(':not(:checked)')) {
-							$("input[type=checkbox][name=checkbox]").prop(
-									"checked", false);
+$(".checkbox").click(
+				function() {
+					if ($(this).hasClass('all-check')
+							&& $(".all-check").is(':checked')) {
+						$("input[type=checkbox][name=checkbox]").prop(
+								"checked", true);
+					} else if ($(this).hasClass('all-check')
+							&& $(".all-check").is(':not(:checked)')) {
+						$("input[type=checkbox][name=checkbox]").prop(
+								"checked", false);
+					}
+					checkedValue = [];
+					totalprice = 0;
+					totaldeliveryfee = 0;
+					lastprice = 0;
+					$("input[name=checkbox]:checked")
+							.each(
+									function(index, item) {
+
+										checkedValue.push($(item).val());
+										totalprice += Number($(item)
+												.closest('.first-card')
+												.attr('detailPrice'));
+										lastprice += Number($(item)
+												.closest('.first-card')
+												.attr('detailPrice'));
+
+										if ($(item).closest('.first-card')
+												.attr('detailPrice') > 50000) {
+											totaldeliveryfee += 0;
+											lastprice += 0;
+										} else {
+											totaldeliveryfee += 3000;
+											lastprice += 3000;
+										}
+
+									});
+					var comma = (totalprice.toString().length) / 4;
+					var comma2 = (totaldeliveryfee.toString().length) / 4;
+					var comma3 = (lastprice.toString().length) / 4;
+					if (comma >= 1) {
+						for (var i = 1; i <= comma; i++) {
+							totalprice = [
+									(totalprice.toString()).slice(0,
+											totalprice.toString().length
+													- i * 3),
+									(totalprice.toString()).slice(
+											totalprice.toString().length
+													- i * 3, totalprice
+													.toString().length) ]
+									.join(',');
 						}
-						checkedValue = [];
-						totalprice = 0;
-						totaldeliveryfee = 0;
-						lastprice = 0;
-						$("input[name=checkbox]:checked")
-								.each(
-										function(index, item) {
-
-											checkedValue.push($(item).val());
-											totalprice += Number($(item)
-													.closest('.first-card')
-													.attr('detailPrice'));
-											lastprice += Number($(item)
-													.closest('.first-card')
-													.attr('detailPrice'));
-
-											if ($(item).closest('.first-card')
-													.attr('detailPrice') > 50000) {
-												totaldeliveryfee += 0;
-												lastprice += 0;
-											} else {
-												totaldeliveryfee += 3000;
-												lastprice += 3000;
-											}
-
-										});
-						var comma = (totalprice.toString().length) / 4;
-						var comma2 = (totaldeliveryfee.toString().length) / 4;
-						var comma3 = (lastprice.toString().length) / 4;
-						if (comma >= 1) {
-							for (var i = 1; i <= comma; i++) {
-								totalprice = [
-										(totalprice.toString()).slice(0,
-												totalprice.toString().length
-														- i * 3),
-										(totalprice.toString()).slice(
-												totalprice.toString().length
-														- i * 3, totalprice
-														.toString().length) ]
-										.join(',');
-							}
+					}
+					if (comma2 >= 1) {
+						for (var i = 1; i <= comma2; i++) {
+							totaldeliveryfee = [
+									(totaldeliveryfee.toString())
+											.slice(0, totaldeliveryfee
+													.toString().length
+													- i * 3),
+									(totaldeliveryfee.toString())
+											.slice(
+													totaldeliveryfee
+															.toString().length
+															- i * 3,
+													totaldeliveryfee
+															.toString().length) ]
+									.join(',');
 						}
-						if (comma2 >= 1) {
-							for (var i = 1; i <= comma2; i++) {
-								totaldeliveryfee = [
-										(totaldeliveryfee.toString())
-												.slice(0, totaldeliveryfee
-														.toString().length
-														- i * 3),
-										(totaldeliveryfee.toString())
-												.slice(
-														totaldeliveryfee
-																.toString().length
-																- i * 3,
-														totaldeliveryfee
-																.toString().length) ]
-										.join(',');
-							}
+					}
+					if (comma3 >= 1) {
+						for (var i = 1; i <= comma3; i++) {
+							lastprice = [
+									(lastprice.toString()).slice(0,
+											lastprice.toString().length - i
+													* 3),
+									(lastprice.toString()).slice(lastprice
+											.toString().length
+											- i * 3,
+											lastprice.toString().length) ]
+									.join(',');
 						}
-						if (comma3 >= 1) {
-							for (var i = 1; i <= comma3; i++) {
-								lastprice = [
-										(lastprice.toString()).slice(0,
-												lastprice.toString().length - i
-														* 3),
-										(lastprice.toString()).slice(lastprice
-												.toString().length
-												- i * 3,
-												lastprice.toString().length) ]
-										.join(',');
-							}
-						}
-						$(".total-price").html(totalprice);
-						$(".total-delivery-fee").html(totaldeliveryfee);
-						$(".last-price").html(lastprice);
+					}
+					$(".total-price").html(totalprice);
+					$(".total-delivery-fee").html(totaldeliveryfee);
+					$(".last-price").html(lastprice);
 
-					});
+				});
 
 	$(".cancel-btn").click(function() {
 		var checkedValue = [];
 		var result = confirm("선택한 상품을 삭제하시겠습니까?");
 		if (result) {
 			$("input[name=checkbox]:checked").each(function(index, item) {
-
+	
 				checkedValue.push($(item).val());
 				$(item).closest('.first-card').hide();
-
+	
 			});
 			$("input[type=checkbox][class=checkbox]").prop("checked", false);
-			$.get("/deleteBasket.do", {
+			$.get("/mypage/deleteBasket.do", {
 				basket : checkedValue
 			}, function(data) {
 			}, "json")
 		}
-
+	
 	});
-	$(".order-btn").click(
-			function() {
-				var checkedValue = [];
-				var deliveryFee = [];
-				if ($("input[name=checkbox]:checked").length) {
-					var result = confirm("선택한 상품을 주문하시겠습니까?");
-					if (result) {
-						$("input[name=checkbox]:checked").each(
-								function(index, item) {
-
-									checkedValue
-											.push($(item).attr('productNo'));
-									if ($(item).closest('.first-card').attr(
-											'detailPrice') > 50000) {
-										deliveryFee.push('0');
-									} else {
-										deliveryFee.push('3000');
-									}
-								});
-						$.get("/basketProcess.do", {
-							basketProductNo : checkedValue,
-							deliveryFee : deliveryFee
-						}
-
-						, function(data) {
-						}, "json")
-						setTimeout(function() {
-							$(location).attr("href", "/order.do");
-
-						}, 200);
+	
+	$(".order-btn").click(function() {
+		var checkedValue = [];
+		var deliveryFee = [];
+		if ($("input[name=checkbox]:checked").length) {
+			var result = confirm("선택한 상품을 주문하시겠습니까?");
+			if (result) {
+				$("input[name=checkbox]:checked").each(function(index, item) {
+					checkedValue.push($(item).attr('productNo'));
+					if ($(item).closest('.first-card').attr(
+							'detailPrice') > 50000) {
+						deliveryFee.push('0');
+					} else {
+						deliveryFee.push('3000');
 					}
-				} else {
-					alert("선택된 상품이 없습니다.");
-				}
-			});
-
-	function sidebarClickEvent(s) {
-		s.addEventListener('click', function(e) {
-
-			if (s.innerText == "주문/배송/리뷰") {
-				$(location).attr("href", "/home.do");
-			} else if (s.innerText == "장바구니") {
-			} else if (s.innerText == "찜한 상품") {
-				$(location).attr("href", "/zzim.do");
-			} else if (s.innerText == "내가 쓴 리뷰") {
-				$(location).attr("href", "/selectreview.do");
+				});
+				$.get("/mypage/basketProcess.do", {
+					basketProductNo : checkedValue,
+					deliveryFee : deliveryFee
+				}, function(data) {
+				}, "json")
+				$(location).attr("href", "/mypage/order.do");
 			}
-		});
-	}
-
-	sidebar.forEach(function(s) {
-		sidebarClickEvent(s);
+		} else {
+			alert("선택된 상품이 없습니다.");
+		}
 	});
-
-	$(".basket").click();
 </script>
 </html>

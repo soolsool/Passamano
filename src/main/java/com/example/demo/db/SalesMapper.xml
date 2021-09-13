@@ -28,4 +28,8 @@
 	and to_date(#{toDate}, 'YYYY-mm-DD') group by order_manage_date, category_name
   </select>
   
+  <select id="getBasketNo" resultType="int">
+  	select max(basket_no)
+  	from product_basket
+  </select>
 </mapper>

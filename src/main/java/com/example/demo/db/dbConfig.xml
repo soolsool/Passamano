@@ -8,42 +8,26 @@
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
 	<typeAliases>
-		<typeAlias type="com.example.demo.vo.UserVo" alias="userVo" />
-		<typeAlias type="com.example.demo.vo.UserAddressVo"
-			alias="userAddressVo" />
-		<typeAlias type="com.example.demo.vo.UserSellerVo"
-			alias="sellerVo" />
-		<typeAlias type="com.example.demo.vo.ProductsVo"
-			alias="productVo" />
-		<typeAlias type="com.example.demo.vo.ProductCategoryVo"
-			alias="categoryVo" />
-		<typeAlias type="com.example.demo.vo.ProductImgVo"
-			alias="imageVo" />
-		<typeAlias type="com.example.demo.vo.ProductZzimVo"
-			alias="zzimVo" />
-		<typeAlias type="com.example.demo.vo.ProductListVo"
-			alias="listVo" />
-		<typeAlias type="com.example.demo.vo.GetReviewVo"
-			alias="getReviewVo" />
-		<typeAlias type="com.example.demo.vo.SelectOrdersVo"
-			alias="SelectOrdersVo" />
-		<typeAlias type="com.example.demo.vo.SelectBasketVo"
-			alias="SelectBasketVo" />
-		<typeAlias type="com.example.demo.vo.SelectZzimVo"
-			alias="SelectZzimVo" />
-		<typeAlias type="com.example.demo.vo.BasketVo"
-			alias="BasketVo" />
-		<typeAlias type="com.example.demo.vo.ReviewVo"
-			alias="ReviewVo" />
-		<typeAlias type="com.example.demo.vo.SelectReviewVo"
-			alias="SelectReviewVo" />
 		<typeAlias type="com.example.demo.vo.UserVo" alias="UserVo" />
-		<typeAlias type="com.example.demo.vo.ProductSalesVo"
-			alias="productsalesVo" />
-		<typeAlias type="com.example.demo.vo.ProductSelectVo"
-			alias="productselectVo" />
-		<typeAlias type="com.example.demo.vo.SellerVo"
-			alias="sellersVo" />
+		<typeAlias type="com.example.demo.vo.UserAddressVo" alias="userAddressVo" />
+		<typeAlias type="com.example.demo.vo.UserSellerVo" alias="sellerVo" />
+		<typeAlias type="com.example.demo.vo.ProductsVo" alias="productVo" />
+		<typeAlias type="com.example.demo.vo.ProductCategoryVo" alias="categoryVo" />
+		<typeAlias type="com.example.demo.vo.ProductImgVo" alias="imageVo" />
+		<typeAlias type="com.example.demo.vo.ProductZzimVo" alias="zzimVo" />
+		<typeAlias type="com.example.demo.vo.ProductListVo" alias="listVo" />
+		<typeAlias type="com.example.demo.vo.GetReviewVo" alias="getReviewVo" />
+		<typeAlias type="com.example.demo.vo.SelectOrdersVo" alias="SelectOrdersVo" />
+		<typeAlias type="com.example.demo.vo.SelectBasketVo" alias="SelectBasketVo" />
+		<typeAlias type="com.example.demo.vo.SelectZzimVo" alias="SelectZzimVo" />
+		<typeAlias type="com.example.demo.vo.BasketVo" alias="BasketVo" />
+		<typeAlias type="com.example.demo.vo.ReviewVo" alias="ReviewVo" />
+		<typeAlias type="com.example.demo.vo.SelectReviewVo" alias="SelectReviewVo" />
+		<typeAlias type="com.example.demo.vo.SelectUserDetailVo" alias="SelectUserDetailVo" />
+		<typeAlias type="com.example.demo.vo.UserVo" alias="UserVo" />
+		<typeAlias type="com.example.demo.vo.ProductSalesVo" alias="productsalesVo" />
+		<typeAlias type="com.example.demo.vo.ProductSelectVo" alias="productselectVo" />
+		<typeAlias type="com.example.demo.vo.SellerVo" alias="sellersVo" />
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">

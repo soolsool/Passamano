@@ -16,11 +16,11 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("User Interceptor 동작");
 		HttpSession session = request.getSession();
 		UserVo user = (UserVo)session.getAttribute("loginUser");
 		
 		if(user==null) {
+			System.out.println("User Interceptor 동작");
 			response.sendRedirect("/login.do");
 			return false;			
 		}else {

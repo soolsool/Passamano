@@ -61,4 +61,8 @@ public class DisplayProductDao {
 	public int getSearchCount(String keyword) {
 		return DBManager.getSearchCount(keyword);
 	}
+
+	public int getSameZzim(int userNo, int productNo) {
+		return DBManager.getSameZzim(userNo, productNo);
+	}
 }

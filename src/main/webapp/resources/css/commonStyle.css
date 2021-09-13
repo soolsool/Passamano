@@ -17,7 +17,6 @@ a,
 .nav-link, .nav-link:focus, .nav-link:hover,
 #dropdownMenuLink > nav .open .dropdown #dropdownMenuLink{
 	color: black;
-	
 }
 
 #upper-menu a, #footer-menu a{
@@ -27,4 +26,8 @@ a,
 ul{
 	list-style: none;
 }
+body{
+	overflow-y: scroll;
+}
+
 

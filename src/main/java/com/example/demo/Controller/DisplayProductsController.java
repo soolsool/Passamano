@@ -1,5 +1,7 @@
 package com.example.demo.Controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
@@ -53,13 +55,21 @@ public class DisplayProductsController {
 	
 	@RequestMapping("/zzim.do")
 	@ResponseBody
-	public int addZzim(int productNo, int userNo) {
-		ProductZzimVo zzim = new ProductZzimVo();
-		zzim.setZzimNo(dao.getZzimCount()+1);
-		zzim.setProductNo(productNo);
-		zzim.setUserNo(userNo);
-		int result = dao.addZzim(zzim);
-		return result;
+	public int addZzim(HttpSession session, int productNo) {
+		int userNo = (int)session.getAttribute("userNo");
+		
+		if(dao.getSameZzim(userNo, productNo)==0) {
+			ProductZzimVo zzim = new ProductZzimVo();
+			zzim.setZzimNo(dao.getZzimCount()+1);
+			zzim.setProductNo(productNo);
+			zzim.setUserNo(userNo);
+			int result = dao.addZzim(zzim);
+			return result;
+		}else {
+			int result = 2;
+			return result;
+		}
+		
 	}
 	
 	@RequestMapping("/search.do")

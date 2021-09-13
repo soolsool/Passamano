@@ -68,8 +68,11 @@
 						</div>
 						<!-- 이미지 슬라이더 끝 -->
 						<!-- 상품정보 시작 -->
+						
 						<div class="col">
+						<form action="/mypage/goToBasket.do" method="get" id="goBasket">
 							<div class="infoContainer mx-5 w-100">
+								<input type="hidden" name="productNo" value="${p.productNo}">
 								<div class="d-block my-1 name">
 									<span class="display-6">
 										${p.productName}
@@ -78,6 +81,7 @@
 								<div class="d-block my-1 price">
 									<span class="fw-bolder">
 										<fmt:formatNumber value="${p.productPrice}" pattern="#,###"/>원
+										<input type="hidden" name="productPrice">
 									</span>
 								</div>
 								<hr class="mx-auto pt-0.5">
@@ -130,8 +134,7 @@
 									<div class="col-sm-9 my-1 text-end">
 										<div class="qtyControl">
 											<button type="button" class="btn btn-light" onclick="addQty()">+</button>
-											<input type="hidden" name="productNo" value="${p.productNo}">
-											<input type="text" class="text-center" size="1" id="qty" name="qty" readonly="readonly" value="1" style="border:none;">
+											<input type="text" class="text-center" size="1" id="qty" name="basketQty" readonly="readonly" value="1" style="border:none;">
 											<button type="button" class="btn btn-light" onclick="substractQty()">-</button>
 										</div>
 									</div>
@@ -149,11 +152,12 @@
 										<button type="button" class="btn btn-success mx-1" disabled="disabled">바로구매</button>									
 									</c:if>
 									<c:if test="${p.productState==0}">
-										<button type="button" class="btn btn-success mx-1" onclick="location.href=''">장바구니</button>
-										<button type="button" class="btn btn-success mx-1" onclick="location.href=''">바로구매</button>
+										<button type="button" class="btn btn-success mx-1" onclick="insertBasket()" id="liveToastBtn">장바구니</button>
+										<button type="submit" class="btn btn-success mx-1">바로구매</button>
 									</c:if>
 								</div>
 							</div>
+						</form>
 						</div>
 						<!-- 상품 설명 끝 -->
 					</div>
@@ -227,6 +231,7 @@
 		<div class="col-2">
 		</div>
 	</div>
+	
 </body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
@@ -279,10 +284,15 @@
 		
 		$.ajax({
 			url:"/zzim.do",
-			data:{"userNo":userNo, "productNo":productNo},
+			data:{"productNo":productNo},
 			success: function(data){
-				if(data==1)
+				if(data==1){
 					alert("찜 목록에 추가했습니다.");
+				}else if(data==2){
+					alert("이미 목록에 존재하는 상품입니다.")
+				}else{
+					alert("찜 목록 추가에 실패했습니다.")
+				}
 			},
   			error: function(request, status, error){
   				console.log("status : " + request.status + ", message : " + request.responseText + ", error : " + error)
@@ -294,6 +304,26 @@
 		})
 	}
 	
+	//장바구니 버튼 클릭하면 장바구니에 데이터를 추가한다.
+	function insertBasket(){
+		var productNo = "<c:out value='${p.productNo}'/>";
+		var userNo = "<c:out value='${loginUser.userNo}'/>";
+		var qty = Number(document.getElementById("qty").value);
+		var check = confirm("상품을 장바구니에 추가하시겠습니까?");
+		if(check==true){
+			$.ajax({
+				url: '/mypage/insertBasket.do',
+				data: {"productNo":productNo,"basketQty":qty, "userNo": userNo},
+				success: function(data){
+					var msg = data==1?"상품을 장바구니에 추가했습니다.":"상품을 장바구니에 추가하는데 실패했습니다.";
+					alert(msg);
+				},
+	  			complete: function(data){
+	  				console.log("complete");
+	  			}
+			});
+		}
+	}
 	
 </script>
 </html>

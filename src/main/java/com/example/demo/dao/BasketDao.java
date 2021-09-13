@@ -11,4 +11,12 @@ public class BasketDao {
 		return DBManager.deleteBasket(userNo, basketNo);
 
 	}
+
+	public int getBasketNo() {
+		return DBManager.getBasketNo();
+	}
+
+	public int insertIntoBasket(int basketNo, int basketQty, int userNo, int productNo) {
+		return DBManager.insertIntoBasket(basketNo, basketQty, userNo, productNo);
+	}
 }

@@ -589,5 +589,36 @@ public class DBManager {
 			session.close();
 			return list;
 		}
+		//장바구니 번호 불러오기
+		public static int getBasketNo() {
+			SqlSession session = factory.openSession();
+			int result = session.selectOne("mypage.getBasketNo");
+			session.close();
+			return result;
+		}
+		
+		//장바구니 입력하기
+		public static int insertIntoBasket(int basketNo, int basketQty, int userNo, int productNo) {
+			SqlSession session = factory.openSession(true);
+			HashMap map = new HashMap();
+			map.put("basketNo", basketNo);
+			map.put("basketQty", basketQty);
+			map.put("userNo", userNo);
+			map.put("productNo", productNo);
+			int result = session.insert("mypage.insertIntoBasket", map);
+			session.commit();
+			session.close();
+			return result;
+		}
+
+		public static int getSameZzim(int userNo, int productNo) {
+			SqlSession session = factory.openSession();
+			HashMap map = new HashMap();
+			map.put("userNo", userNo);
+			map.put("productNo", productNo);
+			int result = session.selectOne("displayProducts.getSameZzim", map);
+			session.close();
+			return result;
+		}
 	
 }

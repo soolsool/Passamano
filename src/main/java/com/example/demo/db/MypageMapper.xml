@@ -75,6 +75,16 @@
 		select * from users
 		u,user_address ud where u.user_no=ud.user_no and u.user_no=#{userNo}
 	</select>
+	
+	<select id="getBasketNo" resultType="int">
+	  	select max(basket_no)
+	  	from product_basket
+	</select>
+	
+	<insert id="insertIntoBasket">
+		insert into product_basket(basket_no, basket_qty, user_no, product_no)
+		values (#{basketNo}, #{basketQty}, #{userNo}, #{productNo})
+	</insert>
 
 </mapper>
 
