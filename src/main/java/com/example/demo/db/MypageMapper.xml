@@ -13,17 +13,14 @@
 		od,products p, order_pay op,product_img i,order_manage om
 		where
 		o.orders_no=od.orders_no and od.product_no=p.product_no
-		and om.orders_no=o.orders_no
+		and
+		om.orders_no=o.orders_no
 		and o.orders_no=op.orders_no
 		and
 		p.product_no=i.product_no
 		and i.thumbnail=1
 		and o.user_no=#{userNo}
 		order by o.orders_no desc
-	</select>
-	<select id="totalRecord" resultType="int">
-		select count(*) from orders
-		where user_no=#{userNo}
 	</select>
 	<select id="selectBasket" resultType="SelectBasketVo">
 		select basket_no,
@@ -39,10 +36,6 @@
 	<delete id="deleteBasket">
 		delete product_basket where user_no=#{userNo} and
 		basket_no=#{basketNo}
-	</delete>
-	<delete id="deleteZzim">
-		delete product_zzim where user_no=#{userNo} and
-		zzim_no=#{zzimNo}
 	</delete>
 	<update id="updateOrder">
 		update order_manage set
@@ -61,62 +54,28 @@
 		and pz.user_no =#{userNo}
 		order by zzim_no desc
 	</select>
-	<insert id="insertBasket" parameterType="BasketVo">
-		insert into product_basket values((select nvl(max(basket_no),0)+1 from
-		product_basket),1,#{userNo},#{productNo})
-	</insert>
-	<select id="checkBasket" resultType="int">
-		select count(*) from product_basket where user_no=#{userNo} and
-		product_no=#{productNo}
-	</select>
-	<update id="updateBasket">
-		update product_basket set
-		basket_qty=basket_qty+1 where
-		user_no=#{userNo} and
-		product_no=#{productNo}
-	</update>
-	<select id="selectProductDetail" resultType="SelectOrdersVo">
-		select o.orders_no,
-		o.order_date, p.product_name, od.detail_price,
-		od.detail_qty,
-		o.order_tot, op.pay_price, op.pay_method, o.pay_state,
-		i.image_name,p.product_no,om.order_state
-		from orders o,order_detail
-		od,products p, order_pay op,product_img i,order_manage om
-		where
-		o.orders_no=od.orders_no and od.product_no=p.product_no
-		and om.orders_no=o.orders_no
-		and o.orders_no=op.orders_no
-		and
-		p.product_no=i.product_no
-		and i.thumbnail=1
-		and o.user_no=#{userNo}
-		and p.product_no=#{productNo}
-		and o.order_date=#{orderDate}
-	</select>
-	<insert id="insertReview" parameterType="ReviewVo">
-		insert into review values((select nvl(max(review_no),0)+1 from
-		review),#{ordersNo},#{reviewTitle},#{reviewContent},#{evaluation},sysdate,#{reviewImg})
-	</insert>
-	
-	<insert id="insertReviewImgNull" parameterType="ReviewVo">
-		insert into review(review_no, orders_no, review_title, review_content, review_evaluation, review_date) values((select nvl(max(review_no),0)+1 from
-		review),#{ordersNo},#{reviewTitle},#{reviewContent},#{evaluation},sysdate)
-	</insert>
 	<select id="selectReview" resultType="selectReviewVo">
-		select o.orders_no, review_no,review_title,review_content,review_evaluation,review_date,review_img,
+		select o.orders_no,
+		review_no,review_title,review_content,review_evaluation,review_date,review_img,
 		p.product_no,p.product_name,pi.image_name,od.detail_qty,op.pay_price
-		from review r, orders o, order_detail od, product_img pi, products p, order_pay op
-		where o.orders_no=r.orders_no and r.orders_no=od.orders_no and od.product_no=pi.product_no
-		and op.orders_no=od.orders_no and p.product_no=pi.product_no and user_no=#{userNo} and pi.thumbnail=1
+		from review r, orders o, order_detail od, product_img pi, products p,
+		order_pay op
+		where o.orders_no=r.orders_no and r.orders_no=od.orders_no
+		and od.product_no=pi.product_no
+		and op.orders_no=od.orders_no and
+		p.product_no=pi.product_no and user_no=#{userNo} and pi.thumbnail=1
 		order by review_no desc
 	</select>
-	<delete id="deleteReview">
-		delete review where review_no=#{reviewNo}
-	</delete>
+
 	<select id="selectUser" resultType="UserVo">
-		select * from users where user_no=#{userNo}
+		select * from users where
+		user_no=#{userNo}
 	</select>
+	<select id="selectUserDetail" resultType="SelectUserDetailVo">
+		select * from users
+		u,user_address ud where u.user_no=ud.user_no and u.user_no=#{userNo}
+	</select>
+
 </mapper>
 
 

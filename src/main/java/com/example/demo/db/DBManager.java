@@ -24,6 +24,7 @@ import com.example.demo.vo.ReviewVo;
 import com.example.demo.vo.SelectBasketVo;
 import com.example.demo.vo.SelectOrdersVo;
 import com.example.demo.vo.SelectReviewVo;
+import com.example.demo.vo.SelectUserDetailVo;
 import com.example.demo.vo.SelectZzimVo;
 import com.example.demo.vo.SellerVo;
 import com.example.demo.vo.UserAddressVo;
@@ -256,143 +257,209 @@ public class DBManager {
 		return result;
 	}
 	
-	//정인
-	public static List<SelectOrdersVo> selectAllOrder(int userNo) {
-		// TODO Auto-generated method stub
-		SqlSession session = factory.openSession(true);
-		List<SelectOrdersVo> list = session.selectList("mypage.selectAllOrder", userNo);
-		session.close();
-		return list;
-	}
+	//MypageMapper
+		public static List<SelectReviewVo> selectReview(int userNo) {
+			SqlSession session = factory.openSession(true);
+			List<SelectReviewVo> list = session.selectList("mypage.selectReview", userNo);
+			session.close();
+			return list;
+		}
 
-	public static int getTotalRecord(int userNo) {
-		SqlSession session = factory.openSession(true);
-		int n = session.selectOne("mypage.totalRecord", userNo);
-		session.close();
-		return n;
-	}
+		public static SelectUserDetailVo selectUserDetail(int userNo) {
+			SqlSession session = factory.openSession(true);
+			SelectUserDetailVo re = session.selectOne("mypage.selectUserDetail", userNo);
+			session.close();
+			return re;
+		}
 
-	public static List<SelectBasketVo> selectBasket(int userNo) {
-		SqlSession session = factory.openSession(true);
-		List<SelectBasketVo> list = session.selectList("mypage.selectBasket", userNo);
-		session.close();
-		return list;
-	}
+		public static UserVo selectUser(int userNo) {
+			SqlSession session = factory.openSession(true);
+			UserVo re = session.selectOne("mypage.selectUser", userNo);
+			session.close();
+			return re;
+		}
+		public static List<SelectOrdersVo> selectAllOrder(int userNo) {
+			// TODO Auto-generated method stub
+			SqlSession session = factory.openSession(true);
+			List<SelectOrdersVo> list = session.selectList("mypage.selectAllOrder", userNo);
+			session.close();
+			return list;
+		}
 
-	public static int deleteBasket(int userNo, int basketNo) {
-		SqlSession session = factory.openSession(true);
-		HashMap map = new HashMap();
-		map.put("userNo", userNo);
-		map.put("basketNo", basketNo);
-		int re = session.delete("mypage.deleteBasket", map);
-		session.close();
-		return re;
-	}
+		public static List<SelectBasketVo> selectBasket(int userNo) {
+			SqlSession session = factory.openSession(true);
+			List<SelectBasketVo> list = session.selectList("mypage.selectBasket", userNo);
+			session.close();
+			return list;
+		}
 
-	public static int updateOrder(int userNo, int productNo, String orderManageReason) {
-		SqlSession session = factory.openSession(true);
-		HashMap map = new HashMap();
-		map.put("userNo", userNo);
-		map.put("productNo", productNo);
-		map.put("orderManageReason", orderManageReason);
-		int re = session.update("mypage.updateOrder", map);
-		session.close();
-		return re;
-	}
+		public static int deleteBasket(int userNo, int basketNo) {
+			SqlSession session = factory.openSession(true);
+			HashMap map = new HashMap();
+			map.put("userNo", userNo);
+			map.put("basketNo", basketNo);
+			int re = session.delete("mypage.deleteBasket", map);
+			session.commit();
+			session.close();
+			return re;
+		}
 
-	public static List<SelectZzimVo> selectZzim(int userNo) {
-		SqlSession session = factory.openSession(true);
-		List<SelectZzimVo> list = session.selectList("mypage.selectZzim", userNo);
-		session.close();
-		return list;
-	}
+		public static int updateOrder(int userNo, int productNo, String orderManageReason) {
+			SqlSession session = factory.openSession(true);
+			HashMap map = new HashMap();
+			map.put("userNo", userNo);
+			map.put("productNo", productNo);
+			map.put("orderManageReason", orderManageReason);
+			int re = session.update("mypage.updateOrder", map);
+			session.commit();
+			session.close();
+			return re;
+		}
 
-	public static int deleteZzim(int userNo, int zzimNo) {
-		SqlSession session = factory.openSession(true);
-		HashMap map = new HashMap();
-		map.put("userNo", userNo);
-		map.put("zzimNo", zzimNo);
-		int re = session.delete("mypage.deleteZzim", map);
-		session.close();
-		return re;
-	}
+		public static List<SelectZzimVo> selectZzim(int userNo) {
+			SqlSession session = factory.openSession(true);
+			List<SelectZzimVo> list = session.selectList("mypage.selectZzim", userNo);
+			session.commit();
+			session.close();
+			return list;
+		}
+		
+		//ZzimMapper
+		public static int deleteZzim(int userNo, int zzimNo) {
+			SqlSession session = factory.openSession(true);
+			HashMap map = new HashMap();
+			map.put("userNo", userNo);
+			map.put("zzimNo", zzimNo);
+			int re = session.delete("zzim.deleteZzim", map);
+			session.commit();
+			session.close();
+			return re;
+		}
 
-	public static int insertBasket(int userNo, int productNo) {
-		SqlSession session = factory.openSession(true);
-		HashMap map = new HashMap();
-		map.put("userNo", userNo);
-		map.put("productNo", productNo);
-		int re = session.delete("mypage.insertBasket", map);
-		session.close();
-		return re;
-	}
-	
-	public static int checkBasket(int userNo, int productNo) {
-		SqlSession session = factory.openSession(true);
-		HashMap map = new HashMap();
-		map.put("userNo", userNo);
-		map.put("productNo", productNo);
-		int re = session.selectOne("mypage.checkBasket", map);
-		session.close();
-		return re;
-	}
+		public static int insertBasket(int userNo, int productNo) {
+			SqlSession session = factory.openSession(true);
+			HashMap map = new HashMap();
+			map.put("userNo", userNo);
+			map.put("productNo", productNo);
+			int re = session.delete("zzim.insertBasket", map);
+			session.commit();
+			session.close();
+			return re;
+		}
+		
+		public static int checkBasket(int userNo, int productNo) {
+			SqlSession session = factory.openSession(true);
+			HashMap map = new HashMap();
+			map.put("userNo", userNo);
+			map.put("productNo", productNo);
+			int re = session.selectOne("zzim.checkBasket", map);
+			session.close();
+			return re;
+		}
 
-	public static int updateBasket(int userNo, int productNo) {
-		SqlSession session = factory.openSession(true);
-		HashMap map = new HashMap();
-		map.put("userNo", userNo);
-		map.put("productNo", productNo);
-		int re = session.update("mypage.updateBasket", map);
-		session.close();
-		return re;
-	}
+		public static int updateBasket(int userNo, int productNo) {
+			SqlSession session = factory.openSession(true);
+			HashMap map = new HashMap();
+			map.put("userNo", userNo);
+			map.put("productNo", productNo);
+			int re = session.update("zzim.updateBasket", map);
+			session.commit();
+			session.close();
+			return re;
+		}
+		
+		//ReviewMapper
+		public static SelectOrdersVo selectProductDetail(int userNo, int productNo, String orderDate) {
+			SqlSession session = factory.openSession(true);
+			HashMap map = new HashMap();
+			map.put("userNo", userNo);
+			map.put("productNo", productNo);
+			map.put("orderDate", orderDate);
+			SelectOrdersVo re = session.selectOne("review.selectProductDetail", map);
+			session.close();
+			return re;
+		}
 
-	public static SelectOrdersVo selectProductDetail(int userNo, int productNo, String orderDate) {
-		SqlSession session = factory.openSession(true);
-		HashMap map = new HashMap();
-		map.put("userNo", userNo);
-		map.put("productNo", productNo);
-		map.put("orderDate", orderDate);
-		SelectOrdersVo re = session.selectOne("mypage.selectProductDetail", map);
-		session.close();
-		return re;
-	}
+		public static int insertReview(ReviewVo r) {
+			SqlSession session = factory.openSession(true);
+			int re = session.insert("review.insertReview", r);
+			session.commit();
+			session.close();
+			return re;
+		}
 
-	public static int insertReview(ReviewVo r) {
-		SqlSession session = factory.openSession(true);
-		int re = session.insert("mypage.insertReview", r);
-		session.close();
-		return re;
-	}
+		public static int insertReviewImgNull(ReviewVo r) {
+			SqlSession session = factory.openSession(true);
+			int re = session.insert("review.insertReviewImgNull", r);
+			session.commit();
+			session.close();
+			return re;
+		}
 
-	public static int insertReviewImgNull(ReviewVo r) {
-		SqlSession session = factory.openSession(true);
-		int re = session.insert("mypage.insertReviewImgNull", r);
-		session.close();
-		return re;
-	}
+		public static int deleteReview(int reviewNo) {
+			SqlSession session = factory.openSession(true);
+			int re = session.delete("review.deleteReview", reviewNo);
+			session.commit();
+			session.close();
+			return re;
+		}
+		
+		
+		//ProfileMapper
+		public static int updateUser(UserVo u) {
+			SqlSession session = factory.openSession(true);
+			int re = session.update("profile.updateUser", u);
+			session.commit();
+			session.close();
+			return re;
+		}
 
-	public static List<SelectReviewVo> selectReview(int userNo) {
-		SqlSession session = factory.openSession(true);
-		List<SelectReviewVo> list = session.selectList("mypage.selectReview", userNo);
-		session.close();
-		return list;
-	}
 
-	public static int deleteReview(int reviewNo) {
-		SqlSession session = factory.openSession(true);
-		int re = session.delete("mypage.deleteReview", reviewNo);
-		session.close();
-		return re;
-	}
+		public static int nicknameCheck(String nickname) {
+			SqlSession session = factory.openSession(true);
+			int re = session.selectOne("profile.nicknameCheck", nickname);
+			session.close();
+			return re;
+		}
 
-	public static UserVo selectUser(int userNo) {
-		SqlSession session = factory.openSession(true);
-		UserVo re = session.selectOne("mypage.selectUser", userNo);
-		session.close();
-		return re;
-	}
-	//정인 끝
+		public static void updateNickname(int userNo,String nickname) {
+			SqlSession session = factory.openSession(true);
+			HashMap map = new HashMap();
+			map.put("userNo", userNo);
+			map.put("nickName", nickname);
+			int re = session.update("profile.updateNickname", map);
+			session.commit();
+			session.close();
+		}
+
+		public static String getPassword(int userNo) {
+			SqlSession session = factory.openSession(true);
+			String re = session.selectOne("profile.getPassword", userNo);
+			session.close();
+			return re;
+		}
+
+		public static void updatePassword(int userNo, String newPassword) {
+			SqlSession session = factory.openSession(true);
+			HashMap map = new HashMap();
+			map.put("userNo", userNo);
+			map.put("newPassword", newPassword);
+			int re = session.update("profile.updatePassword", map);
+			session.commit();
+			session.close();
+		}
+
+		public static void updateAddress(int userNo, String address1, String address2, String address3) {
+			SqlSession session = factory.openSession(true);
+			HashMap map = new HashMap();
+			map.put("userNo", userNo);
+			map.put("address1", address1);
+			map.put("address2", address2);
+			map.put("address3", address3);
+			int re = session.update("profile.updateAddress", map);
+			session.commit();
+			session.close();
+		}
 
 	//<상품등록>
 		public static int insertProduct(ProductsVo p, ProductImgVo i) {

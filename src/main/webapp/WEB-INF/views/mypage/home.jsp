@@ -24,7 +24,7 @@
 	width:100px;
 	height:100px;
 	border-radius: 50%;
-	
+	cursor:pointer;
 }
 
 .wrapper {
@@ -192,6 +192,18 @@ button:active, input[type=submit]:active,input[type=button]:active {
 	background-color: #28a745;
 	color: white;
 }
+
+.file {
+	display: none;
+}
+
+.profile-area p{
+	color:white;
+	font-weight: bold;
+}
+.profile-area a p{
+	font-size:12px;
+}
 </style>
 </head>
 <body>
@@ -215,39 +227,33 @@ button:active, input[type=submit]:active,input[type=button]:active {
 						<div class="profile-area my-3 py-2">
 							<!--  실제 회원 프로필 이미지 들어가는 곳 -->
 							<div class="thumb">
-								<img src="../resources/images/userprofile/${userInfo.profileFilename}" class="my-2">
+								<img src="../resources/images/userprofile/${userInfo.profileFileName}"
+									class="my-2 profile-img">
+								<form class="img-form" action="/updateProfileImg.do"
+									method="POST" enctype="multipart/form-data">
+									<input type="file" class="file" name="uploadFile"
+										onchange="changeValue(this)">
+								</form>
 							</div>
+
 							<!--  회원 이름 보여주기 -->
-							<p class="mb-2">${userInfo.name}님</p>
-							<a href="/mypage/profile.do">
-								<p class="mb-2">프로필 관리</p>
-							</a>
+							<p class="mb-2">${userInfo.nickName}님</p>
+							<p class="mb-2">
+								<a href="/profile.do">프로필 관리</a>
+							</p>
 						</div>
 
 						<nav class="my-3">
 
 							<ul class="nav flex-column">
-								<li class="order-title nav-item my-2 clicked">
-									<a class="nav-link order-title-link" href="#">
-										주문/배송/리뷰
-									</a>
-								</li>
-								<li class="basket nav-item my-2">
-									<a class="nav-link" href="#">
-										장바구니
-									</a>
-								</li>
-								<li class="zzim nav-item my-2">
-									<a class="nav-link" href="#">
-										찜한 상품
-									</a>
-								</li>
-								<li class="select-review nav-item my-2">
-									<a class="nav-link" href="#">
-										내가 쓴 리뷰
-									</a>
-								</li>
-
+								<li class="order-title nav-item my-2 clicked"><a
+									class="nav-link order-title-link" href="#">주문/배송/리뷰</a></li>
+								<li class="basket nav-item my-2"><a class="nav-link"
+									href="#">장바구니</a></li>
+								<li class="zzim nav-item my-2"><a class="nav-link" href="#">찜한
+										상품</a></li>
+								<li class="select-review nav-item my-2"><a class="nav-link"
+									href="#">내가 쓴 리뷰</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -268,31 +274,28 @@ button:active, input[type=submit]:active,input[type=button]:active {
 		<div class="first-card mb-3" style="max-width: 80%;">
 
 			<div class="first-card-header">
-				<input type="hidden" class="month"
-					value="<fmt:formatDate
-						value='${o.orderDate}' pattern='MM'/>"
-					date="<fmt:formatDate
-						value='${o.orderDate}' pattern='dd'/>"
-					year="<fmt:formatDate
-						value='${o.orderDate}' pattern='yyyy'/>">
-				<strong class="order-date"><fmt:formatDate
-						value='${o.orderDate}' pattern='yyyy-MM-dd' /> 주문</strong>
+				<input type="hidden" class="month" value="<fmt:formatDate value='${o.orderDate}' pattern='MM'/>"
+					date="<fmt:formatDate value='${o.orderDate}' pattern='dd'/>"
+					year="<fmt:formatDate value='${o.orderDate}' pattern='yyyy'/>">
+				<strong class="order-date">
+					<fmt:formatDate value='${o.orderDate}' pattern='yyyy-MM-dd' /> 주문</strong>
 			</div>
 			<div class="second-card mb-3" style="max-width: 100%;">
 				<div class="orderlist-body">
 					<table>
 						<tr>
-							<td><a href='product.do?productNo=${o.productNo }'>
+							<td><a href='detailProduct.do?productNo=${o.productNo }'>
 
 									<img src="../resources/images/productimage/${o.imageName }" width="150"
 									height="110">
 							</a></td>
-							<td class="product-detail"><a
-								href='product.do?productNo=${o.productNo }'>
-									<p class="card-text">
+							<td class="product-detail">
+								<p class="card-text">
+									<a href='detailProduct.do?productNo=${o.productNo }'>
 										${o.productName }, ${o.detailQty }개<br> <strong>${o.payPrice }원</strong>
-									</p>
-							</a></td>
+									</a>
+								</p>
+							</td>
 							<td class="pay-state"><p class="card-text">${o.payMethod}결제
 									<c:if test='${o.payState==0}'>(결제전)</c:if>
 									<c:if test='${o.payState==1}'>(결제완료)</c:if>
@@ -325,7 +328,7 @@ button:active, input[type=submit]:active,input[type=button]:active {
 					</div>
 				</c:if>
 				<c:if test='${o.orderState==4||o.orderState==5}'>
-					<form action="/mypage/writereview.do" method="post">
+					<form action="writereview.do" method="post">
 						<div class="btn write-review-btn">
 							<input type="hidden" value="${o.productNo }" name="productNo">
 							<input type="hidden" name="orderDate"
@@ -375,7 +378,15 @@ button:active, input[type=submit]:active,input[type=button]:active {
 	var totalByte = 0;
 	var textarea = document.querySelector(".cancel-textarea");
 	var monthList = document.querySelectorAll(".month");
+	
+	$(".profile-img").click(function() {
+		$(".file").click();
+	});
 
+	function changeValue() {
+		$(".img-form").submit();
+	}
+	
 	$(".cancel-reason-wrapper").hide();
 	$(".btn-order-cancel").click(function() {
 		if (reasonWrapper.classList.contains("click")) {
@@ -395,13 +406,13 @@ button:active, input[type=submit]:active,input[type=button]:active {
 			if (result) {
 				var productNum = $(this).attr('name');
 				var orderManageReason = $(".cancel-textarea").val();
-				$.get("/mypage/updateOrder.do", {
+				$.get("/updateOrder.do", {
 					productNum : productNum,
 					orderManageReason : orderManageReason
 				}, function(data) {
 				}, "json")
 				setTimeout(function() {
-					$(location).attr("href", "/mypage/home.do");
+					$(location).attr("href", "/home.do");
 
 				}, 200);
 			}
@@ -425,7 +436,7 @@ button:active, input[type=submit]:active,input[type=button]:active {
 		
 		$(".btn-month").removeClass("clicked-month");
 		$(".one-month").addClass("clicked-month");
-		
+		$(".first-card").show();
 		monthList.forEach(function(m) {
 		if(year==$(m).attr('year')||(year-1==$(m).attr('year')&&month-1==0)){
 		if(month-1==0){
@@ -462,7 +473,7 @@ button:active, input[type=submit]:active,input[type=button]:active {
 		
 		$(".btn-month").removeClass("clicked-month");
 		$(".three-month").addClass("clicked-month");
-		
+		$(".first-card").show();
 		monthList.forEach(function(m) {
 		if(year==$(m).attr('year')||(year-1==$(m).attr('year')&&month-3==0)||(year-1==$(m).attr('year')&&month-3==-1)||(year-1==$(m).attr('year')&&month-3==-2)){
 		if(month-3==0){
@@ -520,7 +531,7 @@ button:active, input[type=submit]:active,input[type=button]:active {
 		
 		$(".btn-month").removeClass("clicked-month");
 		$(".six-month").addClass("clicked-month");
-		
+		$(".first-card").show();
 		monthList.forEach(function(m) {
 		if(year==$(m).attr('year')||(year-1==$(m).attr('year')&&month-6==0)||(year-1==$(m).attr('year')&&month-6==-1)||
 				(year-1==$(m).attr('year')&&month-6==-2)||(year-1==$(m).attr('year')&&month-6==-3)||(year-1==$(m).attr('year')&&month-6==-4)||
@@ -640,11 +651,11 @@ button:active, input[type=submit]:active,input[type=button]:active {
 					fn_checkByte(textarea);
 				}
 			} else if (s.innerText == "장바구니") {
-				$(location).attr("href", "/mypage/cart.do");
+				$(location).attr("href", "/cart.do");
 			} else if (s.innerText == "찜한 상품") {
-				$(location).attr("href", "/mypage/zzim.do");
+				$(location).attr("href", "/zzim.do");
 			} else if (s.innerText == "내가 쓴 리뷰") {
-				$(location).attr("href", "/mypage/selectreview.do");
+				$(location).attr("href", "/selectreview.do");
 			}
 		});
 	}
@@ -654,5 +665,6 @@ button:active, input[type=submit]:active,input[type=button]:active {
 	});
 
 	$(".order-title").click();
+	$(".all-month").click();
 </script>
 </html>
