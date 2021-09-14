@@ -201,7 +201,7 @@ button:active, input[type=submit]:active,input[type=button]:active {
 							<div class="thumb">
 								<img src="../resources/images/userprofile/${userInfo.profileFilename}"
 									class="my-2 profile-img">
-								<form class="img-form" action="/updateProfileImg.do"
+								<form class="img-form" action="/mypage/updateProfileImg.do"
 									method="POST" enctype="multipart/form-data">
 									<input type="file" class="file" name="uploadFile"
 										onchange="changeValue(this)">
@@ -211,7 +211,7 @@ button:active, input[type=submit]:active,input[type=button]:active {
 							<!--  회원 이름 보여주기 -->
 							<p class="mb-2 fs-4 fw-bold">${userInfo.nickName}님</p>
 							<p class="mb-2 fs-5 fw-light">
-								<a href="/profile.do">프로필 관리</a>
+								<a href="/mypage/profile.do">프로필 관리</a>
 							</p>
 						</div>
 
@@ -267,14 +267,14 @@ button:active, input[type=submit]:active,input[type=button]:active {
 				<div class="orderlist-body">
 					<table>
 						<tr>
-							<td><a href='detailProduct.do?productNo=${o.productNo }'>
+							<td><a href='/product.do?productNo=${o.productNo }'>
 
 									<img src="../resources/images/productimage/${o.imageName }" width="150"
 									height="110">
 							</a></td>
 							<td class="product-detail">
 								<p class="card-text">
-									<a href='detailProduct.do?productNo=${o.productNo }'>
+									<a href='/product.do?productNo=${o.productNo }'>
 										${o.productName }, ${o.detailQty }개<br> <strong>${o.payPrice }원</strong>
 									</a>
 								</p>
@@ -389,13 +389,13 @@ button:active, input[type=submit]:active,input[type=button]:active {
 			if (result) {
 				var productNum = $(this).attr('name');
 				var orderManageReason = $(".cancel-textarea").val();
-				$.get("/updateOrder.do", {
+				$.get("/mypage/updateOrder.do", {
 					productNum : productNum,
 					orderManageReason : orderManageReason
 				}, function(data) {
 				}, "json")
 				setTimeout(function() {
-					$(location).attr("href", "/home.do");
+					$(location).attr("href", "/mypage/home.do");
 
 				}, 200);
 			}

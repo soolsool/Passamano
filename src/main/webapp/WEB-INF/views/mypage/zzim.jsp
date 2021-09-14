@@ -168,7 +168,7 @@ input[type=checkbox] {
 							<div class="thumb">
 								<img src="../resources/images/userprofile/${userInfo.profileFilename}"
 									class="my-2 profile-img">
-								<form class="img-form" action="/updateProfileImg.do"
+								<form class="img-form" action="/mypage/updateProfileImg.do"
 									method="POST" enctype="multipart/form-data">
 									<input type="file" class="file" name="uploadFile"
 										onchange="changeValue(this)">
@@ -178,10 +178,9 @@ input[type=checkbox] {
 							<!--  회원 이름 보여주기 -->
 							<p class="mb-2 fs-4 fw-bold">${userInfo.nickName}님</p>
 							<p class="mb-2 fs-5 fw-light">
-								<a href="/profile.do">
+								<a href="/mypage/profile.do">
 									프로필 관리
 								</a>
-							</p>
 						</div>
 
 						<nav class="my-3">
@@ -232,13 +231,13 @@ input[type=checkbox] {
 								<div class="cart-body">
 									<table>
 										<tr class="cart-item">
-
-											<td><a href='detailProduct.do?productNo=${z.productNo }'>
-													<img src="../resources/images/productimage/${z.imageName}" width="150" height="110">
+											<td><a href='/product.do?productNo=${z.productNo }'>
+													<img src="../resources/images/productimage/${z.imageName }"
+													width="150" height="110">
 											</a></td>
 											<td class="product-detail">
 												<p class="card-text">
-													<a href='product.do?productNo=${z.productNo}'>
+													<a href='/product.do?productNo=${z.productNo }'>
 														${z.productName }
 													</a>
 												</p>
@@ -275,7 +274,7 @@ input[type=checkbox] {
 			<%@ include file="../common/footer.jsp"%>
 		</div>
 		<div class="col-2"></div>
-
+	</div>
 	<!--  풋터 끝부분 끝 -->
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
@@ -319,7 +318,7 @@ input[type=checkbox] {
 							});
 					$("input[type=checkbox][name=zzim-checkbox]").prop(
 							"checked", false);
-					$.get("/deleteZzim.do", {
+					$.get("/mypage/deleteZzim.do", {
 						zzim : checkedValue
 					}, function(data) {
 					}, "json")
@@ -333,7 +332,7 @@ input[type=checkbox] {
 			$("input[name=zzim-checkbox]:checked").each(function(index, item) {
 				checkedValue.push($(item).attr('productNo'));
 			});
-			$.get("/zzimProcess.do", {
+			$.get("/mypage/zzimProcess.do", {
 				zzimProductNo : checkedValue,
 			}
 
@@ -343,13 +342,10 @@ input[type=checkbox] {
 			alert("상품이 장바구니에 담겼습니다.");
 		}
 
-		$(location).attr("href", "/cart.do");
+		$(location).attr("href", "/mypage/cart.do");
 
 	});
 
-	sidebar.forEach(function(s) {
-		sidebarClickEvent(s);
-	});
 
 	$(".zzim").click();
 </script>

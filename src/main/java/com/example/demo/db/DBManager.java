@@ -258,6 +258,20 @@ public class DBManager {
 	}
 	
 	//MypageMapper
+	public static int getQty(int basketNo) {
+		SqlSession session = factory.openSession(true);
+		int re = session.selectOne("mypage.getQty", basketNo);
+		session.close();
+		return re;
+	}
+
+	public static int getProductPrice(int basketNo) {
+		SqlSession session = factory.openSession(true);
+		int re = session.selectOne("mypage.getProductPrice", basketNo);
+		session.close();
+		return re;
+	}
+	
 		public static List<SelectReviewVo> selectReview(int userNo) {
 			SqlSession session = factory.openSession(true);
 			List<SelectReviewVo> list = session.selectList("mypage.selectReview", userNo);
@@ -589,6 +603,7 @@ public class DBManager {
 			session.close();
 			return list;
 		}
+
 		//장바구니 번호 불러오기
 		public static int getBasketNo() {
 			SqlSession session = factory.openSession();
@@ -597,7 +612,7 @@ public class DBManager {
 			return result;
 		}
 		
-		//장바구니 입력하기
+		//제품 상세페이지에서 장바구니에 데이터 입력하기
 		public static int insertIntoBasket(int basketNo, int basketQty, int userNo, int productNo) {
 			SqlSession session = factory.openSession(true);
 			HashMap map = new HashMap();

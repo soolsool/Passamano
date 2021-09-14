@@ -217,10 +217,14 @@ input[type=checkbox] {
 					<div class="profile-area my-3 py-2">
 						<!--  실제 회원 프로필 이미지 들어가는 곳 -->
 						<div class="thumb">
-							<img src="../resources/images/userprofile/${userInfo.profileFilename}" class="my-2 profile-img">
-							<form class="img-form" action="/mypage/updateProfileImg.do" method="POST" enctype="multipart/form-data">
-								<input type="file" class="file" name="uploadFile" onchange="changeValue(this)">
+							<img src="../resources/images/userprofile/${userInfo.profileFilename}"
+								class="my-2 profile-img">
+							<form class="img-form" action="/mypage/updateProfileImg.do"
+								method="POST" enctype="multipart/form-data">
+								<input type="file" class="file" name="uploadFile"
+									onchange="changeValue(this)">
 							</form>
+
 						</div>
 
 						<!--  회원 이름 보여주기 -->
@@ -279,11 +283,11 @@ input[type=checkbox] {
 								<div class="cart-body">
 									<table>
 										<tr class="cart-item">
-
-											<td><a href='product.do?productNo=${b.productNo }'>
-													<img src="../resources/images/productimage/${b.imageName }"
-													width="150" height="110">
-											</a></td>
+											<td>
+												<a href='product.do?productNo=${b.productNo }'>
+													<img src="../resources/images/productimage/${b.imageName }"width="150" height="110">
+												</a>
+											</td>
 											<td class="product-detail">
 												<p class="card-text">
 													<a href='product.do?productNo=${b.productNo }'>
@@ -486,7 +490,6 @@ $(".checkbox").click(
 						deliveryFee.push('0');
 					} else {
 						deliveryFee.push('3000');
-					}
 				});
 				$.get("/mypage/basketProcess.do", {
 					basketProductNo : checkedValue,

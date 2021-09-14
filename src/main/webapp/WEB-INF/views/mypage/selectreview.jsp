@@ -215,7 +215,7 @@ td {
 							<div class="thumb">
 								<img src="../resources/images/userprofile/${userInfo.profileFilename}"
 									class="my-2 profile-img">
-								<form class="img-form" action="/updateProfileImg.do"
+								<form class="img-form" action="/mypage/updateProfileImg.do"
 									method="POST" enctype="multipart/form-data">
 									<input type="file" class="file" name="uploadFile"
 										onchange="changeValue(this)">
@@ -225,7 +225,7 @@ td {
 							<!--  회원 이름 보여주기 -->
 							<p class="mb-2 fs-4 fw-bold">${userInfo.nickName}님</p>
 							<p class="mb-2 fs-5 fw-light">
-								<a href="/profile.do">프로필 관리</a>
+								<a href="/mypage/profile.do">프로필 관리</a>
 							</p>
 						</div>
 
@@ -279,13 +279,13 @@ td {
 										<table>
 											<tr>
 												<td class="product-img"><a
-													href='detailProduct.do?productNo=${sr.productNo }'> <img
-														src="../files/products_images/${sr.imageName }"
+													href='/product.do?productNo=${sr.productNo }'> <img
+														src="../resources/images/productimage/${sr.imageName }"
 														width="120" height="90">
 												</a></td>
 												<td class="product-detail">
 													<p class="card-text">
-														<a href='detailProduct.do?productNo=${sr.productNo }'>
+														<a href='/product.do?productNo=${sr.productNo }'>
 															${sr.productName }, ${sr.detailQty }개<br> <strong>${sr.payPrice }원</strong>
 												</a>
 														</p>
@@ -300,7 +300,7 @@ td {
 												<td>
 													<div class="review-img">
 														<c:if test="${not empty sr.reviewImg}">
-															<img width=400px src="../files/review_images/${sr.reviewImg}">
+															<img width=400px src="../resources/images/reviewimage/${sr.reviewImg}">
 														</c:if>
 													<div>
 												</td>
@@ -329,7 +329,7 @@ td {
 											<tr>
 												<td class="button">
 													<div class="btn-wrap">
-														<form action="/deleteReview.do" onsubmit="return check()">
+														<form action="/mypage/deleteReview.do" onsubmit="return check()">
 															<input type="hidden" name="reviewNo"
 																value="${sr.reviewNo}"> <input type="submit"
 																class="btn-delete" value="삭제하기">

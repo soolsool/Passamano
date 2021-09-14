@@ -173,9 +173,9 @@ button:active {
 						<div class="profile-area my-3 py-2">
 							<!--  실제 회원 프로필 이미지 들어가는 곳 -->
 							<div class="thumb">
-								<img src="../files/profile_images/${userInfo.profileFilename}"
+								<img src="../resources/images/userprofile/${userInfo.profileFilename}"
 									class="my-2 profile-img">
-								<form class="img-form" action="/updateProfileImg.do"
+								<form class="img-form" action="/mypage/updateProfileImg.do"
 									method="POST" enctype="multipart/form-data">
 									<input type="file" class="file" name="uploadFile"
 										onchange="changeValue(this)">
@@ -185,8 +185,10 @@ button:active {
 							<!--  회원 이름 보여주기 -->
 							<p class="mb-2 fs-4 fw-bold">${userInfo.nickName}님</p>
 							<p class="mb-2 fs-5 fw-light">
-								<p class="mb-2">프로필 관리</p>
+							<a href="/mypage/profile.do">
+								프로필 관리
 							</a>
+							</p>
 						</div>
 
 						<nav class="my-3">
@@ -390,7 +392,7 @@ button:active {
 					$.ajax({
 
 						type : "POST",
-						url : "/updateAddress.do?address1=" + address1
+						url : "/mypage/updateAddress.do?address1=" + address1
 								+ "&address2=" + address2 + "&address3="
 								+ address3,
 						error : function() {
@@ -408,7 +410,7 @@ button:active {
 	$(".btn-nickname").click(function() {
 		var nickname = $(".user-nickname").val();
 		var origin_nickname = $(".user-nickname").attr('nickname');
-		var url_link = "/nicknameCheck.do?nickname=" + nickname;
+		var url_link = "/mypage/nicknameCheck.do?nickname=" + nickname;
 		if (nickname == "") {
 			alert("공백은 입력이 불가능합니다.");
 		} else {
@@ -450,7 +452,7 @@ button:active {
 					$.ajax({
 
 						type : "POST",
-						url : "/passwordCheck.do?password=" + password,
+						url : "/mypage/passwordCheck.do?password=" + password,
 						dataType : "text",
 						error : function() {
 							alert('error');
@@ -461,7 +463,7 @@ button:active {
 									$.ajax({
 
 										type : "POST",
-										url : "/updatePassword.do?newPassword="
+										url : "/mypage/updatePassword.do?newPassword="
 												+ newPassword,
 										error : function() {
 											alert('error');
@@ -492,6 +494,7 @@ button:active {
 
 				}
 			});
+
 
 </script>
 <script
