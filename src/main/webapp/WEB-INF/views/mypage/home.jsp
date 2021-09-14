@@ -23,6 +23,11 @@
 	cursor:pointer;
 }
 
+.clicked {
+	background-color: lightgray;
+	color: white;
+}
+
 .wrapper {
 	float: left;
 }
@@ -217,12 +222,12 @@ button:active, input[type=submit]:active,input[type=button]:active {
 
 						<nav class="my-3">
 							<ul class="nav flex-column">
-								<li class="order-title nav-item my-2">
+								<li class="order-title nav-item my-2 clicked">
 									<a href="/mypage/home.do" class="nav-link order-title-link">
 										주문/배송/리뷰
 									</a>
 								</li>
-								<li class="basket nav-item my-2 clicked">
+								<li class="basket nav-item my-2">
 									<a href="/mypage/cart.do" class="nav-link">
 										장바구니
 									</a>
@@ -623,8 +628,6 @@ button:active, input[type=submit]:active,input[type=button]:active {
 		}
 	}
 
-
-	$(".order-title").click();
 	$(".all-month").click();
 </script>
 </html>

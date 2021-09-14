@@ -70,14 +70,6 @@
 	display: none;
 }
 
-.profile-area p {
-	color: white;
-	font-weight: bold;
-}
-
-.profile-area a p {
-	font-size: 12px;
-}
 
 .user-info-edit-title {
 	margin: 10px;
@@ -198,7 +190,7 @@ button:active {
 										주문/배송/리뷰
 									</a>
 								</li>
-								<li class="basket nav-item my-2 clicked">
+								<li class="basket nav-item my-2">
 									<a href="/mypage/cart.do" class="nav-link">
 										장바구니
 									</a>

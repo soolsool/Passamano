@@ -174,15 +174,6 @@ td {
 	display: none;
 }
 
-.profile-area p {
-	color: white;
-	font-weight: bold;
-}
-
-.profile-area a p {
-	font-size: 12px;
-}
-
 .edit-star{
 	cursor:pointer;
 }
@@ -236,7 +227,7 @@ td {
 										주문/배송/리뷰
 									</a>
 								</li>
-								<li class="basket nav-item my-2 clicked">
+								<li class="basket nav-item my-2 ">
 									<a href="/mypage/cart.do" class="nav-link">
 										장바구니
 									</a>
@@ -246,7 +237,7 @@ td {
 										찜한 상품
 									</a>
 								</li>
-								<li class="select-review nav-item my-2">
+								<li class="select-review nav-item my-2 clicked">
 									<a href="/mypage/selectreview.do" class="nav-link">
 										내가 쓴 리뷰
 									</a>

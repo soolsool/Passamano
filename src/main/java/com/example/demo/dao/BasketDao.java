@@ -1,5 +1,7 @@
 package com.example.demo.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.db.DBManager;
@@ -11,12 +13,12 @@ public class BasketDao {
 		return DBManager.deleteBasket(userNo, basketNo);
 	}
 	
-	public int getQty(int basketNo) {
-		return DBManager.getQty(basketNo);
+	public int getQty(int productNo, int userNo) {
+		return DBManager.getQty(productNo, userNo);
 	}
 
-	public int getProductPrice(int basketNo) {
-		return DBManager.getProductPrice(basketNo);
+	public int getProductPrice(int productNo) {
+		return DBManager.getProductPrice(productNo);
 	}
 	
 	public int getBasketNo() {
@@ -25,6 +27,18 @@ public class BasketDao {
 	
 	public int insertIntoBasket(int basketNo, int basketQty, int userNo, int productNo) {
 		return DBManager.insertIntoBasket(basketNo, basketQty, userNo, productNo);
+	}
+
+	public List<Integer> getBasketNo(int productNo) {
+		return DBManager.getBasketNo(productNo);
+	}
+
+	public String getProductName(int productNo) {
+		return DBManager.getProductName(productNo);
+	}
+
+	public String getImageName(int productNo) {
+		return DBManager.getImageName(productNo);
 	}
 
 }

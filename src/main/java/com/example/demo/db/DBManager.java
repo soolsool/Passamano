@@ -258,16 +258,41 @@ public class DBManager {
 	}
 	
 	//MypageMapper
-	public static int getQty(int basketNo) {
+	
+	public static String getProductName(int productNo) {
+		SqlSession session = factory.openSession();
+		String result = session.selectOne("mypage.getProductName",productNo);
+		session.close();
+		return result;
+	}
+
+	public static String getImageName(int productNo) {
+		SqlSession session = factory.openSession();
+		String result = session.selectOne("mypage.getImageName",productNo);
+		session.close();
+		return result;
+	}
+	
+	public static List<Integer> getBasketNo(int productNo) {
+		SqlSession session = factory.openSession();
+		List<Integer> result = session.selectList("mypage.getBasketNum", productNo);
+		session.close();
+		return result;
+	}
+	
+	public static int getQty(int productNo, int userNo) {
 		SqlSession session = factory.openSession(true);
-		int re = session.selectOne("mypage.getQty", basketNo);
+		HashMap map = new HashMap();
+		map.put("productNo", productNo);
+		map.put("userNo", userNo);
+		int re = session.selectOne("mypage.getQty", map);
 		session.close();
 		return re;
 	}
 
-	public static int getProductPrice(int basketNo) {
+	public static int getProductPrice(int productNo) {
 		SqlSession session = factory.openSession(true);
-		int re = session.selectOne("mypage.getProductPrice", basketNo);
+		int re = session.selectOne("mypage.getProductPrice", productNo);
 		session.close();
 		return re;
 	}
@@ -635,5 +660,9 @@ public class DBManager {
 			session.close();
 			return result;
 		}
+		
+		
+
+		
 	
 }

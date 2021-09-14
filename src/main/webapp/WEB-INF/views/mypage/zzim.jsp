@@ -136,13 +136,6 @@ input[type=checkbox] {
 	display: none;
 }
 
-.profile-area p{
-	color:white;
-	font-weight: bold;
-}
-.profile-area a p{
-	font-size:12px;
-}
 </style>
 </head>
 <body>
@@ -190,12 +183,12 @@ input[type=checkbox] {
 										주문/배송/리뷰
 									</a>
 								</li>
-								<li class="basket nav-item my-2 clicked">
+								<li class="basket nav-item my-2 ">
 									<a href="/mypage/cart.do" class="nav-link">
 										장바구니
 									</a>
 								</li>
-								<li class="zzim nav-item my-2">
+								<li class="zzim nav-item my-2 clicked">
 									<a href="/mypage/zzim.do" class="nav-link">
 										찜한 상품
 									</a>
