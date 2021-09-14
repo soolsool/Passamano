@@ -1,18 +1,18 @@
 package com.example.demo.vo;
 
 public class OrderDeliveryVo {
-	private String deliveryNo;
+	private int deliveryNo;
 	private String receiverName;
 	private String receiverPhone;
 	private String deliveryAddress1;
 	private String deliveryAddress2;
 	private String deliveryMsg;
 	private String deliveryAddress3;
-	private String ordersNo;
-	public String getDeliveryNo() {
+	private int ordersNo;
+	public int getDeliveryNo() {
 		return deliveryNo;
 	}
-	public void setDeliveryNo(String deliveryNo) {
+	public void setDeliveryNo(int deliveryNo) {
 		this.deliveryNo = deliveryNo;
 	}
 	public String getReceiverName() {
@@ -51,14 +51,14 @@ public class OrderDeliveryVo {
 	public void setDeliveryAddress3(String deliveryAddress3) {
 		this.deliveryAddress3 = deliveryAddress3;
 	}
-	public String getOrdersNo() {
+	public int getOrdersNo() {
 		return ordersNo;
 	}
-	public void setOrdersNo(String ordersNo) {
+	public void setOrdersNo(int ordersNo) {
 		this.ordersNo = ordersNo;
 	}
-	public OrderDeliveryVo(String deliveryNo, String receiverName, String receiverPhone, String deliveryAddress1,
-			String deliveryAddress2, String deliveryMsg, String deliveryAddress3, String ordersNo) {
+	public OrderDeliveryVo(int deliveryNo, String receiverName, String receiverPhone, String deliveryAddress1,
+			String deliveryAddress2, String deliveryMsg, String deliveryAddress3, int ordersNo) {
 		super();
 		this.deliveryNo = deliveryNo;
 		this.receiverName = receiverName;
@@ -73,4 +73,6 @@ public class OrderDeliveryVo {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 }

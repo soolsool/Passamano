@@ -28,6 +28,9 @@
 		<typeAlias type="com.example.demo.vo.ProductSalesVo" alias="productsalesVo" />
 		<typeAlias type="com.example.demo.vo.ProductSelectVo" alias="productselectVo" />
 		<typeAlias type="com.example.demo.vo.SellerVo" alias="sellersVo" />
+		<typeAlias type="com.example.demo.vo.OrdersVo" alias="orderVo"/>
+		<typeAlias type="com.example.demo.vo.OrderDetailVo" alias="orderdetailVo"/>
+		<typeAlias type="com.example.demo.vo.OrderDeliveryVo" alias="orderdeliveryVo"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -50,5 +53,6 @@
 		<mapper resource="com/example/demo/db/ReviewMapper.xml" />
 		<mapper resource="com/example/demo/db/ZzimMapper.xml" />
 		<mapper resource="com/example/demo/db/ProfileMapper.xml" />
+		<mapper resource="com/example/demo/db/OrderMapper.xml" />		
 	</mappers>
 </configuration>

@@ -13,6 +13,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.example.demo.vo.GetReviewVo;
+import com.example.demo.vo.OrderDeliveryVo;
+import com.example.demo.vo.OrderPayVo;
+import com.example.demo.vo.OrdersVo;
 import com.example.demo.vo.ProductCategoryVo;
 import com.example.demo.vo.ProductImgVo;
 import com.example.demo.vo.ProductListVo;
@@ -659,6 +662,48 @@ public class DBManager {
 			int result = session.selectOne("displayProducts.getSameZzim", map);
 			session.close();
 			return result;
+		}
+		
+		//<주문 인서트>
+		public static int insertOrder(OrdersVo o, OrderDeliveryVo od, OrderPayVo op) {
+			SqlSession session = factory.openSession(true);
+			int re1 = session.insert("order.insertOrder", o);
+			int re2 = session.insert("order.insertDelivery", od);
+			int re3 = session.insert("order.insertPay", op);
+			int re =0;
+			if(re1 ==1 && re2 ==1 && re3 ==1) {
+				session.commit();
+				re =1;
+			}else {
+				session.rollback();
+			}
+			session.close();
+			return re;
+		}
+		
+		
+		//<주문 번호>
+		public static int getOrderNo() {
+			SqlSession session = factory.openSession();
+			int no = session.selectOne("order.getOrderNo");
+			session.close();
+			return no;
+		}
+	
+		//<배송번호>
+		public static int getDeliveryNo() {
+			SqlSession session = factory.openSession();
+			int no = session.selectOne("order.getDeliveryNo");
+			session.close();
+			return no;
+		}
+
+		//<결제번호>
+		public static int getPayNo() {
+			SqlSession session = factory.openSession();
+			int no = session.selectOne("order.getPayNo");
+			session.close();
+			return no;
 		}
 		
 		
