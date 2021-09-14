@@ -30,6 +30,7 @@
 		<typeAlias type="com.example.demo.vo.SellerVo" alias="sellersVo" />
 		<typeAlias type="com.example.demo.vo.OrdersVo" alias="orderVo"/>
 		<typeAlias type="com.example.demo.vo.OrderDetailVo" alias="orderdetailVo"/>
+		<typeAlias type="com.example.demo.vo.OrderPayVo" alias="orderpayVo"/>
 		<typeAlias type="com.example.demo.vo.OrderDeliveryVo" alias="orderdeliveryVo"/>
 	</typeAliases>
 	<environments default="development">
