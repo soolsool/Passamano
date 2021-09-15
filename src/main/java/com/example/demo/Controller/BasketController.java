@@ -52,8 +52,9 @@ public class BasketController {
 			int deliveryFeeItem=(int) (deliveryFee.get(i));
 			String productName=(String)(dao.getProductName(basketProductNo.get(i)));
 			String imageName=(String)(dao.getImageName(basketProductNo.get(i)));
-		
-
+			int productNo=(int)(basketProductNo.get(i));
+			
+			map.put("ProductNo", basketProductNo);
 			map.put("deliveryFee", deliveryFeeItem);
 			map.put("basketQty", basketQty);
 			map.put("totalPrice", productPrice*basketQty);
@@ -61,8 +62,6 @@ public class BasketController {
 			map.put("productName", productName);
 			map.put("imageName", imageName);
 			
-			System.out.println(productName);
-			System.out.println(imageName);
 			list.add(map);
 			
 		}

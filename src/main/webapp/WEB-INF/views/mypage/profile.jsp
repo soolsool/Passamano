@@ -120,6 +120,7 @@ td {
 	border: 1px solid #28a745;
 	border-radius: 5px;
 	padding: 0;
+	margin: 2px 0px 2px 8px;
 }
 
 button:hover {
@@ -139,9 +140,6 @@ button:active {
 	color: red;
 }
 
-.btn-post {
-	margin: 2px 0px 2px 8px;
-}
 </style>
 </head>
 <body>
