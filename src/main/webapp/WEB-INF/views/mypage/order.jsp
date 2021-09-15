@@ -17,15 +17,15 @@
 		  IMP.init("imp71134967");
 			IMP.request_pay({
 				pg:'kcp',
-				pay_method:'card',
+				pay_method: $("select[name=payMethod]").val(),
 				merchant_uid:'merchant_'+new Date().getTime(),
-				name:'축구공',
-				amount:$("#orderTot").val(),
-				buyer_email:'tiger@gmail.com',
-				buyer_name:'홍길동',
-				buyer_tel:'010-2559-8279',
-				buyer_addr:'서울시 마포구 서교동',
-				buyer_postcode:'123-456'
+				name: $("#productName").val(),
+				amount: $("#payPrice").val(),
+				//buyer_email:'tiger@gmail.com',
+				buyer_name:$("#receiverName").val(),
+				buyer_tel:$("#receiverPhone").val(),
+				//buyer_addr:'서울시 마포구 서교동',
+				//buyer_postcode:'123-456'
 			},function(rsp){
 				console.log(rsp);
 				if(rsp.success){
@@ -36,7 +36,7 @@
 					msg += '카드 승인번호 :' + rsp.apply_num;
 					//alert(msg);
 					//location.href = "payok.html";
-					//document.getElementById("orderinput").submit();
+					document.getElementById("orderinput").submit();
 				}else{
 					var msg = "결제에 실패하였습니다.";
 					msg += '에러내용:'+rsp.error_msg;
@@ -54,13 +54,12 @@
 <c:forEach var="c" items="${product }">
 <form action="/mypage/orderinsert.do" method="post" id="orderinput">
 	<h2>제품정보</h2>
-	<!--  상품명: <input type="text" readonly="readonly" value="${c.p }"><br> -->
+	유저번호 : <input type="hidden" name="userNo" value="${userNo }"><br>
+	상품명: <input type="text" readonly="readonly" id="productName" value="${c.productName }"><br>
+	<img src="resources/images/productimage/${c.imageName}"><br>
 	수량: <input type="text" readonly="readonly" name="qty" value="${c.basketQty }"><br>
 	주문가격: <input type="text" readonly="readonly" name="totalPrice" value="${c.totalPrice }"><br>
-	배송비: <input type="text" readonly="readonly" name= "deliveryFee" value="${c.deliveryFee }"><br>
-	합계: <input type="text" readonly="readonly" id="orderTot" name="orderTot" value="${c.lastprice }"><br>
 	
-	유저번호 : <input type="hidden" readonly="readonly" name="userNo" value="${userNo }"><br>
 	<!-- 
 	<input type="text" readonly="readonly" value="${p.productName }"><br>
  	<input type="hidden" name="productNo" value="${productNo }">
@@ -74,7 +73,18 @@
 			<input type="text" name="deliveryAddress3"><br>
 	배송요청사항 : <input type="text" name="deliveryMsg"><br>
 	
-
+	<!-- 결제정보 -->
+	결제방법 :
+	<select name="payMethod">
+		<option value="card">신용카드</option>
+		<!--  <option value="">실시간계좌이체</option>-->
+		<option value="vbank">가상계좌</option>
+	</select><br>
+	배송비: <input type="text" readonly="readonly" name= "deliveryFee" value="${c.deliveryFee }"><br>
+	합계: <input type="text" readonly="readonly" id="orderTot" name="orderTot" value="${c.lastprice }"><br>
+	<!-- 결제금액 -->
+	<input type="hidden" id="payPrice" name="payPrice" value="${c.lastprice }">
+	
 	<button id="check_module" type="button">결제</button>
 </form>
 

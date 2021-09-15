@@ -28,7 +28,7 @@
 	</insert>
 	
 	<select id="getPayNo" resultType="int">
-		select nvl(max(pay_no),0)+1 from pay_no
+		select nvl(max(pay_no),0)+1 from order_pay
 	</select>
 	
 </mapper>

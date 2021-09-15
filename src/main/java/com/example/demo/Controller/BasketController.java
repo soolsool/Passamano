@@ -56,6 +56,7 @@ public class BasketController {
 
 			map.put("deliveryFee", deliveryFeeItem);
 			map.put("basketQty", basketQty);
+			map.put("totalPrice", productPrice*basketQty);
 			map.put("lastprice", productPrice*basketQty+deliveryFeeItem);
 			map.put("productName", productName);
 			map.put("imageName", imageName);

@@ -52,7 +52,7 @@ public class OrdersController {
 		o.setOrdersNo(no);
 		od.setOrdersNo(no);
 		od.setDeliveryNo(dno);
-		op.setOrderNo(no);
+		op.setOrdersNo(no);
 		op.setPayNo(pno);
 		
 		int re = dao.inserOrder(o,od,op);
