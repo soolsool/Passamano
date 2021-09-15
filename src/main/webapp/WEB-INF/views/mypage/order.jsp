@@ -45,26 +45,43 @@
 			});
 	 });
 });
+  
+  
+  $(function(){
+	 	var tot = 0;
+	  $(".orderTot").each(function(i, items){
+		var aa = $(this).val();
+	 	tot = Number(tot) + Number(aa);
+	 })
+	$("#payPrice").val(tot);
+	 	
+});
+  
+  
 
   
   </script>
 </head>
 <body>
 
-<c:forEach var="c" items="${product }">
 <form action="/mypage/orderinsert.do" method="post" id="orderinput">
+<c:forEach var="c" items="${product }">
 	<h2>제품정보</h2>
 	유저번호 : <input type="hidden" name="userNo" value="${userNo }"><br>
 	상품명: <input type="text" readonly="readonly" id="productName" value="${c.productName }"><br>
 	<img src="resources/images/productimage/${c.imageName}"><br>
 	수량: <input type="text" readonly="readonly" name="qty" value="${c.basketQty }"><br>
 	주문가격: <input type="text" readonly="readonly" name="totalPrice" value="${c.totalPrice }"><br>
-	
+	배송비: <input type="text" readonly="readonly" name="deliveryFee" value="${c.deliveryFee }"><br>
+	총가격: <input type="text" readonly="readonly" class="orderTot" name="orderTot" value="${c.lastprice }"><br>
 	<!-- 
 	<input type="text" readonly="readonly" value="${p.productName }"><br>
  	<input type="hidden" name="productNo" value="${productNo }">
 	 -->
 	 
+	<!-- 결제정보 -->
+</c:forEach>
+	
 	<h2>배송 정보</h2>
 	수령인 : <input type="text" name="receiverName"><br>
 	연락처 : <input type="text" name="receiverPhone"><br>
@@ -73,21 +90,18 @@
 			<input type="text" name="deliveryAddress3"><br>
 	배송요청사항 : <input type="text" name="deliveryMsg"><br>
 	
-	<!-- 결제정보 -->
 	결제방법 :
 	<select name="payMethod">
 		<option value="card">신용카드</option>
 		<!--  <option value="">실시간계좌이체</option>-->
 		<option value="vbank">가상계좌</option>
 	</select><br>
-	배송비: <input type="text" readonly="readonly" name= "deliveryFee" value="${c.deliveryFee }"><br>
-	합계: <input type="text" readonly="readonly" id="orderTot" name="orderTot" value="${c.lastprice }"><br>
+	합계: <input type="text" readonly="readonly" id="payPrice" name="orderTot"><br>
 	<!-- 결제금액 -->
-	<input type="hidden" id="payPrice" name="payPrice" value="${c.lastprice }">
+	<input type="hidden" id="payPrice" name="payPrice">
 	
 	<button id="check_module" type="button">결제</button>
 </form>
 
-</c:forEach>
 </body>
 </html>
