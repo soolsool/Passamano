@@ -65,4 +65,12 @@ public class DisplayProductDao {
 	public int getSameZzim(int userNo, int productNo) {
 		return DBManager.getSameZzim(userNo, productNo);
 	}
+
+	public int cancelZzim(int userNo, int productNo) {
+		return DBManager.cancelZzim(userNo, productNo);
+	}
+
+	public int getZzim(int productNo) {
+		return DBManager.getZzim(productNo);
+	}
 }

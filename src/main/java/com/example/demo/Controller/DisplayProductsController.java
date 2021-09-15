@@ -1,5 +1,8 @@
 package com.example.demo.Controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +49,11 @@ public class DisplayProductsController {
 	}
 	
 	@RequestMapping("/product.do")
-	public void detail(int productNo, Model model) {
+	public void detail(Model model, HttpSession session, int productNo) {
+		if(session.getAttribute("userNo")!=null) {
+			int userNo = (int)session.getAttribute("userNo");			
+			model.addAttribute("myzzim",dao.getSameZzim(userNo, productNo));
+		}		
 		model.addAttribute("p", dao.getDetail(productNo));
 		model.addAttribute("list", dao.getProductImage(productNo));
 		model.addAttribute("review", dao.getReviews(productNo));
@@ -55,7 +62,7 @@ public class DisplayProductsController {
 	
 	@RequestMapping("/zzim.do")
 	@ResponseBody
-	public int addZzim(HttpSession session, int productNo) {
+	public HashMap addZzim(HttpSession session, int productNo) {
 		int userNo = (int)session.getAttribute("userNo");
 		
 		if(dao.getSameZzim(userNo, productNo)==0) {
@@ -63,13 +70,46 @@ public class DisplayProductsController {
 			zzim.setZzimNo(dao.getZzimCount()+1);
 			zzim.setProductNo(productNo);
 			zzim.setUserNo(userNo);
+			
 			int result = dao.addZzim(zzim);
-			return result;
+			int zzimCount = dao.getZzim(productNo);
+			
+			HashMap map = new HashMap();
+			map.put("result", result);
+			map.put("zzim", zzimCount);
+			return map;
 		}else {
 			int result = 2;
-			return result;
+			int zzimCount = dao.getZzim(productNo); 
+			HashMap map = new HashMap();
+			map.put("result", result);
+			map.put("zzim", zzimCount);
+			return map;
 		}
 		
+	}
+	
+	@RequestMapping("/getsamezzim.do")
+	@ResponseBody
+	public int getSameZzim(HttpSession session, int productNo) {
+		if(session.getAttribute("userNo")!=null) {
+			int userNo = (int)session.getAttribute("userNo");			
+			return dao.getSameZzim(userNo, productNo);
+		}
+		return 0;
+	}
+	
+	@RequestMapping("/cancelzzim.do")
+	@ResponseBody
+	public HashMap cancelZzim(HttpSession session, int productNo) {		
+		int userNo = (int)session.getAttribute("userNo");
+		int result = dao.cancelZzim(userNo, productNo);
+		int zzim = dao.getZzim(productNo);
+		
+		HashMap map = new HashMap();
+		map.put("result", result);
+		map.put("zzim", zzim);
+		return map;
 	}
 	
 	@RequestMapping("/search.do")

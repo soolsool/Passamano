@@ -635,5 +635,23 @@ public class DBManager {
 			session.close();
 			return result;
 		}
+
+		public static int cancelZzim(int userNo, int productNo) {
+			SqlSession session = factory.openSession(true);
+			HashMap map = new HashMap();
+			map.put("userNo", userNo);
+			map.put("productNo", productNo);
+			int result = session.delete("displayProducts.cancelZzim", map);
+			session.commit();
+			session.close();
+			return result;
+		}
+
+		public static int getZzim(int productNo) {
+			SqlSession session = factory.openSession();
+			int result = session.selectOne("displayProducts.getZzim", productNo);
+			session.close();
+			return result;
+		}
 	
 }

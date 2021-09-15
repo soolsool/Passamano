@@ -133,4 +133,15 @@
 		where user_no=#{userNo} and product_no=#{productNo}
 	</select>
 	
+	<delete id="cancelZzim">
+		delete from product_zzim
+		where user_no=#{userNo} and product_no=#{productNo}
+	</delete>
+	
+	<select id="getZzim" resultType="int">
+		select count(zzim_no) 
+		from product_zzim 
+		where product_no=#{productNo}
+	</select>
+	
 </mapper>
