@@ -4,42 +4,49 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="displayProducts">
 	<select id="list" resultType="listVo">
-		select img.image_name,
-			p.product_no,
-			p.product_name,
-			p.product_price,
-			p.product_state,
-			s.seller_company, 
-			s.seller_ceo,
-			j.zzim
-		from products p, 
-			product_img img, 
-			user_seller s,
-			product_category c,
-			(select products.product_no, 
-				count(product_zzim.product_no) zzim
-			from products 
-				left outer join product_zzim
-				on products.product_no = product_zzim.product_no
-				group by products.product_no) j
-		where p.product_no = img.product_no
-			and j.product_no = p.product_no
-			and p.seller_no = s.seller_no
-			and p.category_no = c.category_no
-			<choose>
-				<when test="whereField != null and categoryNo !=null">
-					and ${whereField} = #{categoryNo}
-				</when>
-			</choose>
-			and thumbnail = '1'
-			<choose>
-				<when test="orderField!= null">
-					order by product_state, ${orderField} ${sortOrder}
-				</when>
-				<otherwise>
-					order by product_state, p.product_name
-				</otherwise>
-			</choose>
+		select *
+		from ( select * 
+			from ( select rownum num, pl.*
+				from ( select img.image_name,
+						p.product_no,
+						p.product_name,
+						p.product_price,
+						p.product_state,
+						s.seller_company, 
+						s.seller_ceo,
+						j.zzim
+					from products p, 
+						product_img img, 
+						user_seller s,
+						product_category c,
+						(select products.product_no, 
+							count(product_zzim.product_no) zzim
+						from products 
+							left outer join product_zzim
+							on products.product_no = product_zzim.product_no
+							group by products.product_no) j
+					where p.product_no = img.product_no
+						and j.product_no = p.product_no
+						and p.seller_no = s.seller_no
+						and p.category_no = c.category_no
+						<choose>
+							<when test="whereField != null and categoryNo != null">
+								and ${whereField} = #{categoryNo}
+							</when>
+						</choose>
+						and thumbnail = '1'
+						<choose>
+							<when test="orderField!= null">
+								order by product_state, ${orderField} ${sortOrder}
+							</when>
+							<otherwise>
+								order by product_state, p.product_name
+							</otherwise>
+						</choose>
+					) pl 
+				where rownum  <![CDATA[ <= ]]> ${end}
+			) where num  <![CDATA[ >= ]]> ${start}
+		)
 	</select>
 	
 	<select id="detail" resultType="listVo">
@@ -142,6 +149,12 @@
 		select count(zzim_no) 
 		from product_zzim 
 		where product_no=#{productNo}
+	</select>
+	
+	<select id="getMaxproduct" resultType="int">
+		select count(product_no)
+		from products
+		where product_no not in 1
 	</select>
 	
 </mapper>

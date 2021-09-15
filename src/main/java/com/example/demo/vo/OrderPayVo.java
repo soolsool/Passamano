@@ -5,9 +5,7 @@ import java.sql.Date;
 public class OrderPayVo {
 	private int payNo;
 	private int payPrice;
-	private int payPoint;
-	private int payCoupon;
-	private int orderNo;
+	private int ordersNo;
 	private String payMethod;
 	private Date payDate;
 	public int getPayNo() {
@@ -22,23 +20,11 @@ public class OrderPayVo {
 	public void setPayPrice(int payPrice) {
 		this.payPrice = payPrice;
 	}
-	public int getPayPoint() {
-		return payPoint;
+	public int getOrdersNo() {
+		return ordersNo;
 	}
-	public void setPayPoint(int payPoint) {
-		this.payPoint = payPoint;
-	}
-	public int getPayCoupon() {
-		return payCoupon;
-	}
-	public void setPayCoupon(int payCoupon) {
-		this.payCoupon = payCoupon;
-	}
-	public int getOrderNo() {
-		return orderNo;
-	}
-	public void setOrderNo(int orderNo) {
-		this.orderNo = orderNo;
+	public void setOrdersNo(int ordersNo) {
+		this.ordersNo = ordersNo;
 	}
 	public String getPayMethod() {
 		return payMethod;
@@ -52,14 +38,11 @@ public class OrderPayVo {
 	public void setPayDate(Date payDate) {
 		this.payDate = payDate;
 	}
-	public OrderPayVo(int payNo, int payPrice, int payPoint, int payCoupon, int orderNo, String payMethod,
-			Date payDate) {
+	public OrderPayVo(int payNo, int payPrice, int ordersNo, String payMethod, Date payDate) {
 		super();
 		this.payNo = payNo;
 		this.payPrice = payPrice;
-		this.payPoint = payPoint;
-		this.payCoupon = payCoupon;
-		this.orderNo = orderNo;
+		this.ordersNo = ordersNo;
 		this.payMethod = payMethod;
 		this.payDate = payDate;
 	}
@@ -67,4 +50,7 @@ public class OrderPayVo {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	
 }

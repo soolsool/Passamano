@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -13,8 +14,9 @@ import com.example.demo.vo.ProductZzimVo;
 @Repository
 public class DisplayProductDao {
 	////메인 페이지에 보여줄 제품 목록 검색
-	public List<ProductListVo> getList(String orderField, String sortOrder, String whereField, String categoryNo){
-		return DBManager.getList(orderField, sortOrder, whereField, categoryNo);
+	public List<ProductListVo> getList(HashMap<Object, Object> paraMap){
+		System.out.println(paraMap.get("categoryNo"));
+		return DBManager.getList(paraMap);
 	}
 	
 	//제품 클릭시 제품 상세페이지에 보여줄 productVo 검색
@@ -73,4 +75,9 @@ public class DisplayProductDao {
 	public int getZzim(int productNo) {
 		return DBManager.getZzim(productNo);
 	}
+	
+	public int getMaxproduct() {
+		return DBManager.getMaxproduct();
+	}
+	
 }

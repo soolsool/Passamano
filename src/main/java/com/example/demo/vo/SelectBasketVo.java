@@ -7,7 +7,6 @@ public class SelectBasketVo {
 	private String imageName;
 	private int productNo;
 	private int detailPrice;
-	private int basketNo;
 	public String getProductName() {
 		return productName;
 	}
@@ -44,14 +43,8 @@ public class SelectBasketVo {
 	public void setDetailPrice(int detailPrice) {
 		this.detailPrice = detailPrice;
 	}
-	public int getBasketNo() {
-		return basketNo;
-	}
-	public void setBasketNo(int basketNo) {
-		this.basketNo = basketNo;
-	}
 	public SelectBasketVo(String productName, int productPrice, int basketQty, String imageName, int productNo,
-			int detailPrice, int basketNo) {
+			int detailPrice) {
 		super();
 		this.productName = productName;
 		this.productPrice = productPrice;
@@ -59,12 +52,12 @@ public class SelectBasketVo {
 		this.imageName = imageName;
 		this.productNo = productNo;
 		this.detailPrice = detailPrice;
-		this.basketNo = basketNo;
 	}
 	public SelectBasketVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	
 	
 	

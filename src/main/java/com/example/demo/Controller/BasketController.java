@@ -28,26 +28,43 @@ public class BasketController {
 		this.dao = dao;
 	}
 	
+//	basketProductNo : checkedValue,
+//	deliveryFee : deliveryFee
+	
 	@RequestMapping("/mypage/basketProcess.do")
+	@ResponseBody
 	public void orderProcess(Model model, HttpServletRequest request, HttpSession session,
-			@RequestParam(value = "basketNo[]", required = false) List<Integer> basketNo,
-			@RequestParam(value = "deliveryFee[]", required = false) List<Integer> deliveryFeeItem) {
-
+			@RequestParam(value = "basketProductNo[]", required = false) List<Integer> basketProductNo,
+			@RequestParam(value = "deliveryFee[]", required = false) List<Integer> deliveryFee) {
+		
+	
 		int userNo= (int)session.getAttribute("userNo");
+		
 		ArrayList<HashMap> list = new ArrayList<HashMap>();
-		int num = basketNo.size();
+		int num = basketProductNo.size();
 		for (int i = 0; i < num; i++) {
 
 			HashMap map = new HashMap();
-			int basketQty=(int)dao.getQty(basketNo.get(i));
-			int productPrice=(int)dao.getProductPrice(basketNo.get(i));
-			int deliveryFee=(int) (deliveryFeeItem.get(i));
-			map.put("basketNo", (int) (basketNo.get(i)));
-			map.put("deliveryFee", deliveryFee);
+			
+			//List<Integer> basketNo=dao.getBasketNo(basketProductNo.get(i));
+			int basketQty=(int)dao.getQty(basketProductNo.get(i),userNo);			
+			int productPrice=(int)dao.getProductPrice(basketProductNo.get(i));
+			int deliveryFeeItem=(int) (deliveryFee.get(i));
+			String productName=(String)(dao.getProductName(basketProductNo.get(i)));
+			String imageName=(String)(dao.getImageName(basketProductNo.get(i)));
+		
+
+			map.put("deliveryFee", deliveryFeeItem);
 			map.put("basketQty", basketQty);
-			map.put("lastprice", productPrice*basketQty+deliveryFee);
+			map.put("totalPrice", productPrice*basketQty);
+			map.put("lastprice", productPrice*basketQty+deliveryFeeItem);
+			map.put("productName", productName);
+			map.put("imageName", imageName);
+			
+			System.out.println(productName);
+			System.out.println(imageName);
 			list.add(map);
-			dao.deleteBasket(userNo, (int) (basketNo.get(i)));
+			
 		}
 
 		session.setAttribute("product", list);
@@ -61,7 +78,10 @@ public class BasketController {
 
 		int userNo= (int)session.getAttribute("userNo");
 		for (int i = 0; i < basketItem.size(); i++) {
-			dao.deleteBasket(userNo, (int) (basketItem.get(i)));
+			List<Integer> basketNo=dao.getBasketNo(basketItem.get(i));
+			for(int j=0; j<basketNo.size(); j++) {
+				dao.deleteBasket(userNo, basketNo.get(j));
+			}
 		}
 	}
 	

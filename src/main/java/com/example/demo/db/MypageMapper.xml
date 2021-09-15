@@ -23,26 +23,36 @@
 		order by o.orders_no desc
 	</select>
 	<select id="selectBasket" resultType="SelectBasketVo">
-		select basket_no,
-		product_name,product_price,basket_qty,image_name,
-		p.product_no,product_price*basket_qty detail_price
-		from products p,
-		product_basket pb,product_img pi
+		select distinct product_name,product_price,g.qty basket_qty,image_name,
+		p.product_no,product_price*g.qty detail_price
+		from products
+		p,product_basket pb,product_img pi,
+		(select p.product_no,
+		sum(basket_qty) qty from products p, product_basket pb
+		where p.product_no=pb.product_no and pb.user_no=#{userNo}
+		group by p.product_no) g
 		where p.product_no = pb.product_no and
 		p.product_no=pi.product_no and pi.thumbnail=1
+		and p.product_no=g.product_no
 		and pb.user_no =#{userNo}
-		order by basket_no desc
 	</select>
 	<delete id="deleteBasket">
 		delete product_basket where user_no=#{userNo} and
 		basket_no=#{basketNo}
 	</delete>
 	<select id="getQty" resultType="int">
-		select basket_qty from product_basket where basket_no=#{basketNo}
+		select qty from (select p.product_no, sum(basket_qty) qty from
+		product_basket pb, products p where p.product_no=pb.product_no and p.product_no=#{productNo} and user_no = #{userNo} group by p.product_no)
 	</select>
 	<select id="getProductPrice" resultType="int">
-		select p.product_price from products p, product_basket pb
-		where p.product_no=pb.product_no and pb.basket_no=#{basketNo}
+		select p.product_price
+		from products p where product_no=#{productNo}
+	</select>
+	<select id="getProductName" resultType="String">
+		select product_name from products where product_no=#{productNo}
+	</select>
+	<select id="getImageName" resultType="String">
+		select image_name from product_img where product_no=#{productNo} and thumbnail=1
 	</select>
 	<update id="updateOrder">
 		update order_manage set
@@ -82,17 +92,22 @@
 		select * from users
 		u,user_address ud where u.user_no=ud.user_no and u.user_no=#{userNo}
 	</select>
-	
+
 	<select id="getBasketNo" resultType="int">
-	  	select max(basket_no)
-	  	from product_basket
+		select max(basket_no)
+		from product_basket
+	</select>
+
+	<insert id="insertIntoBasket">
+		insert into product_basket(basket_no, basket_qty,
+		user_no, product_no)
+		values (#{basketNo}, #{basketQty}, #{userNo},
+		#{productNo})
+	</insert>
+	<select id="getBasketNum" resultType="int">
+		select basket_no from product_basket where product_no=#{productNo}
 	</select>
 	
-	<insert id="insertIntoBasket">
-		insert into product_basket(basket_no, basket_qty, user_no, product_no)
-		values (#{basketNo}, #{basketQty}, #{userNo}, #{productNo})
-	</insert>
-
 </mapper>
 
 

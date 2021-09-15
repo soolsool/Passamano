@@ -54,5 +54,7 @@ public class MypageController {
 		model.addAttribute("userInfo", dao.selectUser(userNo));
 	}
 
+	@RequestMapping("/mypage/order.do")
+	public void order() {}
 
 }

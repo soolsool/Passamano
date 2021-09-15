@@ -168,13 +168,6 @@ input[type=checkbox] {
 	display: none;
 }
 
-.profile-area p{
-	color:white;
-	font-weight: bold;
-}
-.profile-area a p{
-	font-size:12px;
-}
 .nav-item>a::after {
   content: '';
   display: block;
@@ -277,7 +270,7 @@ input[type=checkbox] {
 							<div class="first-card mb-3" detailPrice="${b.detailPrice}"
 								style="max-width: 80%;">
 								<div class="first-card-header">
-									<input name="checkbox" class="checkbox" value="${b.basketNo}"
+									<input name="checkbox" class="checkbox""
 										productNo="${b.productNo }" type="checkbox">
 								</div>
 								<div class="cart-body">
@@ -369,94 +362,85 @@ function changeValue() {
 	$(".img-form").submit();
 }
 
+$(".all-check").click(function(){
+	$("input[type=checkbox][name=checkbox]").prop("checked", true);
+});
+
 $(".checkbox").click(
-				function() {
-					if ($(this).hasClass('all-check')
-							&& $(".all-check").is(':checked')) {
-						$("input[type=checkbox][name=checkbox]").prop(
-								"checked", true);
-					} else if ($(this).hasClass('all-check')
-							&& $(".all-check").is(':not(:checked)')) {
-						$("input[type=checkbox][name=checkbox]").prop(
-								"checked", false);
-					}
-					checkedValue = [];
-					totalprice = 0;
-					totaldeliveryfee = 0;
-					lastprice = 0;
-					$("input[name=checkbox]:checked")
-							.each(
-									function(index, item) {
+		function() {
+			if ($(this).hasClass('all-check')&& $(".all-check").is(':checked')) {
+				$("input[type=checkbox][name=checkbox]").prop("checked", true);
+			} else if ($(this).hasClass('all-check')&& $(".all-check").is(':not(:checked)')) {
+				$("input[type=checkbox][name=checkbox]").prop("checked", false);
+			}
+			checkedValue = [];
+			totalprice = 0;
+			totaldeliveryfee = 0;
+			lastprice = 0;
+			$("input[name=checkbox]:checked")
+					.each(
+							function(index, item) {
+								checkedValue.push($(item).val());
+								totalprice += Number($(item).closest('.first-card').attr('detailPrice'));
+								lastprice += Number($(item).closest('.first-card').attr('detailPrice'));
 
-										checkedValue.push($(item).val());
-										totalprice += Number($(item)
-												.closest('.first-card')
-												.attr('detailPrice'));
-										lastprice += Number($(item)
-												.closest('.first-card')
-												.attr('detailPrice'));
+								if ($(item).closest('.first-card').attr('detailPrice') > 50000) {
+									totaldeliveryfee += 0;
+									lastprice += 0;
+								} else {
+									totaldeliveryfee += 3000;
+									lastprice += 3000;
+								}
 
-										if ($(item).closest('.first-card')
-												.attr('detailPrice') > 50000) {
-											totaldeliveryfee += 0;
-											lastprice += 0;
-										} else {
-											totaldeliveryfee += 3000;
-											lastprice += 3000;
-										}
-
-									});
-					var comma = (totalprice.toString().length) / 4;
-					var comma2 = (totaldeliveryfee.toString().length) / 4;
-					var comma3 = (lastprice.toString().length) / 4;
-					if (comma >= 1) {
-						for (var i = 1; i <= comma; i++) {
-							totalprice = [
-									(totalprice.toString()).slice(0,
-											totalprice.toString().length
-													- i * 3),
-									(totalprice.toString()).slice(
-											totalprice.toString().length
-													- i * 3, totalprice
-													.toString().length) ]
-									.join(',');
-						}
-					}
-					if (comma2 >= 1) {
-						for (var i = 1; i <= comma2; i++) {
-							totaldeliveryfee = [
-									(totaldeliveryfee.toString())
-											.slice(0, totaldeliveryfee
-													.toString().length
-													- i * 3),
-									(totaldeliveryfee.toString())
-											.slice(
-													totaldeliveryfee
-															.toString().length
-															- i * 3,
-													totaldeliveryfee
-															.toString().length) ]
-									.join(',');
-						}
-					}
-					if (comma3 >= 1) {
-						for (var i = 1; i <= comma3; i++) {
-							lastprice = [
-									(lastprice.toString()).slice(0,
-											lastprice.toString().length - i
-													* 3),
-									(lastprice.toString()).slice(lastprice
+							});
+			var comma = (totalprice.toString().length) / 4;
+			var comma2 = (totaldeliveryfee.toString().length) / 4;
+			var comma3 = (lastprice.toString().length) / 4;
+			if (comma >= 1) {
+				for (var i = 1; i <= comma; i++) {
+					totalprice = [
+							(totalprice.toString()).slice(0,
+									totalprice.toString().length
+											- i * 3),
+							(totalprice.toString()).slice(
+									totalprice.toString().length
+											- i * 3, totalprice
+											.toString().length) ].join(',');
+				}
+			}
+			if (comma2 >= 1) {
+				for (var i = 1; i <= comma2; i++) {
+					totaldeliveryfee = [
+							(totaldeliveryfee.toString())
+									.slice(0, totaldeliveryfee
 											.toString().length
-											- i * 3,
-											lastprice.toString().length) ]
-									.join(',');
-						}
-					}
-					$(".total-price").html(totalprice);
-					$(".total-delivery-fee").html(totaldeliveryfee);
-					$(".last-price").html(lastprice);
+											- i * 3),
+							(totaldeliveryfee.toString())
+									.slice(
+											totaldeliveryfee
+													.toString().length
+													- i * 3,
+											totaldeliveryfee
+													.toString().length) ].join(',');
+				}
+			}
+			if (comma3 >= 1) {
+				for (var i = 1; i <= comma3; i++) {
+					lastprice = [
+							(lastprice.toString()).slice(0,
+									lastprice.toString().length - i
+											* 3),
+							(lastprice.toString()).slice(lastprice
+									.toString().length
+									- i * 3,
+									lastprice.toString().length) ].join(',');
+				}
+			}
+			$(".total-price").html(totalprice);
+			$(".total-delivery-fee").html(totaldeliveryfee);
+			$(".last-price").html(lastprice);
 
-				});
+		});
 
 	$(".cancel-btn").click(function() {
 		var checkedValue = [];
@@ -464,8 +448,7 @@ $(".checkbox").click(
 		if (result) {
 			$("input[name=checkbox]:checked").each(function(index, item) {
 	
-				checkedValue.push($(item).val());
-				$(item).closest('.first-card').hide();
+				checkedValue.push($(item).attr('productNo'));
 	
 			});
 			$("input[type=checkbox][class=checkbox]").prop("checked", false);
@@ -473,6 +456,7 @@ $(".checkbox").click(
 				basket : checkedValue
 			}, function(data) {
 			}, "json")
+			$(location).attr("href", "/mypage/cart.do");
 		}
 	
 	});
@@ -485,20 +469,25 @@ $(".checkbox").click(
 			if (result) {
 				$("input[name=checkbox]:checked").each(function(index, item) {
 					checkedValue.push($(item).attr('productNo'));
-					if ($(item).closest('.first-card').attr(
-							'detailPrice') > 50000) {
+					if ($(item).closest('.first-card').attr('detailPrice') > 50000) {
 						deliveryFee.push('0');
 					} else {
 						deliveryFee.push('3000');
+				}
 				});
+				console.log("상품번호,"+checkedValue);
+				console.log("배송료,"+deliveryFee);
+				
 				$.get("/mypage/basketProcess.do", {
 					basketProductNo : checkedValue,
 					deliveryFee : deliveryFee
 				}, function(data) {
+					console.log("OK");
 				}, "json")
 				$(location).attr("href", "/mypage/order.do");
 			}
-		} else {
+			}
+		 else {
 			alert("선택된 상품이 없습니다.");
 		}
 	});
