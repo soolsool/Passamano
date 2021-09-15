@@ -113,9 +113,9 @@
 		</div>
 		<div class="col-8">
 			<div class="d-inline w-25">  </div>
-			<p class="d-inline mt-5 mb-0 text-start fw-light fs-6">
-				총 ${count}개의 상품이 검색되었습니다.
-			</p>
+				<p class="d-inline mt-5 mb-0 ml-5 text-start fw-light fs-6">
+					총 ${count}개의 상품이 검색되었습니다.
+				</p>
 			<hr class="bg-success mx-auto w-75 pt-0.5"  id="mainColumn">
 			<div class="item_list mx-auto grid">
 				<ul class="list">

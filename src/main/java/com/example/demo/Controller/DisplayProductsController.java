@@ -1,5 +1,9 @@
 package com.example.demo.Controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +28,36 @@ public class DisplayProductsController {
 	}
 	
 	@RequestMapping("/")
-	public ModelAndView main(String orderField, String sortOrder, @RequestParam @Nullable String categoryNo) {
-		ModelAndView mav = new ModelAndView();
-		//mapper에서 검색할 때 사용할 컬럼명
-		String whereField = null;
-		if(orderField!=null && !orderField.equals("product_price")) {
-			sortOrder = "desc";
+	public ModelAndView main(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("redirect:/main.do");
+		return mav;
+	}
+	
+	@RequestMapping("/main.do")
+	public void main(Model model) {
+		model.addAttribute("category", dao.getAllCategory());
+	}
+	
+	@RequestMapping("/getProductList.do") 
+	@ResponseBody
+	public Map<Object, Object> getProduct(String orderField, String sortOrder, @RequestParam @Nullable String categoryNo, @RequestParam(value = "page", defaultValue = "1") int page){
+		int endPage = 0;
+		int lastOne = dao.getMaxproduct();
+		int productPerList = 9;
+		if(lastOne%productPerList==0) {
+			endPage = lastOne/productPerList;
+		}else {
+			endPage = lastOne/productPerList + 1;
 		}
 		
+		int end = page * productPerList;
+		int start = end - 8;
+		
+		if(end>lastOne) {
+			end = lastOne;
+		}
+		
+		String whereField = null;
 		if(categoryNo!=null) {
 			whereField = "c.category_no";
 			if(categoryNo.endsWith("0")) {
@@ -39,14 +65,30 @@ public class DisplayProductsController {
 			}
 		}
 		
-		mav.addObject("list", dao.getList(orderField, sortOrder, whereField, categoryNo));
-		mav.addObject("category", dao.getAllCategory());
-		mav.setViewName("main");
-		return mav;
+		HashMap<Object, Object> paraMap = new HashMap<Object, Object>();
+		paraMap.put("start", start);
+		paraMap.put("end", end);
+		paraMap.put("orderField", orderField);
+		paraMap.put("sortOrder", sortOrder);
+		paraMap.put("whereField", whereField);
+		paraMap.put("categoryNo", categoryNo);
+
+		HashMap<Object, Object> resultMap = new HashMap<Object, Object>(); 
+		resultMap.put("start", start);
+		resultMap.put("end", end);
+		resultMap.put("endPage", endPage);
+		resultMap.put("list", dao.getList(paraMap));
+		resultMap.put("category", dao.getAllCategory());
+		System.out.println(resultMap.get("list"));
+		return resultMap;
 	}
-	
+		
 	@RequestMapping("/product.do")
-	public void detail(int productNo, Model model) {
+	public void detail(Model model, HttpSession session, int productNo) {
+		if(session.getAttribute("userNo")!=null) {
+			int userNo = (int)session.getAttribute("userNo");			
+			model.addAttribute("myzzim",dao.getSameZzim(userNo, productNo));
+		}		
 		model.addAttribute("p", dao.getDetail(productNo));
 		model.addAttribute("list", dao.getProductImage(productNo));
 		model.addAttribute("review", dao.getReviews(productNo));
@@ -55,7 +97,7 @@ public class DisplayProductsController {
 	
 	@RequestMapping("/zzim.do")
 	@ResponseBody
-	public int addZzim(HttpSession session, int productNo) {
+	public HashMap addZzim(HttpSession session, int productNo) {
 		int userNo = (int)session.getAttribute("userNo");
 		
 		if(dao.getSameZzim(userNo, productNo)==0) {
@@ -63,13 +105,46 @@ public class DisplayProductsController {
 			zzim.setZzimNo(dao.getZzimCount()+1);
 			zzim.setProductNo(productNo);
 			zzim.setUserNo(userNo);
+			
 			int result = dao.addZzim(zzim);
-			return result;
+			int zzimCount = dao.getZzim(productNo);
+			
+			HashMap map = new HashMap();
+			map.put("result", result);
+			map.put("zzim", zzimCount);
+			return map;
 		}else {
 			int result = 2;
-			return result;
+			int zzimCount = dao.getZzim(productNo); 
+			HashMap map = new HashMap();
+			map.put("result", result);
+			map.put("zzim", zzimCount);
+			return map;
 		}
 		
+	}
+	
+	@RequestMapping("/getsamezzim.do")
+	@ResponseBody
+	public int getSameZzim(HttpSession session, int productNo) {
+		if(session.getAttribute("userNo")!=null) {
+			int userNo = (int)session.getAttribute("userNo");			
+			return dao.getSameZzim(userNo, productNo);
+		}
+		return 0;
+	}
+	
+	@RequestMapping("/cancelzzim.do")
+	@ResponseBody
+	public HashMap cancelZzim(HttpSession session, int productNo) {		
+		int userNo = (int)session.getAttribute("userNo");
+		int result = dao.cancelZzim(userNo, productNo);
+		int zzim = dao.getZzim(productNo);
+		
+		HashMap map = new HashMap();
+		map.put("result", result);
+		map.put("zzim", zzim);
+		return map;
 	}
 	
 	@RequestMapping("/search.do")

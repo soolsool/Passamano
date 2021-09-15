@@ -109,17 +109,17 @@
 										</span>
 									</div>
 									<div class="col-sm-9 my-1 text-end">
-										<span class="text-muted like">
+										<span class="text-muted" id="zzimcount">
 											♡${p.zzim}
-											<c:if test="${empty loginUser}">
-												<span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="로그인하세요.">
-													<button class="btn btn-outline-success btn-sm" type="button" disabled>찜하기</button>
-												</span>
-								       		</c:if>
-								       		<c:if test="${not empty loginUser}">
-												<button type="button" class="d-inline btn btn-outline-success btn-sm" onclick="insertZzim()">찜하기</button>
-								       		</c:if>
 										</span>
+										<c:if test="${empty loginUser}">
+											<span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="로그인하세요.">
+												<button class="btn btn-outline-success btn-sm" type="button" disabled>찜하기</button>
+											</span>
+							       		</c:if>
+							       		<c:if test="${not empty loginUser}">
+											<button type="button" class="d-inline btn btn-outline-success btn-sm" onclick="insertZzim()">찜하기</button>
+							       		</c:if>
 									</div>
 								</div>
 								
@@ -242,6 +242,22 @@
 	  return new bootstrap.Tooltip(tooltipTriggerEl)
 	})
 	
+	$(document).ready(function() {
+		var productNo = "<c:out value='${p.productNo}'/>";
+		var zzim = "<c:out value='${p.zzim}'/>";
+		$.ajax({
+			url:"/getsamezzim.do",
+			data:{"productNo":productNo},
+			success: function(data){
+				if(data==1){
+					document.getElementById('zzimcount').innerHTML = '♥'+zzim;
+					document.getElementById('zzimcount').classList.remove('text-muted');
+					document.getElementById('zzimcount').className += 'text-success';
+				}
+			}
+		})
+	})
+	
 	//리뷰 제목이나 평점을 클릭하면 해당 리뷰의 내용을 보여준다.
 	$(function(){
 		var postOpend = $('.show'); 
@@ -277,30 +293,42 @@
 	
 	//찜하기 버튼 클릭하면 찜하기 테이블에 데이터를 추가한다.
 	function insertZzim(){
-		var userNo = "<c:out value='${loginUser.userNo}'/>";
 		var productNo = "<c:out value='${p.productNo}'/>";
-		console.log(userNo);
-		console.log(productNo);
-		
 		$.ajax({
 			url:"/zzim.do",
 			data:{"productNo":productNo},
 			success: function(data){
-				if(data==1){
+				var result = data.result;
+				var zzim = data.zzim;
+				
+				if(result==1){
 					alert("찜 목록에 추가했습니다.");
-				}else if(data==2){
-					alert("이미 목록에 존재하는 상품입니다.")
+					document.getElementById('zzimcount').innerHTML = '♥'+zzim;
+					document.getElementById('zzimcount').classList.toggle('text-muted');
+					document.getElementById('zzimcount').classList.toggle('text-success');
+				}else if(result==2){
+					var checkCancel = confirm("찜하기를 취소하시겠습니까?")
+					
+					if(checkCancel){
+						$.ajax({
+							url:"/cancelzzim.do",
+							data:{"productNo":productNo},
+							success: function(data){
+								var newresult = data.result;
+								var newZzim = data.zzim; 
+								if(newresult==1){
+									alert("찜 목록에서 제거했습니다.");
+									document.getElementById('zzimcount').innerHTML = '♥'+newZzim;
+									document.getElementById('zzimcount').classList.toggle('text-muted');
+									document.getElementById('zzimcount').classList.toggle('text-success');
+								}
+							}
+						});						
+					}
 				}else{
 					alert("찜 목록 추가에 실패했습니다.")
 				}
-			},
-  			error: function(request, status, error){
-  				console.log("status : " + request.status + ", message : " + request.responseText + ", error : " + error)
-  			
-  			},
-  			complete: function(data){
-  				console.log("complete");
-  			}
+			}
 		})
 	}
 	
@@ -317,10 +345,7 @@
 				success: function(data){
 					var msg = data==1?"상품을 장바구니에 추가했습니다.":"상품을 장바구니에 추가하는데 실패했습니다.";
 					alert(msg);
-				},
-	  			complete: function(data){
-	  				console.log("complete");
-	  			}
+				}
 			});
 		}
 	}
