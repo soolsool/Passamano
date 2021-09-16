@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order">
+	<insert id="insertOrder" parameterType="orderVo" >
+		insert into orders(orders_no, user_no, order_date, order_tot, delivery_fee, pay_state)
+		values(#{ordersNo}, #{userNo}, sysdate, #{orderTot}, #{deliveryFee}, 1)
+	</insert>
+	
+	<select id="getOrderNo" resultType="int">
+		select nvl(max(orders_No),0)+1 from orders
+	</select>
+	
+	<insert id="insertDelivery" parameterType="orderdeliveryVo">
+		insert into order_delivery(delivery_no, receiver_name, receiver_phone, delivery_address1,
+		delivery_address2, delivery_address3, delivery_msg, orders_no) values(#{deliveryNo}, #{receiverName},
+		#{receiverPhone}, #{deliveryAddress1}, #{deliveryAddress2}, #{deliveryAddress3}, #{deliveryMsg}, #{ordersNo})
+	</insert>
+	
+	<select id="getDeliveryNo" resultType="int">
+		select nvl(max(delivery_No),0)+1 from order_delivery
+	</select>
+	
+	<insert id="insertPay" parameterType="orderpayVo">
+		insert into order_pay(pay_no, orders_no, pay_price, pay_method, pay_date)
+		values(#{payNo}, #{ordersNo}, #{payPrice}, #{payMethod}, sysdate)
+	</insert>
+	
+	<select id="getPayNo" resultType="int">
+		select nvl(max(pay_no),0)+1 from order_pay
+	</select>
+	
+</mapper>

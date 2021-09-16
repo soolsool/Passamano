@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="manageMember">
+	<select id="doubleCheck" parameterType="java.util.HashMap" resultType="int">
+		select count(*) from Users
+			where ${col} = #{userInput}
+	</select>
+	
+	<insert id="insertUser" parameterType="java.util.HashMap">
+		insert all
+			into users(user_no, 
+						id, 
+						pwd, 
+						name, 
+						phone, 
+						email, 
+						nickName, 
+						profile_filename, 
+						insertdate, 
+						grant_no) 
+			values(#{user.userNo}, 
+						#{user.id}, 
+						#{user.pwd}, 
+						#{user.name}, 
+						#{user.phone}, 
+						#{user.email}, 
+						#{user.nickName}, 
+						#{user.profileFilename}, 
+						sysdate, 
+						10)
+			into user_address(address_no,
+								address1,
+								address2,
+								address3,
+								user_no)
+			values(#{address.addressNo},
+					#{address.address1},
+					#{address.address2},
+					#{address.address3},
+					#{address.userNo})
+		select * 
+		from dual
+	</insert>
+	
+	<insert id="insertSeller" parameterType="java.util.HashMap">
+		insert all
+			into users(user_no, 
+						id, 
+						pwd, 
+						name, 
+						phone, 
+						email, 
+						nickName, 
+						profile_filename, 
+						insertdate, 
+						grant_no) 
+			values(#{user.userNo}, 
+						#{user.id}, 
+						#{user.pwd}, 
+						#{user.name}, 
+						#{user.phone}, 
+						#{user.email}, 
+						#{user.nickName}, 
+						#{user.profileFilename}, 
+						sysdate, 
+						20)
+			into user_address(address_no,
+								address1,
+								address2,
+								address3,
+								user_no)
+			values(#{address.addressNo},
+					#{address.address1},
+					#{address.address2},
+					#{address.address3},
+					#{address.userNo})
+			into user_seller(seller_no,
+ 								user_no,
+ 								seller_id,
+ 								seller_company,
+								seller_ceo,
+								seller_date,
+								seller_address)
+			values(#{seller.sellerNo},
+					#{seller.userNo},
+					#{seller.sellerId},
+					#{seller.sellerCompany},
+					#{seller.sellerCeo},
+					#{seller.sellerDate},
+					#{seller.sellerAddress},
+					#{seller.sellerFile})
+		select * 
+		from dual
+	</insert>
+	
+	<select id="isMember" resultType="UserVo">
+		select * 
+				from users 
+				where id=#{id} 
+				and pwd=#{pwd}
+	</select>
+	
+	<select id="getMember" resultType="UserVo">
+		select * 
+				from users 
+				where id=#{id}
+	</select>
+	
+	<select id="getNextUserNo" resultType="int">
+		select max(user_no) 
+				from users
+	</select>
+	
+	<select id="getAddressNo" resultType="int">
+		select max(address_no)
+				from user_address
+	</select>
+	
+	<select id="getNextSellerNo" resultType="int">
+		select max(seller_no)
+			from user_seller
+	</select>
+	
+	<select id="isMemberByPhone" resultType="int">
+		select count(user_no) 
+		from users 
+		where name=#{name} and phone=#{phone}
+	</select>
+	
+	<select id="getId" resultType="String">
+		select id 
+		from users 
+		where name=#{name} 
+		and phone=#{phone}
+	</select>
+	
+	<select id="isMemberById" resultType="int">
+		select count(user_no) 
+		from users 
+		where name=#{name}
+		and id=#{id} 
+		and phone=#{phone}
+	</select>
+	
+	<update id="setNewPwd" parameterType="java.util.HashMap">
+		update users
+		set pwd=#{pwd}
+		where id=#{id}
+	</update>
+</mapper>

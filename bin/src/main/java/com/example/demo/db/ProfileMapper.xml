@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="profile">
+	<update id="updateUser">
+		update users set
+		profile_filename=#{profileFilename}
+		where
+		user_no=#{userNo}
+	</update>
+	<select id="nicknameCheck" resultType="int">
+		select count(*) from users
+		where nickname=#{nickName}
+	</select>
+	<update id="updateNickname">
+		update users set
+		nickname=#{nickName}
+		where
+		user_no=#{userNo}
+	</update>
+	<select id="getPassword" resultType="String">
+		select pwd from users where
+		user_no=#{userNo}
+	</select>
+	<update id="updatePassword">
+		update users set
+		pwd=#{newPassword}
+		where
+		user_no=#{userNo}
+	</update>
+	<update id="updateAddress">
+		update user_address set
+		address1=#{address1},
+		address2=#{address2},
+		address3=#{address3}
+		where user_no = #{userNo}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
