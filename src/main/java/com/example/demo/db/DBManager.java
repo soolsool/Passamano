@@ -13,7 +13,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.example.demo.vo.GetReviewVo;
+import com.example.demo.vo.OrderCommand;
 import com.example.demo.vo.OrderDeliveryVo;
+import com.example.demo.vo.OrderDetailVo;
 import com.example.demo.vo.OrderPayVo;
 import com.example.demo.vo.OrdersVo;
 import com.example.demo.vo.ProductCategoryVo;
@@ -677,21 +679,43 @@ public class DBManager {
 	}
 	
 	//<주문 인서트>
-	public static int insertOrder(OrdersVo o, OrderDeliveryVo od, OrderPayVo op) {
-		SqlSession session = factory.openSession(true);
-		int re1 = session.insert("order.insertOrder", o);
-		int re2 = session.insert("order.insertDelivery", od);
-		int re3 = session.insert("order.insertPay", op);
-		int re =0;
-		if(re1 ==1 && re2 ==1 && re3 ==1) {
-			session.commit();
-			re =1;
-		}else {
-			session.rollback();
+		public static int insertOrder(OrderCommand oc) {
+			SqlSession session = factory.openSession(false);
+			OrdersVo orders = oc.getOrders();
+			OrderPayVo pay = oc.getOrderPay();
+			OrderDeliveryVo delivery = oc.getOrderDelivery();
+			List<OrderDetailVo> list = oc.getOrderDetailList();
+			int orderNo = getOrderNo();
+			int deliveryNo = getDeliveryNo();
+			int payno = getPayNo();
+			
+			orders.setOrdersNo(orderNo);
+			pay.setOrdersNo(orderNo);
+			pay.setPayNo(payno);
+			delivery.setOrdersNo(orderNo);
+			delivery.setDeliveryNo(deliveryNo);
+			
+			
+			int re1 = session.insert("order.insertOrder", orders);
+			int re2 = session.insert("order.insertDelivery", delivery);
+			int re3 = session.insert("order.insertPay", pay);
+			int re4 = 0;
+			for(OrderDetailVo a:list) {
+				a.setOrdersNo(orderNo);
+				re4 += session.insert("order.insertOrderDetail", a);
+			}
+			
+			int re =0;
+			if(re1 ==1 && re2 ==1 && re3 ==1 && re4 == list.size()) {
+				session.commit();
+				re =1;
+			}else {
+				session.rollback();
+			}
+			session.close();
+			return re;
 		}
-		session.close();
-		return re;
-	}
+		
 	
 	
 	//<주문 번호>
