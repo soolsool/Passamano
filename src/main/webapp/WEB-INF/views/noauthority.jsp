@@ -9,73 +9,7 @@
 <title>파사마노:::</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 <link rel="stylesheet" href="/resources/css/commonStyle.css">
-<style type="text/css">
-	#mainColumn{
-		opacity: 1;
-	}
-	#category{
-		width: 10em;
-	}
-	
-	#search{
-		width: 15em
-	}
-	.item_list{
-		width:1100px; 
-	}
-	.thumbnail{
-		position: relative;
-	}
-	.thumbnail img{
-		overflow: hidden;
-		width: 15em;
-		height: 20em;
-		background-position: center;
-		background-size: cover;
-	}
-	.soldout{
-		width: 15em;
-		height: 20em;
-		float: left;
-		position: absolute;
-		top: 0;
-		left: 0;
-		background: gray;
-		opacity: 0.7;
-		z-index: 1;
-	}
-	.bg_soldout{
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index:2;		
-	}
-	.soldoutMessage{
-		color: white;
-		text-align: center;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate( -50%, -50% );
-		z-index: 3;
-	}
-	.list li{
-		display: inline-block;
-	}
-	.name{
-		font-size: 1em;
-	}
-	.price{
-		font-size: 0.9em;
-		font-weight: bolder;
-	}
-	.seller{
-		font-size: 0.8em;
-	}
-	.like{
-		font-size: 0.8em;
-	}
-</style>
+<link rel="stylesheet" href="/resources/css/ect/noauthority.css">
 </head>
 <body>
 	<div class="row">

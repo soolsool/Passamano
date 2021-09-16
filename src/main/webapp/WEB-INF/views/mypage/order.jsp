@@ -11,7 +11,8 @@
 	rel="stylesheet"
 	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="../resources/css/commonStyle.css">
+<link rel="stylesheet" href="/resources/css/commonStyle.css">
+<link rel="stylesheet" href="/resources/css/mypage/order.css">
 <!-- jQuery -->
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -20,103 +21,7 @@
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<style type="text/css">
-#wrap {
-	overflow: hidden;
-	min-width: 1600px;
-}
 
-.first-card {
-	margin: 0px auto;
-	border-radius: 12px;
-	box-shadow: rgb(0 0 0/ 15%) 0px 2px 4px 0px, rgb(0 0 0/ 30%) 0px 0px 1px
-		0px;
-	display: flex;
-	flex-direction: column;
-}
-
-.first-card-header {
-	padding: 20px;
-}
-
-.second-card {
-	border: 1px solid rgb(238, 238, 238);
-	border-radius: 10px;
-	margin: 20px;
-	margin-top: 0px;
-}
-
-.product-img{
-	padding:20px 20px 20px 0px;
-}
-
-.product-text{
-	margin:0;
-	padding:20px 0px 20px 12px;
-	}
-.first-table{
-	margin: 0px 25px 20px 25px;
-}
-.second-table{
-	margin: 20px 25px;
-}
-.detail-text{
-	margin:0;
-}
-p{
-	display:inline-block;
-}
-
-.btn-pay {
-	font-size: 18px;
-	font-weight: bold;
-	color: #28a745;
-	width: 150px;
-	height: 50px;
-	background-color: white;
-	border: 1px solid #28a745;
-	border-radius: 5px;
-	padding: 0px;
-	margin: 10px 0px;
-}
-td{
-	padding: 3px 10px 3px 5px;
-}
-button:hover {
-	background-color: #28a745;
-	color: white;
-	cursor: pointer;
-}
-
-button:active {
-	background-color: #28a745;
-	color: white;
-}
-
-.address2,.address3{
-	width:90%;
-}
-.btn-pay-wrap{
-	display:inline-block;
-	width:100%;
-	text-align:center;
-	margin-bottom:20px;
-	
-}
-
-.btn-post {
-	font-size: 12px;
-	font-weight: bold;
-	color: #28a745;
-	width: 90px;
-	height: 30px;
-	background-color: white;
-	border: 1px solid #28a745;
-	border-radius: 5px;
-	padding: 0;
-	margin: 2px 0px 2px 8px;
-}s
-</style>
 <script type="text/javascript">
 	$(function() {
 		$("#check_module").click(function() {
