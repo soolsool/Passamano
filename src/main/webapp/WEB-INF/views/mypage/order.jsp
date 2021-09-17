@@ -12,7 +12,7 @@
 	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="/resources/css/commonStyle.css">
-<link rel="stylesheet" href="/resources/css/mypage/order.css">
+<link rel="stylesheet" href="/resources/css/mypage/order2.css">
 <!-- jQuery -->
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>

@@ -15,7 +15,7 @@
 	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="/resources/css/commonStyle.css">
-<link rel="stylesheet" href="/resources/css/mypage/cart.css">
+<link rel="stylesheet" href="/resources/css/mypage/cart2.css">
 </head>
 <body>
 	<div id="wrap">
@@ -27,7 +27,6 @@
 			</div>
 			<div class="col-2"></div>
 		</div>
-	</div>
 	<!--  헤더 메뉴 부분 끝 -->
 	<!--  본문 시작 -->
 	<div class="row">
@@ -166,6 +165,7 @@
 		<div class="col-2"></div>
 	</div>
 	<!--  풋터 끝부분 끝 -->
+	</div>
 </body>
 <script
 	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"

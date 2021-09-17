@@ -14,22 +14,42 @@
 	float: right;
 }
 
-.nav-item:hover {
-	background-color: lightgray;
-	color: white;
+.nav-item>a::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
+}
+.nav-item>a::after {
+  width: 0;
+  height: 1vw;
+  background: #28a745;
+  left: 50%;
+}
+.nav-item>a:hover::after {
+  width: 100%;
+  left: 0;
+  transition: all .3s;
+}
+
+
+.nav-item{
+	border-radius:100px;
+}
+
+.nav-item:not(.clicked):hover {
+	border:1px solid lightgray;
 	cursor: pointer;
 }
 
 .nav-item:active {
-	background-color: lightgray;
-	color: white;
+	border:1px solid #28a745;
 }
 
 .clicked {
-	background-color: lightgray;
-	color: white;
+	border:1px solid #28a745;
 }
-
 .first-card {
 	margin: 0px auto;
 	border-radius: 12px;
@@ -87,26 +107,15 @@ input[type=checkbox] {
 	padding: 0px 25px 25px 25px;
 }
 
-.product-detail {
-	padding: 0px 5%;
-	width: 40%;
-}
-
 .product-price {
 	width: 30%;
 	border-left: 1px solid #ddd;
 	padding: 0px 5%;
 }
 
-.delivery-price {
-	width: 30%;
-	border-left: 1px solid #ddd;
+.product-detail {
 	padding: 0px 5%;
-}
-
-.delivery-title {
-	font-size: 12px;
-	color: #28a745;
+	width: 40%;
 }
 
 .all-product-select {
@@ -115,7 +124,7 @@ input[type=checkbox] {
 	padding: 20px;
 }
 
-.all-check {
+.all-check-zzim {
 	margin: 4px 5px 0px 0px;
 }
 
@@ -125,46 +134,6 @@ input[type=checkbox] {
 	font-weight: bold;
 }
 
-.total-price, .total-delivery-fee, .last-price {
-	display: inline-block;
-	margin: 3px 0px;
-	font-weight: bold;
-}
-
-.last-price {
-	color: rgb(230, 0, 0);
-}
-
-.total-card {
-	margin: 0px auto;
-	border-radius: 12px;
-	box-shadow: rgb(0 0 0/ 15%) 0px 2px 4px 0px, rgb(0 0 0/ 30%) 0px 0px 1px
-		0px;
-}
-
-.total-card>div {
-	padding: 10px 3px;
-}
-
 .file {
 	display: none;
-}
-
-.nav-item>a::after {
-  content: '';
-  display: block;
-  position: absolute;
-  bottom: 0;
-  z-index: -1;
-}
-.nav-item>a::after {
-  width: 0;
-  height: 1vw;
-  background: #28a745;
-  left: 50%;
-}
-.nav-item>a:hover::after {
-  width: 100%;
-  left: 0;
-  transition: all .3s;
 }
