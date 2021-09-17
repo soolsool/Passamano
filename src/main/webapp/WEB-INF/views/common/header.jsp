@@ -12,6 +12,32 @@
 	#logo{
 		width: 20em;
 	}
+	
+	#upper-menu>a>span {
+		position: relative;
+		color: #28a745;
+	}
+	#upper-menu>a>span::after {
+	  content: '';
+	  display: block;
+	  position: absolute;
+	  bottom: 0;
+	  z-index: -1;
+	}
+	#upper-menu>a>span::after {
+	  width: 0;
+	  height: 1vw;
+	  background: rgba(40, 167, 69);
+	  left: 50%;
+	}
+	#upper-menu>a>span:hover{
+	  color: white;
+	}
+	#upper-menu>a>span:hover::after {
+	  width: 100%;
+	  left: 0;
+	  transition: all .3s;
+	}
 </style>
 </head>
 <body id="bootstrap-overrides">
@@ -19,25 +45,25 @@
 		<div class="col-3 text-start" id="upper-menu">
        		<c:if test="${empty loginUser}">
        			<a href="/mypage/order.do" class="mx-2">
-	       			<span class="text-success fw-bolder">주문조회</span>
+	       			<span class="fw-bolder">주문조회</span>
 	   			</a>
 				<a href="/mypage/cart.do" class="mx-2">
-					<span class="text-success fw-bolder">장바구니</span>
+					<span class="fw-bolder">장바구니</span>
 				</a>
        		</c:if>
        		<c:if test="${not empty loginUser}">
        			<c:choose>
        				<c:when test="${grantNo==10}">
        					<a href="/mypage/home.do" class="mx-2">
-		    	   			<span class="text-success fw-bolder">주문조회</span>
+		    	   			<span class="fw-bolder">주문조회</span>
 		   	   			</a>       			
 		    	   		<a href="/mypage/cart.do" class="mx-2">
-		    	   			<span class="text-success fw-bolder">장바구니</span>
+		    	   			<span class="fw-bolder">장바구니</span>
 		   	   			</a>
        				</c:when>
        				<c:when test="${grantNo==20}">
 						<a href="/seller/listProduct.do" class="mx-2">
-							<span class="text-success fw-bolder">판매자 홈</span>
+							<span class="fw-bolder">판매자 홈</span>
 						</a>
 		    	   		<a href="#" class="mx-2">
 							<h5 class="d-inline">
@@ -65,33 +91,33 @@
 		<div class="col-3 text-end" id="upper-menu">
 			<c:if test="${empty loginUser}">
     	   		<a href="/login.do" class="mx-2">
-    	   			<span class="text-success fw-bolder">로그인</span>
+    	   			<span class="fw-bolder">로그인</span>
    	   			</a>
 	       		<a href="/member/membertype.do" class="mx-2">
-	       			<span class="text-success fw-bolder">회원가입</span>
+	       			<span class="fw-bolder">회원가입</span>
        			</a>
        		</c:if>
        		<c:if test="${not empty loginUser}">
        			<c:choose>
        				<c:when test="${grantNo==10}">
 		    	   		 <a href="/mypage/home.do" class="mx-2">
-		    	   			<span class="text-success fw-bolder">마이페이지</span>
+		    	   			<span class="fw-bolder">마이페이지</span>
 		   	   			</a>       			
 		    	   		<a href="/logout.do" class="mx-2">
-		    	   			<span class="text-success fw-bolder">로그아웃</span>
+		    	   			<span class="fw-bolder">로그아웃</span>
 		   	   			</a>      			
        				</c:when>
        				<c:when test="${grantNo==20}">
 						<a href="/seller/listProduct.do" class="mx-2">
-							<span class="text-success fw-bolder">주문관리</span>
+							<span class="fw-bolder">주문관리</span>
 						</a>
 						<a href="/logout.do" class="mx-2">
-		    	   			<span class="text-success fw-bolder">로그아웃</span>
+		    	   			<span class="fw-bolder">로그아웃</span>
 		   	   			</a> 
        				</c:when>
        				<c:when test="${grantNo==30}">
 						<a href="/logout.do" class="mx-2">
-		    	   			<span class="text-success fw-bolder">로그아웃</span>
+		    	   			<span class="fw-bolder">로그아웃</span>
 		   	   			</a> 
        				</c:when>
        			</c:choose>

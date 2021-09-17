@@ -73,6 +73,35 @@
 	.like{
 		font-size: 0.8em;
 	}
+	#searchMenu ul li a{
+		position: relative;
+	}
+	#searchMenu ul li a::after {
+		content: '';
+		display: block;
+		position: absolute;
+		bottom: 0;
+		z-index: -1;
+		width: 0;
+		height: 5px;
+	 	background: rgba(40, 167, 69, .6);
+		left: 50%;
+	}
+	#searchMenu ul li a:hover::after {
+		width: 100%;
+		left: 0;
+		transition: all .3s;
+	}
+	#goToTop{
+		top: 95%;
+		left: 80%;
+		width: 50px;
+		height: 50px;
+		border-radius: 80%;
+		background-color: #28a745;
+		position: fixed;
+		z-index: 4;
+	}
 </style>
 </head>
 <body>
@@ -92,7 +121,7 @@
 	<div class="row">
 		<div class="col-2">
 		</div>
-		<div class="col-8 text-center">
+		<div class="col-8 text-center" id="searchMenu">
 			<select class="d-inline form-select mx-2" id="category" aria-label="ProductCategory" onchange="getByCategory(this.value)">
 				<option value="null" selected>카테고리</option>
 				<c:forEach var="c" items="${category}">
@@ -156,6 +185,11 @@
 						</svg>
 						더보기
 					</button>
+				</div>
+				<div id="goToTop" onclick="goToTheTop()">
+					<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#ffffff" class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
+					  <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
+					</svg>
 				</div>
 			</div>				
 		</div>
@@ -335,6 +369,11 @@
 			return false;
 		}
 		document.getElementById('searchKeyword').submit();
+	}
+	
+	//스크롤 이동했을 때 상단으로 이동
+	function goToTheTop(){
+		window.scrollTo(0,0);
 	}
 </script>
 </html>

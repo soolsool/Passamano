@@ -79,7 +79,14 @@
 									<div class="col-sm-9 my-1 text-end">
 										<span class="seller">
 											${p.sellerCompany} - ${p.sellerCeo}
-											<button type="button" class="d-inline btn btn-outline-success btn-sm">문의하기</button>
+											<c:if test="${empty loginUser}">
+												<span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="로그인하세요.">
+													<button type="button" class="d-inline btn btn-outline-success btn-sm" disabled="disabled">문의하기</button>
+												</span>
+											</c:if>
+											<c:if test="${not empty loginUser}">
+												<button type="button" class="d-inline btn btn-outline-success btn-sm">문의하기</button>
+											</c:if>
 										</span>
 									</div>
 								</div>
@@ -302,7 +309,7 @@
 								var newZzim = data.zzim; 
 								if(newresult==1){
 									alert("찜 목록에서 제거했습니다.");
-									document.getElementById('zzimcount').innerHTML = '♥'+newZzim;
+									document.getElementById('zzimcount').innerHTML = '♡'+newZzim;
 									document.getElementById('zzimcount').classList.toggle('text-muted');
 									document.getElementById('zzimcount').classList.toggle('text-success');
 								}

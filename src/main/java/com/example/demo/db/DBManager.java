@@ -134,7 +134,6 @@ public class DBManager {
 	//메인 페이지에 보여줄 제품 목록 검색
 	public static List<ProductListVo> getList(HashMap<Object, Object> paraMap){
 		SqlSession session = factory.openSession();
-		System.out.println(paraMap.get("categoryNo"));
 		List<ProductListVo> list = session.selectList("displayProducts.list", paraMap);
 		session.close();
 		return list;

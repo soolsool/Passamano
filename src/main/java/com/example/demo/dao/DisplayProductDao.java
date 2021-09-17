@@ -15,7 +15,6 @@ import com.example.demo.vo.ProductZzimVo;
 public class DisplayProductDao {
 	////메인 페이지에 보여줄 제품 목록 검색
 	public List<ProductListVo> getList(HashMap<Object, Object> paraMap){
-		System.out.println(paraMap.get("categoryNo"));
 		return DBManager.getList(paraMap);
 	}
 	

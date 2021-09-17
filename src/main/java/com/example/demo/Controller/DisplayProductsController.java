@@ -79,7 +79,6 @@ public class DisplayProductsController {
 		resultMap.put("endPage", endPage);
 		resultMap.put("list", dao.getList(paraMap));
 		resultMap.put("category", dao.getAllCategory());
-		System.out.println(resultMap.get("list"));
 		return resultMap;
 	}
 		
