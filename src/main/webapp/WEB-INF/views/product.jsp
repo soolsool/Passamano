@@ -10,6 +10,22 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 <link rel="stylesheet" href="/resources/css/commonStyle.css">
 <link rel="stylesheet" href="/resources/css/ect/product.css">
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	console.log("start");
+	
+	$("#btn_chat").click(function(){
+		let product_no = $(this).attr("product_no");
+		location.href="makeChatRoom.do?product_no="+product_no;
+	});
+		
+})
+</script>
+
+
+
 </head>
 <body>
 	<div class="row">

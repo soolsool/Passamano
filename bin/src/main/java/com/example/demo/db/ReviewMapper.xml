@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review">
+	<select id="selectProductDetail" resultType="SelectOrdersVo">
+		select o.orders_no,
+		o.order_date, p.product_name, od.detail_price,
+		od.detail_qty,
+		o.order_tot, op.pay_price, op.pay_method, o.pay_state,
+		i.image_name,p.product_no,om.order_state
+		from orders o,order_detail
+		od,products p, order_pay op,product_img i,order_manage om
+		where
+		o.orders_no=od.orders_no and od.product_no=p.product_no
+		and
+		om.orders_no=o.orders_no
+		and o.orders_no=op.orders_no
+		and
+		p.product_no=i.product_no
+		and i.thumbnail=1
+		and o.user_no=#{userNo}
+		and
+		p.product_no=#{productNo}
+		and o.order_date=#{orderDate}
+	</select>
+	<insert id="insertReview" parameterType="ReviewVo">
+		insert into review
+		values((select nvl(max(review_no),0)+1 from
+		review),#{ordersNo},#{reviewTitle},#{reviewContent},#{evaluation},sysdate,#{reviewImg})
+	</insert>
+
+	<insert id="insertReviewImgNull" parameterType="ReviewVo">
+		insert into
+		review(review_no, orders_no, review_title, review_content,
+		review_evaluation, review_date) values((select nvl(max(review_no),0)+1
+		from
+		review),#{ordersNo},#{reviewTitle},#{reviewContent},#{evaluation},sysdate)
+	</insert>
+	<delete id="deleteReview">
+		delete review where review_no=#{reviewNo}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

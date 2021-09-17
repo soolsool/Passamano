@@ -1,0 +1,15 @@
+	.productDetail{
+		width:1100px;
+	}
+	.show{
+	    display:table-row;
+	}
+	.hide{
+		display:none;  
+	}
+	.reviewImage{
+		width: 10em;
+		height: 10em;
+		background-position: center;
+		background-size: cover;
+	}

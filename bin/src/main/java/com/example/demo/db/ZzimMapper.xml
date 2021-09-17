@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zzim">
+	<delete id="deleteZzim">
+		delete product_zzim where user_no=#{userNo} and
+		zzim_no=#{zzimNo}
+	</delete>
+	<insert id="insertBasket" parameterType="BasketVo">
+		insert into
+		product_basket values((select nvl(max(basket_no),0)+1 from
+		product_basket),1,#{userNo},#{productNo})
+	</insert>
+	<select id="checkBasket" resultType="int">
+		select count(*) from
+		product_basket where user_no=#{userNo} and
+		product_no=#{productNo}
+	</select>
+	<update id="updateBasket">
+		update product_basket set
+		basket_qty=basket_qty+1
+		where
+		user_no=#{userNo} and
+		product_no=#{productNo}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

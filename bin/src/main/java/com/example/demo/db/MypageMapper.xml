@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypage">
+	<select id="selectAllOrder" resultType="SelectOrdersVo">
+		select o.orders_no,
+		o.order_date, p.product_name, od.detail_price,
+		od.detail_qty,
+		o.order_tot, op.pay_price, op.pay_method, o.pay_state,
+		i.image_name,p.product_no,om.order_state
+		from orders o,order_detail
+		od,products p, order_pay op,product_img i,order_manage om
+		where
+		o.orders_no=od.orders_no and od.product_no=p.product_no
+		and
+		om.orders_no=o.orders_no
+		and o.orders_no=op.orders_no
+		and
+		p.product_no=i.product_no
+		and i.thumbnail=1
+		and o.user_no=#{userNo}
+		order by o.orders_no desc
+	</select>
+	<select id="selectBasket" resultType="SelectBasketVo">
+		select distinct product_name,product_price,g.qty basket_qty,image_name,
+		p.product_no,product_price*g.qty detail_price
+		from products
+		p,product_basket pb,product_img pi,
+		(select p.product_no,
+		sum(basket_qty) qty from products p, product_basket pb
+		where p.product_no=pb.product_no and pb.user_no=#{userNo}
+		group by p.product_no) g
+		where p.product_no = pb.product_no and
+		p.product_no=pi.product_no and pi.thumbnail=1
+		and p.product_no=g.product_no
+		and pb.user_no =#{userNo}
+	</select>
+	<delete id="deleteBasket">
+		delete product_basket where user_no=#{userNo} and
+		basket_no=#{basketNo}
+	</delete>
+	<select id="getQty" resultType="int">
+		select qty from (select p.product_no, sum(basket_qty) qty from
+		product_basket pb, products p where p.product_no=pb.product_no and p.product_no=#{productNo} and user_no = #{userNo} group by p.product_no)
+	</select>
+	<select id="getProductPrice" resultType="int">
+		select p.product_price
+		from products p where product_no=#{productNo}
+	</select>
+	<select id="getProductName" resultType="String">
+		select product_name from products where product_no=#{productNo}
+	</select>
+	<select id="getImageName" resultType="String">
+		select image_name from product_img where product_no=#{productNo} and thumbnail=1
+	</select>
+	<update id="updateOrder">
+		update order_manage set
+		order_state=1,order_manage_reason=#{orderManageReason} where
+		orders_no=(select o.orders_no from order_detail od,orders o where
+		o.orders_no=od.orders_no and user_no=#{userNo} and
+		product_no=#{productNo})
+	</update>
+	<select id="selectZzim" resultType="SelectZzimVo">
+		select zzim_no,
+		product_name,product_price,image_name,p.product_no
+		from products p,
+		product_zzim pz,product_img pi
+		where p.product_no = pz.product_no and
+		p.product_no=pi.product_no and pi.thumbnail=1
+		and pz.user_no =#{userNo}
+		order by zzim_no desc
+	</select>
+	<select id="selectReview" resultType="selectReviewVo">
+		select o.orders_no,
+		review_no,review_title,review_content,review_evaluation,review_date,review_img,
+		p.product_no,p.product_name,pi.image_name,od.detail_qty,op.pay_price
+		from review r, orders o, order_detail od, product_img pi, products p,
+		order_pay op
+		where o.orders_no=r.orders_no and r.orders_no=od.orders_no
+		and od.product_no=pi.product_no
+		and op.orders_no=od.orders_no and
+		p.product_no=pi.product_no and user_no=#{userNo} and pi.thumbnail=1
+		order by review_no desc
+	</select>
+
+	<select id="selectUser" resultType="UserVo">
+		select * from users where
+		user_no=#{userNo}
+	</select>
+	<select id="selectUserDetail" resultType="SelectUserDetailVo">
+		select * from users
+		u,user_address ud where u.user_no=ud.user_no and u.user_no=#{userNo}
+	</select>
+
+	<select id="getBasketNo" resultType="int">
+		select max(basket_no)
+		from product_basket
+	</select>
+
+	<insert id="insertIntoBasket">
+		insert into product_basket(basket_no, basket_qty,
+		user_no, product_no)
+		values (#{basketNo}, #{basketQty}, #{userNo},
+		#{productNo})
+	</insert>
+	<select id="getBasketNum" resultType="int">
+		select basket_no from product_basket where product_no=#{productNo}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

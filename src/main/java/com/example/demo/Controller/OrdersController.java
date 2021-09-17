@@ -16,6 +16,7 @@ import com.example.demo.dao.DisplayProductDao;
 import com.example.demo.dao.OrderDao;
 import com.example.demo.dao.ProductDao;
 import com.example.demo.db.DBManager;
+import com.example.demo.vo.OrderCommand;
 import com.example.demo.vo.OrderDeliveryVo;
 import com.example.demo.vo.OrderPayVo;
 import com.example.demo.vo.OrdersVo;
@@ -40,24 +41,12 @@ public class OrdersController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ModelAndView inserOdrer(HttpSession session, OrdersVo o, OrderDeliveryVo od, OrderPayVo op) {
-		ModelAndView mav = new ModelAndView("redirect:/orderPay.do");
-		int userNo = ((UserVo)session.getAttribute("loginUser")).getUserNo();
-		int no = dao.getOrderNo();
-		int dno = dao.getDeliveryNo();
-		int pno = dao.getPayNo();
+	public ModelAndView inserOdrer(HttpSession session, OrderCommand oc ) {
+		ModelAndView mav = new ModelAndView("/mypage/result");
+
 		
-		
-		o.setUserNo(userNo);
-		o.setOrdersNo(no);
-		od.setOrdersNo(no);
-		od.setDeliveryNo(dno);
-		op.setOrdersNo(no);
-		op.setPayNo(pno);
-		
-		int re = dao.inserOrder(o,od,op);
-		
-		
+		int re = dao.inserOrder(oc);
+			
 		if(re != 1) {
 			mav.addObject("msg", "정상적으로 완료되지 못했습니다.");
 		}else {

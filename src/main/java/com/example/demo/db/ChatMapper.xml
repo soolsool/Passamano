@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chat">	
+  <delete id="deletEmptyRoom">
+  	delete chat_room where chat_room_no not in (select chat_room_no from chat)
+  </delete>
+  <select id="getUserNoBySellerNo" resultType="int">
+  	select user_no from user_seller where seller_no=#{seller_no}
+  </select>
+
+  <select id="getLastChat" resultType="java.util.Date">
+  	select max(chat_date) from chat 
+  	where chat_room_no = #{chat_room_no}
+  </select>
+  
+  <update id="updateLastChatDate">
+  	update chat_room set last_chat_date = 
+  	(select max(chat_date) from chat 
+  	where chat_room_no = #{chat_room_no}) where chat_room_no = #{chat_room_no}
+  </update>
+  
+  <select id="getNextChatRoom" resultType="int">
+  	select nvl(max(chat_room_no),0)+1 from chat_room
+  </select>
+  
+  <select id="getChatRoomNo" resultType="int">
+ 	select nvl(max(chat_room_no),0) chat_room_no from chat_room where product_no=#{product_no} and from_no=#{from_no}
+  </select>
+  
+  <insert id="insertChatRoom" parameterType="chatRoomVO">
+  	insert into chat_room 
+	  	values(#{chat_room_no},
+	  	#{product_no},
+	  	#{from_no},
+	  	#{to_no},
+	  	sysdate)
+  </insert>
+  
+  
+  <select id="chatInfo" resultType="java.util.HashMap">
+  	select chat_room_no,
+		product_no,
+		(select product_name from products p where p.product_no = c.product_no) product_name,
+		from_no,
+		(select PROFILE_FILENAME from users where user_no=from_no) from_profile,
+		to_no,
+		(select PROFILE_FILENAME from users where user_no=to_no) to_profile,
+		(select nickname from users u where c.from_no=u.user_no) from_nickname,
+		(select nickname from users u where c.to_no=u.user_no) to_nickname,
+		last_chat_date,
+		(select message from chat t where t.chat_room_no = c.chat_room_no and c.last_chat_date = t.chat_date) message,
+		(select IMAGE_NAME from product_img i where c.product_no =i.product_no and THUMBNAIL=1 ) IMAGE_NAME,
+		(select PRODUCT_PRICE from products p where p.product_no = c.product_no) PRODUCT_PRICE,
+		(select PRODUCT_STATE from products p where p.product_no = c.product_no) PRODUCT_STATE
+		from 
+		chat_room c
+		where chat_room_no = #{chat_room_no}
+  </select>
+  
+  
+  <select id="listChatRoom" resultType="java.util.HashMap">
+  	select chat_room_no,
+		product_no,
+		(select product_name from products p where p.product_no = c.product_no) product_name,
+		from_no,
+		(select PROFILE_FILENAME from users where user_no=from_no) from_profile,
+		to_no,
+		(select PROFILE_FILENAME from users where user_no=to_no) to_profile,
+		(select nickname from users u where c.from_no=u.user_no) from_nickname,
+		(select nickname from users u where c.to_no=u.user_no) to_nickname,
+		last_chat_date,
+		(select message from chat t where t.chat_room_no = c.chat_room_no and c.last_chat_date = t.chat_date) message,
+		(select IMAGE_NAME from product_img i where c.product_no =i.product_no and THUMBNAIL=1 ) IMAGE_NAME,
+		(select PRODUCT_PRICE from products p where p.product_no = c.product_no) PRODUCT_PRICE,
+		(select PRODUCT_STATE from products p where p.product_no = c.product_no) PRODUCT_STATE
+		from 
+		chat_room c
+		where 
+		  	from_no = #{user_no} or 
+		  	to_no = #{user_no}
+		  	order by last_chat_date desc
+  </select>
+  
+  <!-- 
+  <select id="listChatRoom" resultType="chatRoomVO">
+  	select * from chat_room where 
+  	from_no = #{user_no} or 
+  	to_no = #{user_no} 
+  	order by last_chat_date desc
+  </select>
+  -->
+  <!-- 
+  <select id="listChat" resultType="chatVO">
+  	select * from chat where chat_room_no = #{chat_room_no} 
+  	order by chat_date
+  </select>
+   -->
+  <select id="listChat" resultType="java.util.HashMap">
+  	select * from chat where chat_room_no = #{chat_room_no} 
+  	order by chat_date
+  </select>
+  
+  
+  <insert id="insert" parameterType="chatVO">
+  	insert into chat 
+  	values(seq_chat.nextval,
+  		#{chat_room_no},
+  		#{message},
+  		sysdate,
+  		#{speaker_no})
+  </insert>
+  
+</mapper>
+

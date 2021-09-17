@@ -65,18 +65,10 @@
 						<a href="/seller/listProduct.do" class="mx-2">
 							<span class="fw-bolder">판매자 홈</span>
 						</a>
-		    	   		<a href="#" class="mx-2">
-							<h5 class="d-inline">
-			    	   			<span class="badge bg-success">채팅</span>
-		    	   			</h5>
-						</a>   			
+		    	   				
        				</c:when>
        				<c:when test="${grantNo==30}">
-		    	   		<a href="#" class="mx-2">
-							<h5 class="d-inline">
-			    	   			<span class="badge bg-success">채팅</span>
-		    	   			</h5>
-						</a>   			
+		    	   				
        				</c:when>
        			</c:choose>
        		</c:if>
@@ -121,6 +113,12 @@
 		   	   			</a> 
        				</c:when>
        			</c:choose>
+       			
+       			<a href="/listChatRoom.do" class="mx-2">
+    	   			<span class="text-success fw-bold">채팅</span>
+   	   			</a>  
+   	   			
+   	   			
        		</c:if>
 		</div>
 	</div>

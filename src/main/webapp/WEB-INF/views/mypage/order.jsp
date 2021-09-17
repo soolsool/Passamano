@@ -75,9 +75,19 @@
 			var aa = $(this).text();
 			tot = Number(tot) + Number(aa);
 		})
-		$("#payPrice").text(tot);
+		$(".payPrice").val(tot).text(tot);
 
 	});
+	
+	 $(function(){
+		 var dtot = 0;
+		 $(".deliveryFee").each(function(items) {
+		  	var dd = $(this).text();
+		 	 dtot = Number(dtot) + Number(dd);
+		 })
+		 $(".ode").val(dtot);
+	 });
+	  
 
 	function findAddr() {
 		new daum.Postcode({
@@ -122,7 +132,7 @@
 			<div class="first-card-header">
 				<strong>주문 제품정보</strong>
 			</div>
-			<c:forEach var="c" items="${product }">
+			<c:forEach var="c" items="${product }" varStatus="status">
 			<div class="second-card mb-3" style="max-width: 100%;">
 				<form action="/mypage/orderinsert.do" method="post" id="orderinput">
 					
@@ -138,13 +148,17 @@
 					</tr>
 					<tr>
 					<td>배송비</td>
-					<td><p class="detail-text" name="deliveryFee">${c.deliveryFee }</p>원</td>
+					<td><p class="deliveryFee detail-text" name="deliveryFee">${c.deliveryFee }</p>원</td>
 					</tr>
 					<tr>
 					<td>총가격</td>
 					<td><p class="orderTot detail-text" name="orderTot">${c.lastprice }</p>원</td>
 					</tr>
 					</table>
+					<input type="hidden" class="detail" name="orderDetailList[${status.index}].productNo" value="${c.productNo }">
+					<input type="hidden" class="detail" name="orderDetailList[${status.index}].detailQty" value="${c.basketQty }">
+					<input type="hidden" class="detail" name="orderDetailList[${status.index}].detailPrice" value="${c.totalPrice  }">
+					
 
 						<!-- <input type="text" readonly="readonly" value="${p.productName }"><br>
  	<input type="hidden" name="productNo" value="${productNo }">-->
@@ -156,29 +170,32 @@
 					
 					<table class="second-table">
 					<tr><td><strong>배송 정보</strong></td><td></td><td></td></tr>
-					<tr><td>수령인</td><td><input type="text" name="receiverName" id="receiverName" required="required"></td><td></td></tr>
-					<tr><td>연락처</td><td><input type="text" name="receiverPhone" id="receiverPhone" required="required"></td><td></td></tr>
-					<tr><td>주소</td><td><input type="text" name="deliveryAddress1" readonly="readonly"
+					<tr><td>수령인</td><td><input type="text" name="orderDelivery.receiverName" id="receiverName" required="required"></td><td></td></tr>
+					<tr><td>연락처</td><td><input type="text" name="orderDelivery.receiverPhone" id="receiverPhone" required="required"></td><td></td></tr>
+					<tr><td>주소</td><td><input type="text" name="orderDelivery.deliveryAddress1" readonly="readonly"
 						class="address1" required="required"></td><td><button type="button" class="btn-post" onclick="findAddr()">우편번호
 						검색</button></td></tr>
-					<tr><td></td><td colspan="2"><input type="text" name="deliveryAddress2"
+					<tr><td></td><td colspan="2"><input type="text" name="orderDelivery.deliveryAddress2"
 						readonly="readonly" class="address2" required="required"></td></tr>
-						<tr><td></td><td colspan="2"><input type="text" name="deliveryAddress3" class="address3" required="required"></td></tr>
-						<tr><td>배송요청사항</td><td><input type="text" name="deliveryMsg"></td><td></td></tr>
-						<tr><td>결제방법</td><td><select name="payMethod">
+						<tr><td></td><td colspan="2"><input type="text" name="orderDelivery.deliveryAddress3" class="address3" required="required"></td></tr>
+						<tr><td>배송요청사항</td><td><input type="text" name="orderDelivery.deliveryMsg"></td><td></td></tr>
+						<tr><td>결제방법</td><td><select name="orderPay.payMethod">
 						<option value="card">신용카드</option>
 						<!--  <option value="">실시간계좌이체</option>-->
 						<option value="vbank">가상계좌</option>
 					</select></td><td></td></tr>
+					
+					<input type="hidden" class="ode" name="orders.deliveryFee"><br>
+					<input type="hidden" name="orders.userNo" value="${userNo }"><br>
 					<!-- 결제금액 -->
-						<tr><td>합계</td><td><p id="payPrice"
-						name="orderTot" class="detail-text"></p>원</td><td></td></tr>
-						
+						<tr><td>합계</td><td><p class="payPrice"
+						name="orders.orderTot" class="detail-text"></p>원</td><td></td></tr>
+						<input type="hidden" class="payPrice" id="payPrice" name="orderPay.payPrice">
 					</table>
 						<div class="btn-pay-wrap"><button class="btn-pay" id="check_module" type="button">결제</button></div>
 				</form>
 				</div>
-			
+			" 
 		</div>
 		<!--  풋터 끝부분 시작 -->
 		<div class="row">

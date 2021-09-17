@@ -31,4 +31,8 @@
 		select nvl(max(pay_no),0)+1 from order_pay
 	</select>
 	
+	<insert id="insertOrderDetail" parameterType="orderdetailVo">
+		insert into order_detail values(#{productNo}, #{ordersNo}, #{detailQty}, #{detailPrice})
+	</insert>
+	
 </mapper>
