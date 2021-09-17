@@ -13,27 +13,27 @@
 		width: 20em;
 	}
 	
-	#upper-menu>a>span {
+	#upper-menu>.mx-2>.fw-bolder {
 		position: relative;
 		color: #28a745;
 	}
-	#upper-menu>a>span::after {
+	#upper-menu>.mx-2>.fw-bolder::after {
 	  content: '';
 	  display: block;
 	  position: absolute;
 	  bottom: 0;
 	  z-index: -1;
 	}
-	#upper-menu>a>span::after {
+	#upper-menu>.mx-2>.fw-bolder::after {
 	  width: 0;
 	  height: 1vw;
 	  background: rgba(40, 167, 69);
 	  left: 50%;
 	}
-	#upper-menu>a>span:hover{
+	#upper-menu>.mx-2>.fw-bolder:hover{
 	  color: white;
 	}
-	#upper-menu>a>span:hover::after {
+	#upper-menu>.mx-2>.fw-bolder:hover::after {
 	  width: 100%;
 	  left: 0;
 	  transition: all .3s;
@@ -95,6 +95,9 @@
 		    	   		 <a href="/mypage/home.do" class="mx-2">
 		    	   			<span class="fw-bolder">마이페이지</span>
 		   	   			</a>       			
+		       			<a href="/listChatRoom.do" class="mx-2">
+		    	   			<span class="fw-bolder">채팅</span>
+		   	   			</a>  
 		    	   		<a href="/logout.do" class="mx-2">
 		    	   			<span class="fw-bolder">로그아웃</span>
 		   	   			</a>      			
@@ -103,6 +106,9 @@
 						<a href="/seller/listProduct.do" class="mx-2">
 							<span class="fw-bolder">주문관리</span>
 						</a>
+		       			<a href="/listChatRoom.do" class="mx-2">
+		    	   			<span class="fw-bold">채팅</span>
+		   	   			</a>  
 						<a href="/logout.do" class="mx-2">
 		    	   			<span class="fw-bolder">로그아웃</span>
 		   	   			</a> 
@@ -111,14 +117,12 @@
 						<a href="/logout.do" class="mx-2">
 		    	   			<span class="fw-bolder">로그아웃</span>
 		   	   			</a> 
+		       			<a href="/listChatRoom.do" class="mx-2">
+		    	   			<span class="fw-bold">채팅</span>
+		   	   			</a>  
        				</c:when>
        			</c:choose>
-       			
-       			<a href="/listChatRoom.do" class="mx-2">
-    	   			<span class="text-success fw-bold">채팅</span>
-   	   			</a>  
-   	   			
-   	   			
+
        		</c:if>
 		</div>
 	</div>

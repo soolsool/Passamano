@@ -87,70 +87,84 @@
 
 				<div class="col-10 content text-center">
 					<!-- 실제 본문 영역 시작 -->
-					<div class="mypage-item">
-						<br>
-						<div class="all-product-select" style="max-width: 80%;">
-							<input name="all-check" class="checkbox all-check"
-								type="checkbox"><span class="all-check-title">전체선택</span>
+					<c:if test="${empty basket}">
+						<div class="position-relative" style="height:40em;">
+							<div class="position-absolute top-50 start-50 translate-middle">
+								<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+									<path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+								</svg>
+								<p class="mt-2 fs-5 fw-light">
+							  		장바구니에 담긴 상품이 없습니다.
+							  	</p>
+							</div>
 						</div>
-						<c:forEach var='b' items='${basket }'>
-
-							<div class="first-card mb-3" detailPrice="${b.detailPrice}"
-								style="max-width: 80%;">
-								<div class="first-card-header">
-									<input name="checkbox" class="checkbox""
-										productNo="${b.productNo }" type="checkbox">
-								</div>
-								<div class="cart-body">
-									<table>
-										<tr class="cart-item">
-											<td>
-												<a href='product.do?productNo=${b.productNo }'>
-													<img src="../resources/images/productimage/${b.imageName }"width="150" height="110">
-												</a>
-											</td>
-											<td class="product-detail">
-												<p class="card-text">
+					</c:if>
+					<c:if test="${not empty basket}">
+						<div class="mypage-item">
+							<br>
+							<div class="all-product-select" style="max-width: 80%;">
+								<input name="all-check" class="checkbox all-check"
+									type="checkbox"><span class="all-check-title">전체선택</span>
+							</div>
+							<c:forEach var='b' items='${basket }'>
+	
+								<div class="first-card mb-3" detailPrice="${b.detailPrice}"
+									style="max-width: 80%;">
+									<div class="first-card-header">
+										<input name="checkbox" class="checkbox""
+											productNo="${b.productNo }" type="checkbox">
+									</div>
+									<div class="cart-body">
+										<table>
+											<tr class="cart-item">
+												<td>
 													<a href='product.do?productNo=${b.productNo }'>
-														${b.productName }, ${b.basketQty }개<br>
+														<img src="../resources/images/productimage/${b.imageName }"width="150" height="110">
 													</a>
-												</p>
-											</td>
-											<td class="product-price"><strong>${b.detailPrice}원</strong></td>
-											<c:if test='${b.detailPrice>=50000}'>
-												<td class="delivery-price"><span>0</span>원
-													<p class="card-text delivery-title">(50,000원 이상 구매시 배송비
-														무료)</p></td>
-											</c:if>
-											<c:if test='${b.detailPrice<50000}'>
-												<td class="delivery-price"><span>3,000</span>원
-													<p class="card-text delivery-title">(50,000원 이상 구매시 배송비
-														무료)</p></td>
-											</c:if>
-										</tr>
-									</table>
+												</td>
+												<td class="product-detail">
+													<p class="card-text">
+														<a href='product.do?productNo=${b.productNo }'>
+															${b.productName }, ${b.basketQty }개<br>
+														</a>
+													</p>
+												</td>
+												<td class="product-price"><strong>${b.detailPrice}원</strong></td>
+												<c:if test='${b.detailPrice>=50000}'>
+													<td class="delivery-price"><span>0</span>원
+														<p class="card-text delivery-title">(50,000원 이상 구매시 배송비
+															무료)</p></td>
+												</c:if>
+												<c:if test='${b.detailPrice<50000}'>
+													<td class="delivery-price"><span>3,000</span>원
+														<p class="card-text delivery-title">(50,000원 이상 구매시 배송비
+															무료)</p></td>
+												</c:if>
+											</tr>
+										</table>
+									</div>
+								</div>
+	
+							</c:forEach>
+							<div class="total-card" style="max-width: 80%;">
+								<div>
+									총 상품가격
+									<p class='total-price'>0</p>
+									원 + 총 배송비
+									<p class='total-delivery-fee'>0</p>
+									원 = 총 주문금액
+									<p class='last-price'>0</p>
+									원
 								</div>
 							</div>
-
-						</c:forEach>
-						<div class="total-card" style="max-width: 80%;">
-							<div>
-								총 상품가격
-								<p class='total-price'>0</p>
-								원 + 총 배송비
-								<p class='total-delivery-fee'>0</p>
-								원 = 총 주문금액
-								<p class='last-price'>0</p>
-								원
+							<div class="d-grid gap-2 d-md-flex justify-content-md-end btns">
+	
+								<input type='button' value='삭제' class="btn-input cancel-btn">
+								<input type="button" value='주문하기' class="btn-input order-btn">
+	
 							</div>
 						</div>
-						<div class="d-grid gap-2 d-md-flex justify-content-md-end btns">
-
-							<input type='button' value='삭제' class="btn-input cancel-btn">
-							<input type="button" value='주문하기' class="btn-input order-btn">
-
-						</div>
-					</div>
+					</c:if>
 					<!-- 실제 본문 영역 끝 -->
 				</div>
 			</div>

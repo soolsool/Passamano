@@ -156,11 +156,6 @@
 	            					<span>개인정보 이용·수집 동의(필수)</span>
 	            					<textarea class="form-control mb-3" rows="3" readonly="readonly">개인정보 이용수집 동의</textarea>
 	            				</div>
-	            				<div>
-	            					<input type="checkbox">
-	            					<span>개인정보 수집·이용 동의(선택)</span>
-	            					<textarea class="form-control mb-3" rows="3" readonly="readonly">개인정보 이용수집 동의</textarea>
-	            				</div>
 							</div>
 						</div>
 

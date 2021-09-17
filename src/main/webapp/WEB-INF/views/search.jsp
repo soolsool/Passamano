@@ -9,7 +9,7 @@
 <title>파사마노:::검색</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 <link rel="stylesheet" href="/resources/css/commonStyle.css">
-<link rel="stylesheet" href="/resources/css/ect/search.css">
+<link rel="stylesheet" href="/resources/css/etc/search.css">
 </head>
 <body>
 	<div class="row">
@@ -22,7 +22,7 @@
 		</div>
 	</div>
 	<!-- 페이지 상단 고정 부분 -->
-	<hr class="bg-success mx-auto pt-1 w-50" id="mainColumn">
+	<hr class="bg-success mx-auto pt-0.5 w-75" id="mainColumn">
 	<!-- 상품 검색 탭 시작 -->
 	<div class="row">
 		<div class="col-3">
@@ -44,7 +44,6 @@
 		</div>
 	</div>
 	<!-- 상품 검색 탭 끝 -->
-	<hr class="bg-success mx-auto pt-0.5 w-50"  id="mainColumn">
 	<!-- 검색 본문 시작 -->
 	<div class="row">
 		<div class="col-2">
@@ -52,9 +51,9 @@
 		<div class="col-8">
 			<div class="d-inline w-25">  </div>
 				<p class="d-inline mt-5 mb-0 ml-5 text-start fw-light fs-6">
-					총 ${count}개의 상품이 검색되었습니다.
+					총 <strong>${count}</strong>건의 상품이 검색되었습니다.
 				</p>
-			<hr class="bg-success mx-auto w-75 pt-0.5"  id="mainColumn">
+			<hr class="bg-success mx-auto w-100 pt-0.5"  id="mainColumn">
 			<div class="item_list mx-auto grid">
 				<ul class="list">
 					<c:if test="${empty list}">

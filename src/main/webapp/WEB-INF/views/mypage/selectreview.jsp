@@ -92,82 +92,96 @@
 							<button class="btn-month three-month">3개월</button>
 							<button class="btn-month six-month">6개월</button>
 						</div>
-						<c:forEach items="${selectReview}" var="sr">
-							<div class="first-card mb-3" style="max-width: 90%;">
-
-								<div class="first-card-header">
-									<input type="hidden" class="month" value="<fmt:formatDate value='${sr.reviewDate}' pattern='MM'/>" date="<fmt:formatDate value='${sr.reviewDate}' pattern='dd'/>" year="<fmt:formatDate value='${sr.reviewDate}' pattern='yyyy'/>">
-									<p></p>
-								</div>
-								<div class="second-card mb-3" style="max-width: 100%;">
-									<div class="orderlist-body">
-										<table>
-											<tr>
-												<td class="product-img"><a
-													href='/product.do?productNo=${sr.productNo }'> <img
-														src="../resources/images/productimage/${sr.imageName }"
-														width="120" height="90">
-												</a></td>
-												<td class="product-detail">
-													<p class="card-text">
-														<a href='/product.do?productNo=${sr.productNo }'>
-															${sr.productName }, ${sr.detailQty }개<br> <strong>${sr.payPrice }원</strong>
-												</a>
-														</p>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<div class="select-review-wrapper">
-										<table>
-											<tr>
-												<td></td>
-												<td>
-													<div class="review-img">
-														<c:if test="${not empty sr.reviewImg}">
-															<img width=400px src="../resources/images/reviewimage/${sr.reviewImg}">
-														</c:if>
-													<div>
-												</td>
-											</tr>
-											<tr>
-												<td class="title">평점</td>
-												<td class="eval">
-												<input type="hidden"
-													class="evaluation" name="evaluation"
-													value="${sr.reviewEvaluation}">
-													<p class="star star1">☆</p>
-													<p class="star star2">☆</p>
-													<p class="star star3">☆</p>
-													<p class="star star4">☆</p>
-													<p class="star star5">☆</p></td>
-											</tr>
-											<tr>
-												<td class="title">제목</td>
-												<td>${sr.reviewTitle}</td>
-											</tr>
-											<tr>
-												<td class="review-content title">내용</td>
-												<td>${sr.reviewContent }</td>
-											</tr>
-
-											<tr>
-												<td class="button">
-													<div class="btn-wrap">
-														<form action="/mypage/deleteReview.do" onsubmit="return check()">
-															<input type="hidden" name="reviewNo"
-																value="${sr.reviewNo}"> <input type="submit"
-																class="btn-delete" value="삭제하기">
-														</form>
-													</div>
-												</td>
-												<td></td>
-											</tr>
-										</table>
-									</div>
+						<c:if test="${empty selectReview}">
+							<div class="position-relative" style="height:40em;">
+								<div class="position-absolute top-50 start-50 translate-middle">
+									<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+									  <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+									</svg>
+									<p class="mt-2 fs-5 fw-light">
+								  		작성한 리뷰가 없습니다.
+								  	</p>
 								</div>
 							</div>
-						</c:forEach>
+						</c:if>
+						<c:if test="${not empty selectReview}">
+							<c:forEach items="${selectReview}" var="sr">
+								<div class="first-card mb-3" style="max-width: 90%;">
+	
+									<div class="first-card-header">
+										<input type="hidden" class="month" value="<fmt:formatDate value='${sr.reviewDate}' pattern='MM'/>" date="<fmt:formatDate value='${sr.reviewDate}' pattern='dd'/>" year="<fmt:formatDate value='${sr.reviewDate}' pattern='yyyy'/>">
+										<p></p>
+									</div>
+									<div class="second-card mb-3" style="max-width: 100%;">
+										<div class="orderlist-body">
+											<table>
+												<tr>
+													<td class="product-img"><a
+														href='/product.do?productNo=${sr.productNo }'> <img
+															src="../resources/images/productimage/${sr.imageName }"
+															width="120" height="90">
+													</a></td>
+													<td class="product-detail">
+														<p class="card-text">
+															<a href='/product.do?productNo=${sr.productNo }'>
+																${sr.productName }, ${sr.detailQty }개<br> <strong>${sr.payPrice }원</strong>
+													</a>
+															</p>
+													</td>
+												</tr>
+											</table>
+										</div>
+										<div class="select-review-wrapper">
+											<table>
+												<tr>
+													<td></td>
+													<td>
+														<div class="review-img">
+															<c:if test="${not empty sr.reviewImg}">
+																<img width=400px src="../resources/images/reviewimage/${sr.reviewImg}">
+															</c:if>
+														<div>
+													</td>
+												</tr>
+												<tr>
+													<td class="title">평점</td>
+													<td class="eval">
+													<input type="hidden"
+														class="evaluation" name="evaluation"
+														value="${sr.reviewEvaluation}">
+														<p class="star star1">☆</p>
+														<p class="star star2">☆</p>
+														<p class="star star3">☆</p>
+														<p class="star star4">☆</p>
+														<p class="star star5">☆</p></td>
+												</tr>
+												<tr>
+													<td class="title">제목</td>
+													<td>${sr.reviewTitle}</td>
+												</tr>
+												<tr>
+													<td class="review-content title">내용</td>
+													<td>${sr.reviewContent }</td>
+												</tr>
+	
+												<tr>
+													<td class="button">
+														<div class="btn-wrap">
+															<form action="/mypage/deleteReview.do" onsubmit="return check()">
+																<input type="hidden" name="reviewNo"
+																	value="${sr.reviewNo}"> <input type="submit"
+																	class="btn-delete" value="삭제하기">
+															</form>
+														</div>
+													</td>
+													<td></td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+						</c:if>
 					</div>
 					<!-- 실제 본문 영역 끝 -->
 				</div>

@@ -40,7 +40,7 @@
 				<div class="side-menu text-center">
 					<div class="profile-area my-1 py-2">
 						<!--  실제 판매자 프로필 이미지 들어가는 곳 -->
-						<img src="../resources/images/userprofile/${loginUser.profileName}" width="200px" style="border-radius:50%" class="my-2">
+						<img src="../resources/images/userprofile/${loginUser.profileFilename}" width="200px" style="border-radius:50%" class="my-2">
 						<!--  판매자 이름 보여주기 -->
 						<p class="mb-2">${loginUser.name}님</p>
 							<a href="#" class="">

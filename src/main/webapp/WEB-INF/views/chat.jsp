@@ -6,104 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="/resources/css/commonStyle.css">
-<style type="text/css">
-
-#chat{
-	overflow: hidden;
-	position: relative;
-	
-}
-
-#chat_input{
-	position: fixed;
-	width: 90%;
-	bottom: 0px;
-	z-index: 1;
-	position: relative;
-	height: 10%;
-}	
-
-
-#chat_list{
-	position:relative;
-	overflow: auto;
-	height: 60%;
-	background:#D8D9D7;
-	width: 100%;
-}
-
-.myMessage{
-	
-	position:relative;
-	background:yellow;
-	padding:6px;
-	border-radius: 5px;
-	width: 100px;
-	float: right;
-	margin: 3px;
-}
-
-
-.yourMessage{
-	position:relative;
-	background: white;
-	padding:6px;
-	border-radius: 5px;
-	width: 100px;
-	float: left;
-	margin: 3px;
-	margin-left: 10px;
-}
-
-.clear{
-	clear: both;
-	padding: 0px;
-	margin: 0px;
-	line-height: 0px;
-}
-
-#chat_data{
-	visibility: hidden;
-	position: relative;
-	width: 1px;
-	height: 1px;
-	padding: 0px;
-	margin: 0px;
-	overflow: hidden;
-}
-
-#message{
-	margin-top:10px;
-	margin-right:10px;
-	width: 90%;
-	display: inline-block;
-}
-
-
-
-#btnSend{
-	background-image: url("/resources/images/send.png");
-	background-position:center;
-	background-repeat:no-repeat;
-    background-size: contain;
-    border: none;
-    background-color: white;
-  	width: 50px;
-  	height: 50px;
-  
-  	
-  
-}
-
-#title{
-	background-color: green;
-}
-
-.left{
-	float: left;
-}
-
-</style>
+  <link rel="stylesheet" href="/resources/css/etc/chat.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -284,9 +187,10 @@ $(function(){
 							
 							<br>
 							</div>
-							
-							<input type="text" class="form-control input-sm" id="message" name="message" placeholder="메세지를 입력하세요"  aria-describedby="basic-addon1">
-							<input type="submit" id="btnSend" value="      ">
+							<div class="mx-auto">
+								<input type="text" class="form-control input-sm" id="message" name="message" placeholder="메세지를 입력하세요"  aria-describedby="basic-addon1">
+								<input type="submit" id="btnSend" value="      ">
+							</div>
 						</form>
 						</div>
 					</div>

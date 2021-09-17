@@ -143,6 +143,23 @@
 									<input type="text" class="form-control input-my-1" name="address4" id="address4" required="required" readonly="readonly">
 								</div>
 							</div>
+							
+							<hr class="mx-auto pt-0.5">
+						
+							<div class="row mb-3">
+								<label for="policy" class="col-sm-3 col-form-label text-end">이용약관</label>
+								<div class="col-sm-9">
+									<div>
+										<input type="checkbox" required="required"><span>이용약관 동의(필수)</span>
+										<textarea class="form-control mb-3" rows="3" readonly="readonly">이용약관</textarea>
+									</div>
+		            				<div>
+		            					<input type="checkbox" required="required">
+		            					<span>개인정보 이용·수집 동의(필수)</span>
+		            					<textarea class="form-control mb-3" rows="3" readonly="readonly">개인정보 이용수집 동의</textarea>
+		            				</div>
+								</div>
+							</div>
 						</div>
 					
 					<hr class="mx-auto mb-5 pt-0.5">

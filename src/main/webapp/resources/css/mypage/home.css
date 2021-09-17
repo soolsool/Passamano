@@ -5,10 +5,6 @@
 	cursor:pointer;
 }
 
-.clicked {
-	background-color: lightgray;
-	color: white;
-}
 
 .wrapper {
 	float: left;
@@ -19,6 +15,21 @@
 	float: right;
 }
 
+.nav-link:hover {
+	background-color: lightgray;
+	color: white;
+	cursor: pointer;
+}
+
+.nav-link:active {
+	background-color: lightgray;
+	color: white;
+}
+
+.clicked>.nav-link {
+	background-color: lightgray;
+	color: white;
+}
 .first-card {
 	margin: 0px auto;
 	border-radius: 12px;
