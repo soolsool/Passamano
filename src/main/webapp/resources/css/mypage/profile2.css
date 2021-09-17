@@ -14,21 +14,42 @@
 	float: right;
 }
 
-.nav-item a:hover {
-	background-color: lightgray;
-	color: white;
+.nav-item{
+	border-radius:100px;
+}
+
+.nav-item:not(.clicked):hover {
+	border:1px solid lightgray;
 	cursor: pointer;
 }
 
-.nav-item a:active {
-	background-color: lightgray;
-	color: white;
+.nav-item:active {
+	border:1px solid #28a745;
 }
 
 .clicked {
-	background-color: lightgray;
-	color: white;
+	border:1px solid #28a745;
 }
+
+.nav-item>a::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
+}
+.nav-item>a::after {
+  width: 0;
+  height: 1vw;
+  background: #28a745;
+  left: 50%;
+}
+.nav-item>a:hover::after {
+  width: 100%;
+  left: 0;
+  transition: all .3s;
+}
+
 
 .first-card {
 	margin: 0px auto;
