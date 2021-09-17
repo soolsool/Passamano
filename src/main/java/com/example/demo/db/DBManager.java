@@ -683,7 +683,7 @@ public class DBManager {
 		SqlSession session = factory.openSession(false);
 		OrdersVo orders = oc.getOrders();
 		OrderPayVo pay = oc.getOrderPay();
-		OrderManageVo orderManage = oc.getOrderManage();
+		OrderManageVo orderManage = new OrderManageVo();
 		OrderDeliveryVo delivery = oc.getOrderDelivery();
 		List<OrderDetailVo> list = oc.getOrderDetailList();
 		int orderNo = getOrderNo();
