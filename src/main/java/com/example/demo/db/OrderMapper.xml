@@ -35,4 +35,11 @@
 		insert into order_detail values(#{productNo}, #{ordersNo}, #{detailQty}, #{detailPrice})
 	</insert>
 	
+	<insert id="insertManage" parameterType="ordermanageVo">
+		insert into order_manage values(#{orderManageNo}, 3, sysdate, #{ordersNo}, ' ')
+	</insert>
+	
+	<select id="getManageNo" resultType="int">
+		select nvl(max(order_manage_no),0)+1 from order_manage
+	</select>
 </mapper>

@@ -32,6 +32,7 @@
 		<typeAlias type="com.example.demo.vo.OrderDetailVo" alias="orderdetailVo"/>
 		<typeAlias type="com.example.demo.vo.OrderPayVo" alias="orderpayVo"/>
 		<typeAlias type="com.example.demo.vo.OrderDeliveryVo" alias="orderdeliveryVo"/>
+		<typeAlias type="com.example.demo.vo.OrderManageVo" alias="ordermanageVo"/>
 		<typeAlias type="com.example.demo.vo.ChatVO" alias="chatVO"/>
   		<typeAlias type="com.example.demo.vo.ChatRoomVO" alias="chatRoomVO"/>
 	</typeAliases>

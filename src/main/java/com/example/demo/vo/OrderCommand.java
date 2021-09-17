@@ -7,6 +7,7 @@ public class OrderCommand {
 	private OrderDeliveryVo orderDelivery;
 	private OrdersVo orders;
 	private OrderPayVo orderPay;
+	private OrderManageVo orderManage;
 	public List<OrderDetailVo> getOrderDetailList() {
 		return orderDetailList;
 	}
@@ -31,11 +32,13 @@ public class OrderCommand {
 	public void setOrderPay(OrderPayVo orderPay) {
 		this.orderPay = orderPay;
 	}
-	@Override
-	public String toString() {
-		return "OrderCommand [orderDetailList=" + orderDetailList + ", orderDelivery=" + orderDelivery + ", orders="
-				+ orders + ", orderPay=" + orderPay + "]";
+	public OrderManageVo getOrderManage() {
+		return orderManage;
 	}
+	public void setOrderManage(OrderManageVo orderManage) {
+		this.orderManage = orderManage;
+	}
+	
 	
 	
 

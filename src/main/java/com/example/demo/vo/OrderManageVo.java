@@ -1,6 +1,6 @@
 package com.example.demo.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class OrderManageVo {
 	private int orderManageNo;

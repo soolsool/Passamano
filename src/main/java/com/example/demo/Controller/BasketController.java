@@ -54,7 +54,7 @@ public class BasketController {
 			String imageName=(String)(dao.getImageName(basketProductNo.get(i)));
 			int productNo=(int)(basketProductNo.get(i));
 			
-			map.put("ProductNo", basketProductNo);
+			map.put("productNo", productNo);
 			map.put("deliveryFee", deliveryFeeItem);
 			map.put("basketQty", basketQty);
 			map.put("totalPrice", productPrice*basketQty);
