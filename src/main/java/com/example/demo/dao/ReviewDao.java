@@ -1,10 +1,13 @@
 package com.example.demo.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.db.DBManager;
 import com.example.demo.vo.ReviewVo;
 import com.example.demo.vo.SelectOrdersVo;
+import com.example.demo.vo.SelectReviewVo;
 
 @Repository
 public class ReviewDao {
@@ -24,4 +27,13 @@ public class ReviewDao {
 	public SelectOrdersVo selectProductDetail(int userNo, int productNo, String orderDate) {
 		return DBManager.selectProductDetail(userNo, productNo, orderDate);
 	}
+	
+	public List<SelectReviewVo> getReviewBySeller(int sellerNo) {
+		return DBManager.getReviewBySeller(sellerNo);
+	}
+	
+	public SelectReviewVo getReviewBySellersProduct(int reviewNo) {
+		return DBManager.getReviewBySellersProduct(reviewNo);
+	}
+
 }

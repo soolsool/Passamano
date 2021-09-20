@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.example.demo.dao.ReviewDao;
 import com.example.demo.vo.ReviewVo;
+import com.example.demo.vo.SellerVo;
 @Controller
 public class ReviewController {
 
@@ -82,5 +83,16 @@ public class ReviewController {
 		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 		dao.deleteReview(reviewNo);
 		return mav;
+	}
+	
+	@RequestMapping(value="/seller/listReview.do")
+	public void listReview(Model model, HttpSession session) {
+		int sellerNo = ((SellerVo)session.getAttribute("sellerInfo")).getSellerNo();
+		model.addAttribute("list", dao.getReviewBySeller(sellerNo));
+	}
+							
+	@RequestMapping(value="/seller/detailReview.do")
+	public void detailReview(Model model, int reviewNo) {
+		model.addAttribute("review", dao.getReviewBySellersProduct(reviewNo));
 	}
 }

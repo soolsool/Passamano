@@ -17,6 +17,10 @@
   </select>
  --> 
  
+  <select id="productOrder" resultType="productorderVo">
+	select orders_no, product_name, detail_price, order_state, order_manage_date, name, image_name from order_views where thumbNail = 1 and seller_no =${sellerNo} order By order_manage_date
+  </select>
+	  
   <select id="productSales" resultType="productsalesVo">
   	select category_name, nvl(sum(detail_price),0) as tot, count(*) as cnt 
 	from orders_views where order_state >=3 and seller_no=#{sellerNo} group by category_name

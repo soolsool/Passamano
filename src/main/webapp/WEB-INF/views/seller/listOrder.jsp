@@ -51,7 +51,7 @@
 					
 					<nav class="my-3">
 						<div class="dropdown">
-							<a class="nav-link dropdown-toggle my-1" href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+							<a class="nav-link dropdown-toggle my-1" href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" >
 								상품 관리
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -82,78 +82,72 @@
 				<div class="productTable">
 					<div class="tableTitle mt-5">
 						<h4 class="fw-light">
-							내가 등록한 상품 목록
+							주문 관리
 						</h4>
-					</div>
-					
-					<div class="text-end">
-						<button type="button" class="btn btn-outline-success" onclick="location.href='/seller/insertProduct.do?sellerNo=${sellerNo}'">
-							상품등록
-						</button>
 					</div>
 					<hr class="mx-auto pt-0.5">
 					<table class="table table-hover">
 						<tr class="text-center">
-							<th>상품번호</th>
+							<th>주문번호</th>
 							<th>상품명</th>
 							<th>상품가격</th>
-							<th>수량</th>
-							<th>등록날짜</th>
+							<th>날짜</th>
+							<th>주문자명</th>
 							<th>상태</th>
+
 						</tr>
 						<c:forEach var="p" items="${list}">
 							<tr>
 								<td class="text-center align-middle">
-									<span>	
-										${p.productNo }
-									</span>
+									${p.ordersNo }
 								</td>
 								
 								<td class="align-middle">
 								<div class="d-inline">
 									<img src="/resources/images/productimage/${p.imageName}" style="width:5em;height:5em;">
-									<c:choose>
-										<c:when test="${p.productState != 0 }">
-											<span>${p.productName }</span>
-										</c:when>
-										<c:otherwise>
-											<a href="/seller/updateProduct.do?productNo=${p.productNo }">
-											<span>${p.productName }</span>
-											</a>
-										</c:otherwise>
-									</c:choose>
+									<span>${p.productName}</span>
 								</div>
-								</td>	
-															
-								<td class="text-end align-middle">
-									<span>
-										<fmt:formatNumber value="${p.productPrice }" pattern="###,###,###"/>
-									</span>
 								</td>
+							
 								<td class="text-end align-middle">
 									<span>
-										${p.productQty}
+										<fmt:formatNumber value="${p.detailPrice }" pattern="###,###,###"/>
 									</span>
 								</td>
 								<td class="text-center align-middle">
 									<span>
-										<fmt:formatDate value="${p.productDate }" pattern="yyyy-MM-dd"/>
+										<fmt:formatDate value="${p.orderManageDate }" pattern="yyyy-MM-dd"/>
+									</span>
+								</td>
+								<td class="text-center align-middle">
+									<span>
+										${p.name}
 									</span>
 								</td>
 								<td class="text-center align-middle">
 									<c:choose>
-										<c:when test="${p.productState != 0 }">
-											<span class="badge bg-danger">판매완료</span>
+										<c:when test="${p.orderState == 1}">
+											<span class="badge bg-danger">주문취소</span>
 										</c:when>
-										<c:otherwise>
-											<span class="badge bg-success">판매중</span>
-										</c:otherwise>
+										<c:when test="${p.orderState == 2}">
+											<span class="badge bg-danger">환불</span>
+										</c:when>
+										<c:when test="${p.orderState == 3}">
+											<span class="badge bg-success">배송준비</span>
+										</c:when>
+										<c:when test="${p.orderState == 4}">
+											<span class="badge bg-success">배송</span>
+										</c:when>
+										<c:when test="${p.orderState == 5}">
+											<span class="badge bg-success">배송완료</span>
+										</c:when>
 									</c:choose>
 								</td>
 							</tr>
 						</c:forEach>
 					</table>
 				</div>
+				<!-- 
 				<nav aria-label="Page navigation">
 					<ul class="pagination justify-content-center">
 						<c:forEach var="i" begin="1" end="${totalPage }">
@@ -165,6 +159,7 @@
 						</c:forEach>
 					</ul>
 				</nav>
+				 -->
 			</div>
 			<!-- 실제 본문 영역 끝 -->
 			</div>

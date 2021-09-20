@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-<link rel="stylesheet" href="/resources/css/commonStyle.css">
+<link rel="stylesheet" href="../resources/css/commonStyle.css">
 <link rel="stylesheet" href="/resources/css/seller/productlist.css">
 <style type="text/css">
 	.profile-area{
@@ -82,89 +82,60 @@
 				<div class="productTable">
 					<div class="tableTitle mt-5">
 						<h4 class="fw-light">
-							내가 등록한 상품 목록
+							리뷰 상세페이지
 						</h4>
 					</div>
-					
+					<hr class="mx-auto pt-0.5">
+					<table class="table">
+						<tr>
+							<th class="text-center">상품명</th>
+							<td colspan="3">
+								<span>${review.productName}</span>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-center">리뷰제목</th>
+							<td colspan="3">
+								<span>${review.reviewTitle}</span>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-center">평점</th>
+							<td>
+								<c:forEach var="s" begin="1" end="${review.reviewEvaluation}">
+								★
+								</c:forEach>
+							</td>
+							<th class="text-center">작성일</th>
+							<td>
+								<span>
+									<fmt:formatDate value="${review.reviewDate}" pattern="yyyy-MM-dd HH:ss"/>
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th class="text-center">리뷰내용</th>
+							<td colspan="3">
+								${review.reviewContent}
+							</td>
+						</tr>
+						<tr>
+							<th class="text-center">첨부파일</th>
+							<td colspan="3">
+								<img src="/resources/images/reviewimage/${review.reviewImg}">
+							</td>
+						</tr>
+					</table>
 					<div class="text-end">
-						<button type="button" class="btn btn-outline-success" onclick="location.href='/seller/insertProduct.do?sellerNo=${sellerNo}'">
-							상품등록
+						<button type="button" class="btn btn-success" onclick="goBack()"> 
+							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
+							  <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+							  <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
+							</svg>
+							<span>목록</span>
 						</button>
 					</div>
-					<hr class="mx-auto pt-0.5">
-					<table class="table table-hover">
-						<tr class="text-center">
-							<th>상품번호</th>
-							<th>상품명</th>
-							<th>상품가격</th>
-							<th>수량</th>
-							<th>등록날짜</th>
-							<th>상태</th>
-						</tr>
-						<c:forEach var="p" items="${list}">
-							<tr>
-								<td class="text-center align-middle">
-									<span>	
-										${p.productNo }
-									</span>
-								</td>
-								
-								<td class="align-middle">
-								<div class="d-inline">
-									<img src="/resources/images/productimage/${p.imageName}" style="width:5em;height:5em;">
-									<c:choose>
-										<c:when test="${p.productState != 0 }">
-											<span>${p.productName }</span>
-										</c:when>
-										<c:otherwise>
-											<a href="/seller/updateProduct.do?productNo=${p.productNo }">
-											<span>${p.productName }</span>
-											</a>
-										</c:otherwise>
-									</c:choose>
-								</div>
-								</td>	
-															
-								<td class="text-end align-middle">
-									<span>
-										<fmt:formatNumber value="${p.productPrice }" pattern="###,###,###"/>
-									</span>
-								</td>
-								<td class="text-end align-middle">
-									<span>
-										${p.productQty}
-									</span>
-								</td>
-								<td class="text-center align-middle">
-									<span>
-										<fmt:formatDate value="${p.productDate }" pattern="yyyy-MM-dd"/>
-									</span>
-								</td>
-								<td class="text-center align-middle">
-									<c:choose>
-										<c:when test="${p.productState != 0 }">
-											<span class="badge bg-danger">판매완료</span>
-										</c:when>
-										<c:otherwise>
-											<span class="badge bg-success">판매중</span>
-										</c:otherwise>
-									</c:choose>
-								</td>
-							</tr>
-						</c:forEach>
-					</table>
 				</div>
-				<nav aria-label="Page navigation">
-					<ul class="pagination justify-content-center">
-						<c:forEach var="i" begin="1" end="${totalPage }">
-						    <li class="page-item">
-						    	<a class="page-link" href="/seller/listProduct.do?pageNUM=${i}">
-						    		${i}
-					    		</a>
-				    		</li>
-						</c:forEach>
-					</ul>
-				</nav>
 			</div>
 			<!-- 실제 본문 영역 끝 -->
 			</div>
@@ -186,8 +157,14 @@
 		</div>
 
 	</div>
+	
 	<!--  풋터 끝부분 끝 -->
+</body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-</body>
+<script type="text/javascript">
+	function goBack(){
+		window.history.back();
+	}
+</script>
 </html>
