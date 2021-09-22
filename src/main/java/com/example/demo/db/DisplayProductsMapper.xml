@@ -154,7 +154,16 @@
 	<select id="getMaxproduct" resultType="int">
 		select count(product_no)
 		from products
-		where product_no not in 1
+		<choose>
+			<when test="whereField != null and categoryNo != null">
+				left join product_category c
+				on products.category_no = c.cateogry_no
+				where ${whereField} = #{categoryNo}
+			</when>
+			<when test="whereField == null and categoryNo == null">
+				where product_no not in 1
+			</when>
+		</choose>
 	</select>
 	
 </mapper>

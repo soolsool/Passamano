@@ -42,7 +42,16 @@ public class DisplayProductsController {
 	@ResponseBody
 	public Map<Object, Object> getProduct(String orderField, String sortOrder, @RequestParam @Nullable String categoryNo, @RequestParam(value = "page", defaultValue = "1") int page){
 		int endPage = 0;
-		int lastOne = dao.getMaxproduct();
+		
+		String whereField = null;
+		if(categoryNo!=null) {
+			whereField = "c.category_no";
+			if(categoryNo.endsWith("0")) {
+				whereField = "c.category_ref";
+			}
+		}
+		int lastOne = dao.getMaxproduct(whereField, categoryNo);
+		
 		int productPerList = 9;
 		if(lastOne%productPerList==0) {
 			endPage = lastOne/productPerList;
@@ -57,13 +66,6 @@ public class DisplayProductsController {
 			end = lastOne;
 		}
 		
-		String whereField = null;
-		if(categoryNo!=null) {
-			whereField = "c.category_no";
-			if(categoryNo.endsWith("0")) {
-				whereField = "c.category_ref";
-			}
-		}
 		
 		HashMap<Object, Object> paraMap = new HashMap<Object, Object>();
 		paraMap.put("start", start);
@@ -148,7 +150,6 @@ public class DisplayProductsController {
 	
 	@RequestMapping("/search.do")
 	public void searchList(String search, Model model) {
-		System.out.println(search);
 		model.addAttribute("keyword", search);
 		model.addAttribute("count", dao.getSearchCount(search));
 		model.addAttribute("list", dao.getSearchList(search));

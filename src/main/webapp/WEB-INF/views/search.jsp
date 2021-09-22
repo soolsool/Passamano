@@ -22,7 +22,7 @@
 		</div>
 	</div>
 	<!-- 페이지 상단 고정 부분 -->
-	<hr class="bg-success mx-auto pt-0.5 w-75" id="mainColumn">
+	<hr class="bg-success mx-auto pt-0.5 w-50" id="mainColumn">
 	<!-- 상품 검색 탭 시작 -->
 	<div class="row">
 		<div class="col-3">

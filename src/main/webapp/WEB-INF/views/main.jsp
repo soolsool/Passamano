@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>파사마노:::Passamano</title>
+<title>파사마노PASSAMANO</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 <link rel="stylesheet" href="/resources/css/commonStyle.css">
 <link rel="stylesheet" href="/resources/css/etc/main.css">
@@ -85,7 +85,7 @@
 					<ul id="list">
 				
 				</ul>
-				<div class="text-center">
+				<div class="text-center" id="">
 					<button type="button" class="btn btn-success" onclick="getNextList()">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
   							<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -122,6 +122,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
 <script type="text/javascript">
 	var callCount = 1;
+	var param;
 	//document.addEventListener("DOMContentLoaded", () => {
 	$(document).ready(function() {
 		$.ajax({
@@ -188,7 +189,10 @@
 		callCount += 1;
 		$.ajax({
 			url:"/getProductList.do",
-			data: {'page':callCount},
+			data: {
+				'page':callCount,
+				'categoryNo':param
+			},
 			contentType:"application/json; charset=utf-8;",
 			dataType:"json",
 			success: function(data){
@@ -210,7 +214,8 @@
 	
 	//카테고리 선택시 해당 카테고리에 속하는 제품 검색
 	function getByCategory(categoryNo){
-		var param = categoryNo!=0?categoryNo:null;
+		callCount = 1;
+		param = categoryNo!=0?categoryNo:null;
 		$('#list').empty();
 		$.ajax({
 			url:"/getProductList.do",
@@ -261,7 +266,7 @@
 					var list = data.list;
 					var category = data.category;
 					var products = makeList(list);
-					 $('#list').append(products);
+					$('#list').append(products);
 				}else{
 					alert("제품 목록의 마지막 제품입니다.");
 				}

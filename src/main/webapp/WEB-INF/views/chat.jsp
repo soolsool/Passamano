@@ -126,7 +126,7 @@ $(function(){
 	$("#btnSend").click(function(event){
 		event.preventDefault();
 		let data = $("#f").serialize();
-		console.log(data);
+		document.getElementById('message').value='';
 		$.ajax({url:"/insertChat",data:data, success:function(data){
 			
 		}});
@@ -187,7 +187,7 @@ $(function(){
 							
 							<br>
 							</div>
-							<div class="mx-auto">
+							<div class="text-center">
 								<input type="text" class="form-control input-sm" id="message" name="message" placeholder="메세지를 입력하세요"  aria-describedby="basic-addon1">
 								<input type="submit" id="btnSend" value="      ">
 							</div>

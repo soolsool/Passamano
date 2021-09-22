@@ -3,6 +3,7 @@ package com.example.demo.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.db.DBManager;
@@ -75,8 +76,7 @@ public class DisplayProductDao {
 		return DBManager.getZzim(productNo);
 	}
 	
-	public int getMaxproduct() {
-		return DBManager.getMaxproduct();
+	public int getMaxproduct(@Nullable String whereField, @Nullable String categoryNo) {
+		return DBManager.getMaxproduct(whereField, categoryNo);
 	}
-	
 }

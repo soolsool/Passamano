@@ -127,7 +127,7 @@
 									<div class="col-sm-9 my-1 text-end">
 										<div class="qtyControl">
 											<button type="button" class="btn btn-light" onclick="addQty()">+</button>
-											<input type="text" class="text-center" size="1" id="qty" name="basketQty" readonly="readonly" value="1" style="border:none;">
+											<input type="text" class="text-center" size="1" id="qty" name="basketQty" readonly="readonly" value="0" style="border:none;">
 											<button type="button" class="btn btn-light" onclick="substractQty()">-</button>
 										</div>
 									</div>

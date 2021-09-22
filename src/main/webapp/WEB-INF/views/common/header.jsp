@@ -107,7 +107,7 @@
 							<span class="fw-bolder">주문관리</span>
 						</a>
 		       			<a href="/listChatRoom.do" class="mx-2">
-		    	   			<span class="fw-bold">채팅</span>
+		    	   			<span class="fw-bolder">채팅</span>
 		   	   			</a>  
 						<a href="/logout.do" class="mx-2">
 		    	   			<span class="fw-bolder">로그아웃</span>

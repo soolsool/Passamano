@@ -1,4 +1,4 @@
-#mainColumn{
+	#mainColumn{
 		opacity: 1;
 	}
 	#category{
@@ -81,7 +81,7 @@
 		transition: all .3s;
 	}
 	#goToTop{
-		top: 95%;
+		top: 90%;
 		left: 80%;
 		width: 70px;
 		height: 70px;

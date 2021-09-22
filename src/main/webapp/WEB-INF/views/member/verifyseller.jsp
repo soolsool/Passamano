@@ -35,7 +35,7 @@
 					</p>
 					<hr class="mx-auto pt-0.5 w-50">
 					
-					<form action="/member/sellerinfo.do" method="post" class="w-50 mx-auto" enctype="multipart/form-data">
+					<form action="/member/verifySeller.do" method="post" class="w-50 mx-auto" enctype="multipart/form-data">
 					
 						<div class="row mb-3 mx-auto">
 							<label for="password" class="col-sm-3 col-form-label text-end">사업자등록번호</label>
@@ -129,8 +129,10 @@
 		var sellerId2 = document.getElementById("sellerId2").value;
 		var sellerId3 = document.getElementById("sellerId3").value;
 		var sellerId = sellerId1 + sellerId2 + sellerId3; 
-		
-		if(sellerId.length==10){
+
+		if((!sellerId1)||(!sellerId2)||(!sellerId3)){
+			alert("사업자 등록번호를 입력하세요.");
+		}else if(sellerId.length==10){
 			var verify = new Array(1, 3, 7, 1, 3, 7, 1, 3, 5);
 			var sum = 0;
 			

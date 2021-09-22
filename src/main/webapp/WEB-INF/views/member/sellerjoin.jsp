@@ -30,7 +30,7 @@
 			<div class="join-form pt-4 my-5">
 					
 				<p class="text-center fs-4 fw-bold my-3 lh-sm">
-					<span class="badge bg-success">2</span>
+					<span class="badge bg-success">3</span>
 					회원정보 입력
 				</p>
 				<!-- 회원정보 입력 시작 -->
@@ -144,7 +144,7 @@
 								</div>
 							</div>
 							
-							<hr class="mx-auto pt-0.5">
+							<hr class="mx-auto mx-2 pt-0.5">
 						
 							<div class="row mb-3">
 								<label for="policy" class="col-sm-3 col-form-label text-end">이용약관</label>
@@ -162,7 +162,7 @@
 							</div>
 						</div>
 					
-					<hr class="mx-auto mb-5 pt-0.5">
+					<hr class="mx-auto mb-1 pt-0.5">
 					<!-- 회원정보 입력 끝 -->
 										
 					<div class="text-center mt-5">

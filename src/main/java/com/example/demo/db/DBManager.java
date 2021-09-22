@@ -11,6 +11,7 @@ import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.lang.Nullable;
 
 import com.example.demo.vo.GetReviewVo;
 import com.example.demo.vo.OrderCommand;
@@ -759,6 +760,17 @@ public class DBManager {
 	//상품 테이블에서 공지를 제외하고 등록된 상품의 수
 	public static int getMaxproduct() {
 		SqlSession session = factory.openSession();
+		int result = session.selectOne("displayProducts.getMaxproduct");
+		session.close();
+		return result;
+	}
+	
+	//상품 테이블에서 공지를 제외하고 등록된 상품의 수(카테고리 선택했을 때)
+	public static int getMaxproduct(@Nullable String whereField, @Nullable String categoryNo) {
+		SqlSession session = factory.openSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("whereField", whereField);
+		map.put("categoryNo", categoryNo);
 		int result = session.selectOne("displayProducts.getMaxproduct");
 		session.close();
 		return result;

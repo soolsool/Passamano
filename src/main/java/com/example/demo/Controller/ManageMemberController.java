@@ -182,12 +182,15 @@ public class ManageMemberController {
 		
 	}
 	
+	
+	
 	//판매자 정보 입력 페이지에서 폼을 작성하면 기본회원정보 입력양식으로 이동한다.
-	 @RequestMapping(value="/member/sellerinfo.do", method = RequestMethod.POST)
-	 public void joinSellerForm(UserSellerVo seller, String sellerId1, String sellerId2, String sellerId3, String sido1, String gugun1, HttpServletRequest request, HttpSession session) {
+	 @RequestMapping(value="/member/verifySeller.do", method = RequestMethod.POST)
+	 public ModelAndView joinSellerForm(UserSellerVo seller, String sellerId1, String sellerId2, String sellerId3, String sido1, String gugun1, HttpServletRequest request, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		String sellerId = sellerId1 + "-" + sellerId2 + "-" + sellerId3;
 		String sellerAddress = sido1 + " " + gugun1;
+		System.out.println("컨트롤러에 도착함.");
 		
 		seller.setSellerNo(dao.getNextSellerNo()+1);
 		seller.setUserNo(dao.getNextUserNo()+1);
@@ -211,9 +214,15 @@ public class ManageMemberController {
 				System.out.printf("예외발생: %s\n", e.getMessage());
 			}
 		 }
-		 
 		 session.setAttribute("seller", seller);
 		 mav.setViewName("redirect:/member/sellerjoin.do");
+		 System.out.println("세션에 seller 저장");
+		 return mav;
+	 }
+	 
+	 @RequestMapping(value="/member/sellerjoin.do", method = RequestMethod.GET)
+	 public void sendSellerForm() {
+		 
 	 }
 	 
 	 @RequestMapping(value="/member/sellerjoin.do", method = RequestMethod.POST)
