@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.dao.SalesDao;
 import com.example.demo.vo.ProductSalesVo;
 import com.example.demo.vo.SellerVo;
+import com.example.demo.vo.UserVo;
 
 @Controller
 public class SalesProductController {
@@ -76,4 +77,12 @@ public class SalesProductController {
 		*/
 	}
 	
+	@RequestMapping("/seller/listOrder.do")
+	public void orderlist(Model model, HttpSession session) {
+		
+		String id = ((UserVo)session.getAttribute("loginUser")).getId();
+		int sellerNo = dao.getSellerNo(id).getSellerNo();
+		
+		model.addAttribute("list", dao.listOrder(sellerNo));
+	}
 }

@@ -57,7 +57,7 @@
 	<update id="updateOrder">
 		update order_manage set
 		order_state=1,order_manage_reason=#{orderManageReason} where
-		orders_no=(select o.orders_no from order_detail od,orders o where
+		orders_no in (select o.orders_no from order_detail od,orders o where
 		o.orders_no=od.orders_no and user_no=#{userNo} and
 		product_no=#{productNo})
 	</update>

@@ -42,7 +42,10 @@
   </select>
   
   <select id="productList" resultType="productselectVo">
-	select * from (select rownum n, product_no, category_no, product_name, product_price, product_content, product_date, product_qty, product_cnt, product_state, seller_no from products where seller_no = (select seller_No from user_seller s left outer join users u on s.user_no = u.user_no  where id=#{id})) where n between #{start} and #{end}
+	  select * from
+	  (select rownum n, p.product_no, category_no, product_name, product_price, product_content, product_date, product_qty, product_cnt, product_state, seller_no,
+	  image_name from products p left outer join product_img i on p.product_no = i.product_no  where thumbnail = 1 and seller_no = (
+	  select seller_No from user_seller s left outer join users u on s.user_no = u.user_no  where id=#{id})) where n between #{start} and #{end}
   </select>
   
   <select id="productselledList" resultType="productselectVo">

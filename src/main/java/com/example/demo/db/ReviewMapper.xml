@@ -40,6 +40,47 @@
 	<delete id="deleteReview">
 		delete review where review_no=#{reviewNo}
 	</delete>
+	
+		<select id="selectSellerSummary" resultType="SelectReviewVo">
+		select review_no, 	
+			i.image_name,
+			p.product_name,
+			review_title,
+			review_evaluation,
+			review_date
+		from review r, products p, order_detail, product_img i
+		where r.orders_no in (select orders_no
+			from orders
+			where orders_no in (select orders_no
+				from order_detail
+				where product_no in (select product_no
+					from products
+					where seller_no = #{sellerNo})
+				)
+			)
+		and r.orders_no = order_detail.orders_no
+		and order_detail.product_no = p.product_no
+		and p.product_no = i.product_no
+		and thumbnail='1'
+	</select>
+	
+	<select id="selectSellerDetail" parameterType="int" resultType="SelectReviewVo">
+		select p.product_name,
+			r.*
+		from review r, products p, order_detail
+		where r.orders_no in (select orders_no
+			from orders
+			where orders_no in (select orders_no
+				from order_detail
+				where product_no in (select product_no
+					from products)		
+				)
+			)
+		and r.orders_no = order_detail.orders_no
+		and order_detail.product_no = p.product_no
+		and r.review_no = #{reviewNo}
+	</select>
+	
 </mapper>
 
 

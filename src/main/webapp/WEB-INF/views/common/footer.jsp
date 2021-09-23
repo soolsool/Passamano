@@ -11,12 +11,12 @@
 </head>
 <body id="bootstrap-overrides">
 	<nav class="d-flex justify-content-between mx-5 my-5 py-2" id="footer-menu">
-		<a class="navbar-brand" href="/notready">파사마노 소개</a>
-		<a class="navbar-brand" href="/notready">약관 및 정책</a>
-		<a class="navbar-brand" href="/notready">개인정보 취급방침</a>
-		<a class="navbar-brand" href="/notready">고객센터</a>
-		<a class="navbar-brand" href="/notready">판매자 입점 문의</a>
-		<a class="navbar-brand" href="/notready">인재채용</a>
+		<a class="navbar-brand" href="/notready.do">파사마노 소개</a>
+		<a class="navbar-brand" href="/notready.do">약관 및 정책</a>
+		<a class="navbar-brand" href="/notready.do">개인정보 취급방침</a>
+		<a class="navbar-brand" href="/notready.do">고객센터</a>
+		<a class="navbar-brand" href="/notready.do">판매자 입점 문의</a>
+		<a class="navbar-brand" href="/notready.do">인재채용</a>
 	</nav>
 	<div class="jumbotron jumbotron-fluid mx-2 my-5 py-2">
 		<div class="container-fluid">

@@ -27,6 +27,7 @@
 		<typeAlias type="com.example.demo.vo.UserVo" alias="UserVo" />
 		<typeAlias type="com.example.demo.vo.ProductSalesVo" alias="productsalesVo" />
 		<typeAlias type="com.example.demo.vo.ProductSelectVo" alias="productselectVo" />
+		<typeAlias type="com.example.demo.vo.ProductOrderVo" alias="productorderVo"/>
 		<typeAlias type="com.example.demo.vo.SellerVo" alias="sellersVo" />
 		<typeAlias type="com.example.demo.vo.OrdersVo" alias="orderVo"/>
 		<typeAlias type="com.example.demo.vo.OrderDetailVo" alias="orderdetailVo"/>

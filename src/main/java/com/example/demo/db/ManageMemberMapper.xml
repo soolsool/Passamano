@@ -149,4 +149,11 @@
 		set pwd=#{pwd}
 		where id=#{id}
 	</update>
+	
+	<select id="getSellerNo" resultType="int">
+		select seller_no 
+		from user_seller 
+		where user_no=#{userNo}
+	</select>
+	
 </mapper>

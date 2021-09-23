@@ -154,4 +154,9 @@ public class DisplayProductsController {
 		model.addAttribute("count", dao.getSearchCount(search));
 		model.addAttribute("list", dao.getSearchList(search));
 	}
+	
+	@RequestMapping("/notready.do")
+	public void notready() {
+		
+	}
 }

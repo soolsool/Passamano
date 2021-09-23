@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.dao.ManageMemberDao;
+import com.example.demo.vo.SellerVo;
 import com.example.demo.vo.UserAddressVo;
 import com.example.demo.vo.UserSellerVo;
 import com.example.demo.vo.UserVo;
@@ -58,9 +59,19 @@ public class ManageMemberController {
 			//DB에 로그인 정보를 확인하고 user객체에 담고, 로그인한 객체를 loginUser로 세션에 저장한다.
 			//검색과 저장을 마치면 로그인 이전의 페이지로 이동한다.
 			UserVo user = dao.getMember(id);
+			SellerVo seller = dao.getSeller(id);
+
 			session.setAttribute("loginUser", user);
+			session.setAttribute("sellerInfo", seller);
 			session.setAttribute("userNo", user.getUserNo());
 			session.setAttribute("grantNo", user.getGrantNo());
+			
+			if(user.getGrantNo()==20) {
+				int userNo = user.getUserNo();
+				session.setAttribute("sellerNo", dao.getSellerNo(userNo));
+			}
+			
+
 			
 			if(user!=null) {
 				String referrer = (String)session.getAttribute("backpage");

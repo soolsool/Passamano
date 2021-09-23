@@ -1,7 +1,7 @@
-  	.container{
-  		height: 40em;
-  		overflow: auto;
-  	}
-  	td{
-  		padding: 10px;
-  	}
+.container{
+	height: 40em;
+	overflow: auto;
+}
+td{
+	padding: 10px;
+}

@@ -3,6 +3,7 @@ package com.example.demo.dao;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.db.DBManager;
+import com.example.demo.vo.SellerVo;
 import com.example.demo.vo.UserAddressVo;
 import com.example.demo.vo.UserSellerVo;
 import com.example.demo.vo.UserVo;
@@ -64,6 +65,13 @@ public class ManageMemberDao {
 
 	public int setNewPwd(String newPwd, String id) {
 		return DBManager.setNewPwd(newPwd, id);
+	}
+	
+	public SellerVo getSeller(String id) {
+		return DBManager.getSeller(id);
+	}
+	public int getSellerNo(int userNo) {
+		return DBManager.getSellerNo(userNo);
 	}
 
 }

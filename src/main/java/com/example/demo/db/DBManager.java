@@ -23,6 +23,7 @@ import com.example.demo.vo.OrdersVo;
 import com.example.demo.vo.ProductCategoryVo;
 import com.example.demo.vo.ProductImgVo;
 import com.example.demo.vo.ProductListVo;
+import com.example.demo.vo.ProductOrderVo;
 import com.example.demo.vo.ProductSalesVo;
 import com.example.demo.vo.ProductSelectVo;
 import com.example.demo.vo.ProductZzimVo;
@@ -757,14 +758,6 @@ public class DBManager {
 		return no;
 	}
 	
-	//상품 테이블에서 공지를 제외하고 등록된 상품의 수
-	public static int getMaxproduct() {
-		SqlSession session = factory.openSession();
-		int result = session.selectOne("displayProducts.getMaxproduct");
-		session.close();
-		return result;
-	}
-	
 	//상품 테이블에서 공지를 제외하고 등록된 상품의 수(카테고리 선택했을 때)
 	public static int getMaxproduct(@Nullable String whereField, @Nullable String categoryNo) {
 		SqlSession session = factory.openSession();
@@ -774,6 +767,38 @@ public class DBManager {
 		int result = session.selectOne("displayProducts.getMaxproduct");
 		session.close();
 		return result;
+	}
+
+	//<주문상태 확인을 위한>
+	public static List<ProductOrderVo> getOrder(int sellerNo) {
+		SqlSession session = factory.openSession();
+		List<ProductOrderVo> list = session.selectList("sales.productOrder", sellerNo);
+		session.close();
+		return list;
+	}
+	
+	//<리뷰리스트>
+	public static List<SelectReviewVo> getReviewBySeller(int sellerNo) {
+		SqlSession session = factory.openSession();
+		List<SelectReviewVo> list = session.selectList("review.selectSellerSummary",sellerNo);
+		session.close();
+		return list;
+	}
+		
+	public static SelectReviewVo getReviewBySellersProduct(int reviewNo) {
+		SqlSession session = factory.openSession();
+		HashMap<String, Integer> map = new HashMap<>();
+		SelectReviewVo review = session.selectOne("review.selectSellerDetail",reviewNo);
+		session.close();
+		return review;
+	}
+		
+		
+	public static int getSellerNo(int userNo) {
+		SqlSession session = factory.openSession();
+		int sellerNo = session.selectOne("manageMember.getSellerNo", userNo);
+		session.close();
+		return sellerNo;
 	}
 		
 }
