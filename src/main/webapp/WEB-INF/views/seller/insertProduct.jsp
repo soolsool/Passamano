@@ -108,8 +108,8 @@
 					</h4>
 				</div>
 				<hr class="pt-0.5">
-				<br>
 				<form action="/seller/insertProduct.do" method="post" enctype="multipart/form-data" class="row g-3">
+				<br>
 					<div class="w-75">
 						<div class="row mb-3">
 							<label for="id" class="col-sm-3 col-form-label text-end">상품명</label>

@@ -8,40 +8,10 @@
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 <link rel="stylesheet" href="/resources/css/commonStyle.css">
-<style type="text/css">
-	#logo{
-		width: 20em;
-	}
-	
-	#upper-menu>.mx-2>.fw-bolder {
-		position: relative;
-		color: #28a745;
-	}
-	#upper-menu>.mx-2>.fw-bolder::after {
-	  content: '';
-	  display: block;
-	  position: absolute;
-	  bottom: 0;
-	  z-index: -1;
-	}
-	#upper-menu>.mx-2>.fw-bolder::after {
-	  width: 0;
-	  height: 1vw;
-	  background: rgba(40, 167, 69);
-	  left: 50%;
-	}
-	#upper-menu>.mx-2>.fw-bolder:hover{
-	  color: white;
-	}
-	#upper-menu>.mx-2>.fw-bolder:hover::after {
-	  width: 100%;
-	  left: 0;
-	  transition: all .3s;
-	}
-</style>
+<link rel="stylesheet" href="/resources/css/etc/header.css">
 </head>
 <body id="bootstrap-overrides">
-	<div class="row mt-3 flex-nowrap justify-content-between">
+	<div class="row mt-3 flex-nowrap justify-content-between" id="upper-container">
 		<div class="col-3 text-start" id="upper-menu">
        		<c:if test="${empty loginUser}">
        			<a href="/mypage/order.do" class="mx-2">
@@ -118,7 +88,7 @@
 		    	   			<span class="fw-bolder">로그아웃</span>
 		   	   			</a> 
 		       			<a href="/listChatRoom.do" class="mx-2">
-		    	   			<span class="fw-bold">채팅</span>
+		    	   			<span class="fw-bolder">채팅</span>
 		   	   			</a>  
        				</c:when>
        			</c:choose>

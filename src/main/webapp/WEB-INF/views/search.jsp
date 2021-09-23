@@ -22,7 +22,7 @@
 		</div>
 	</div>
 	<!-- 페이지 상단 고정 부분 -->
-	<hr class="bg-success mx-auto pt-0.5 w-50" id="mainColumn">
+	<hr class="bg-success mx-auto pt-0.5" id="mainColumn" style="width:67%;">
 	<!-- 상품 검색 탭 시작 -->
 	<div class="row">
 		<div class="col-3">
@@ -30,13 +30,11 @@
 		<div class="col-6">
 			<div class="text-center" id="searchBox">
 				<form action="/search.do" method="get" id="searchKeyword" class="d-inline">
-					<label for="search fw-light">검색요건</label>
-					<input type="text" class="w-25" id="search" name="search" value="${keyword}">
-					<button type="button" class="btn btn-success btn-sm" onclick="searchProduct()">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-							<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-						</svg>
-					</button>
+					<label for="search fw-light ml-2">검색요건</label>
+					<input type="text" class="w-25 border-bottom border-success border-2" id="search" name="search" value="${keyword}" style="border:none;">
+					<svg xmlns="http://www.w3.org/2000/svg" onclick="searchProduct()" width="25" height="25" fill="#198754" class="bi bi-search" viewBox="0 0 16 16">
+						<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+					</svg>
 				</form>
 			</div>
 		</div>
@@ -50,7 +48,7 @@
 		</div>
 		<div class="col-8">
 			<div class="d-inline w-25">  </div>
-				<p class="d-inline mt-5 mb-0 ml-5 text-start fw-light fs-6">
+				<p class="d-inline mt-5 mb-0 ml-5 text-center fw-light fs-6">
 					총 <strong>${count}</strong>건의 상품이 검색되었습니다.
 				</p>
 			<hr class="bg-success mx-auto w-100 pt-0.5"  id="mainColumn">

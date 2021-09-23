@@ -1,9 +1,13 @@
-
+@font-face {
+    font-family: 'nanum';
+    src: url('../resources/etc/NANUMSQUARER.TTF') format('truetype');
+}
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   font-size:1rem;
+  font-family: 'nanum';
 }
 a,
 #bootstrap-overrides a,
@@ -28,5 +32,6 @@ ul{
 body{
 	overflow-y: scroll;
 }
-
-
+#logo{
+		width: 20em;
+}

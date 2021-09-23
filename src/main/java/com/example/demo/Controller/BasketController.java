@@ -106,7 +106,7 @@ public class BasketController {
 		
 		int result = dao.insertIntoBasket(basketNo, basketQty, userNo, productNo);
 		if(result==1) {
-			mav.setViewName("/mypage/cart");
+			mav.setViewName("redirect:/mypage/cart.do");
 		}else {
 			System.out.println("error");
 			mav.setViewName("error");

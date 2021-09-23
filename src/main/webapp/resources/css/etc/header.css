@@ -1,0 +1,26 @@
+
+#upper-menu>.mx-2>.fw-bolder{
+	position: relative;
+	color: #28a745;
+}
+#upper-menu>.mx-2>.fw-bolder:after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
+}
+#upper-menu>.mx-2>.fw-bolder:after {
+  width: 0;
+  height: 1vw;
+  background: rgba(40, 167, 69);
+  left: 50%;
+}
+#upper-menu>.mx-2>.fw-bolder:hover{
+  color: white;
+}
+#upper-menu>.mx-2>.fw-bolder:hover::after {
+  width: 100%;
+  left: 0;
+  transition: all .3s;
+}

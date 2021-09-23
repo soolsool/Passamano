@@ -55,7 +55,7 @@
 						<!-- 상품정보 시작 -->
 						
 						<div class="col">
-						<form action="/mypage/goToBasket.do" method="get" id="goBasket">
+						<form action="/mypage/goToBasket.do" method="post" id="goBasket">
 							<div class="infoContainer mx-5 w-100">
 								<input type="hidden" name="productNo" value="${p.productNo}">
 								<div class="d-block my-1 name">
@@ -187,11 +187,13 @@
 								<c:if test="${not empty review}">
 								<c:forEach var="r" items="${review}">
 										<tr class="post">
-											<td>
+											<td class="text-center">
 												${r.reviewTitle}
 											</td>
-											<td>
-												${r.reviewEvaluation}
+											<td class="text-center">
+												<c:forEach var="s" begin="1" end="${r.reviewEvaluation}">
+												★
+												</c:forEach>
 											</td>
 										</tr>
 										<tr class="hide">
