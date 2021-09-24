@@ -29,7 +29,7 @@
 		</div>
 		<div class="col-8">
 			<div class="login-section my-6 pt-5 pb-5">
-				<p class="text-center fs-5 mt-5 mb-4">아이디 찾기</p>
+				<p class="text-center fs-5 mt-5 mb-4">비밀번호 찾기</p>
 				<form class="form-inline w-50 mx-auto" action="" method="post">
 					<div class="row mb-3">
 						<label for="name" class="col-sm-3 col-form-label text-end">이름</label>

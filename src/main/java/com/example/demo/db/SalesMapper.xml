@@ -18,7 +18,7 @@
  --> 
  
   <select id="productOrder" resultType="productorderVo">
-	select orders_no, product_name, detail_price, order_state, order_manage_date, name, image_name from order_views where thumbNail = 1 and seller_no =${sellerNo} order By order_manage_date
+	select orders_no, product_name, detail_price, order_state, order_manage_date, name, image_name from orders_views where thumbNail = 1 and seller_no =${sellerNo} order By order_manage_date
   </select>
 	  
   <select id="productSales" resultType="productsalesVo">

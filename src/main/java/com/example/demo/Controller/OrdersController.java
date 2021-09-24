@@ -42,7 +42,7 @@ public class OrdersController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ModelAndView inserOdrer(HttpSession session, OrderCommand oc ) {
-		ModelAndView mav = new ModelAndView("/mypage/result");
+		ModelAndView mav = new ModelAndView("redirect:/mypage/home.do");
 
 		
 		int re = dao.inserOrder(oc);
