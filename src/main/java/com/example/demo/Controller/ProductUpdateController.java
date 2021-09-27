@@ -35,6 +35,7 @@ public class ProductUpdateController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
+	
 	public ModelAndView submit(HttpServletRequest request, ProductSelectVo ps) {
 		ModelAndView mav = new ModelAndView("redirect:/seller/listProduct.do");
 		String path = request.getRealPath("/resources/images/productimage");

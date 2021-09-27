@@ -40,6 +40,7 @@ public class ProductInsertController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	//@ResponseBody
+	
 	public ModelAndView submit(HttpServletRequest request, ProductsVo p, ProductImgVo i, HttpSession session) {
 		ModelAndView mav = new ModelAndView("redirect:/seller/listProduct.do");
 		String path = request.getRealPath("/resources/images/productimage");
