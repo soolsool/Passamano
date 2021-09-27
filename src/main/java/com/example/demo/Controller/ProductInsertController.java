@@ -42,7 +42,7 @@ public class ProductInsertController {
 	//@ResponseBody
 	public ModelAndView submit(HttpServletRequest request, ProductsVo p, ProductImgVo i, HttpSession session) {
 		ModelAndView mav = new ModelAndView("redirect:/seller/listProduct.do");
-		String path = request.getRealPath("/resources/upload");
+		String path = request.getRealPath("/resources/images/productimage");
 		int sellerNo = ((SellerVo)session.getAttribute("sellerInfo")).getSellerNo();
 		System.out.println("sellerNo:"+sellerNo);
 		int no1 = dao.getProductNo();
@@ -62,7 +62,7 @@ public class ProductInsertController {
 				byte []data = uploadFile.getBytes();
 				imageSize = data.length;
 				i.setImageName(imageName);
-				//i.setImageSize(imageSize);
+				i.setImageSize(imageSize);
 				FileOutputStream fos = new FileOutputStream(path + "/" + imageName);
 				fos.write(data);
 				fos.close();

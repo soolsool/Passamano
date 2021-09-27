@@ -18,7 +18,7 @@
   
   <insert id="insertProductImg" parameterType="imageVo">
   	insert into product_img(image_no, product_no, image_name, image_size, thumbnail, image_date) 
-	values(#{imageNo}, #{productNo}, #{imageName}, #{imageSize}, '0', sysdate)
+	values(#{imageNo}, #{productNo}, #{imageName}, #{imageSize}, '1', sysdate)
   </insert>
   
   <update id="updateProduct" parameterType="productselectVo">

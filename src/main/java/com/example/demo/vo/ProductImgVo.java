@@ -9,18 +9,10 @@ public class ProductImgVo {
 	private int imageNo;
 	private int productNo;
 	private String imageName;
-	private String imageSize;
+	private int imageSize;
 	private String thumbNail; 
 	private Date imageDate;
 	private MultipartFile uploadFile;
-	
-	
-	public String getThumbNail() {
-		return thumbNail;
-	}
-	public void setThumbNail(String thumbNail) {
-		this.thumbNail = thumbNail;
-	}
 	public int getImageNo() {
 		return imageNo;
 	}
@@ -39,11 +31,17 @@ public class ProductImgVo {
 	public void setImageName(String imageName) {
 		this.imageName = imageName;
 	}
-	public String getImageSize() {
+	public int getImageSize() {
 		return imageSize;
 	}
-	public void setImageSize(String imageSize) {
+	public void setImageSize(int imageSize) {
 		this.imageSize = imageSize;
+	}
+	public String getThumbNail() {
+		return thumbNail;
+	}
+	public void setThumbNail(String thumbNail) {
+		this.thumbNail = thumbNail;
 	}
 	public Date getImageDate() {
 		return imageDate;
@@ -57,9 +55,7 @@ public class ProductImgVo {
 	public void setUploadFile(MultipartFile uploadFile) {
 		this.uploadFile = uploadFile;
 	}
-	
-	public ProductImgVo(int imageNo, int productNo, String imageName, String imageSize, String thumbNail,
-			Date imageDate, MultipartFile uploadFile) {
+	public ProductImgVo(int imageNo, int productNo, String imageName, int imageSize, String thumbNail, Date imageDate) {
 		super();
 		this.imageNo = imageNo;
 		this.productNo = productNo;
@@ -67,10 +63,12 @@ public class ProductImgVo {
 		this.imageSize = imageSize;
 		this.thumbNail = thumbNail;
 		this.imageDate = imageDate;
-		this.uploadFile = uploadFile;
 	}
 	public ProductImgVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	
 }
